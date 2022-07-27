@@ -1,23 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import apex_logo from "./resources/Apex_Logo_Final.png";
+import UserForm from "./UserForm";
+import PieResults from "./PieResults";
+import { StrictMode } from "react";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <StrictMode>
+
+        <Router>
+          <header>
+            <Link to="/">
+              <img src={apex_logo} alt="" />
+            </Link>
+          </header>
+
+          <Switch>
+
+            <Route exact path='/'>
+              <UserForm/>
+            </Route>
+
+            <Route path='/pieresults'>
+              <PieResults/>
+            </Route>
+
+            
+          </Switch>
+        
+      </Router>
+
+      </StrictMode>
+      
     </div>
   );
 }
