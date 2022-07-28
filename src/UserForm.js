@@ -221,22 +221,20 @@ const UserForm = () => {
 
         <br />
 
-        <button className="button glow-button">Submit</button>
+        <button>Submit</button>
       </form>
-
-      
 
       <br />
 
       <Link to={`/profile`}>
-        <button className="button glow-button">View Profile</button>
+        <button>View Profile</button>
       </Link>
 
       <br />
       <br />
 
       <Link to={`/resourcesfaq`}>
-        <button className="button glow-button">Resources and FAQ</button>
+        <button>Resources and FAQ</button>
       </Link>
     </div>
   );

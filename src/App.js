@@ -7,6 +7,7 @@ import Login from "./Login";
 import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
+import Profile from "./Profile";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
 
           <Switch>
 
+
+            {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
             <PrivateRoute exact path='/'>
               <UserForm/>
             </PrivateRoute>
@@ -34,6 +37,11 @@ function App() {
             <Route path="/login">
               <Login />
             </Route>
+
+            {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
+            <PrivateRoute path="/profile">
+              <Profile />
+            </PrivateRoute>
 
             
           </Switch>
