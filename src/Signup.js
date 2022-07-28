@@ -4,7 +4,6 @@ import { Card, Form, Button, Alert } from "react-bootstrap";
 
 import { useAuth } from "./contexts/AuthContext";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Link, useHistory } from "react-router-dom";
 
 const Signup = () => {

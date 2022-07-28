@@ -8,6 +8,8 @@ import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import Profile from "./Profile";
+import ResourcesFaq from "./ResourcesFaq";
+import Signup from "./Signup";
 
 function App() {
   return (
@@ -38,10 +40,18 @@ function App() {
               <Login />
             </Route>
 
+            <Route path="/signup">
+              <Signup />
+            </Route>
+
             {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
             <PrivateRoute path="/profile">
               <Profile />
             </PrivateRoute>
+
+            <Route path="/resourcesfaq">
+              <ResourcesFaq />
+            </Route>
 
             
           </Switch>
