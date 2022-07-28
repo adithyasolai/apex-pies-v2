@@ -61,7 +61,7 @@ def calculatePies():
             age=age, risk=risk, sector=sector, uid=uid, email=email))
 
     # TODO: Pie Calculation Algorithm goes here!
-    publishPieToDB(age, risk, sector, uid)
+    publishPieToDB(age, risk, sector, uid, email)
 
     app.logger.info("Finished / POST Run...")
 
@@ -75,7 +75,7 @@ def fetchPies():
     app.logger.info("Starting /fetchpies POST Run...")
 
     uid = request.json['uid']
-    result = db.reference().child(uid)
+    result = db.reference().child("users").child(uid)
 
     resultDict = result.get()
 
@@ -99,7 +99,7 @@ Helper methods used by GET/POST Handlers.
 # data to the FireBase DB for this user.
 
 
-def publishPieToDB(age, risk, sector, userId):
+def publishPieToDB(age, risk, sector, userId, email):
     pieDf = makePie(age, risk, sector)
     app.logger.info("New Pie: \n" + pprint.pformat(pieDf))
 
@@ -113,13 +113,14 @@ def publishPieToDB(age, risk, sector, userId):
 
     # Publish Pie portfolio details and Plotly embed details to the Firebase
     # DB for this user
-    ref = db.reference().child(userId)
+    ref = db.reference().child("users").child(userId)
     ref.set({
         # 'r' records option stores each row as a dict in an overall array
         'pie': pieDf.to_dict('records'),
         'avgBeta': pieDf['Beta'].mean(),
         'vizLink': vizLink,
-        'iframe': iframe
+        'iframe': iframe,
+        'email': email
     })
 
     app.logger.info("Published data to Firebase DB...")
