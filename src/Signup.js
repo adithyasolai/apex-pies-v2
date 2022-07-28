@@ -45,7 +45,7 @@ const Signup = () => {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Sign Up</h2>
+          <h2>Sign Up</h2>
           {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
           {currentUser &&
             "Current User: " + JSON.stringify(currentUser["email"])}
@@ -67,13 +67,13 @@ const Signup = () => {
               <Form.Control type="password" ref={passwordConfirmRef} required />
             </Form.Group>
 
-            <Button className="w-100" type="Submit">
+            <Button type="Submit">
               Sign Up
             </Button>
           </Form>
         </Card.Body>
       </Card>
-      <div className="w-100 text-center mt-2">
+      <div>
         Already have an account? <Link to="/login">Log In.</Link>
       </div>
     </>

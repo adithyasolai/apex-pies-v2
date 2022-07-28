@@ -202,7 +202,6 @@ const UserForm = () => {
                 data-hover={SECTOR_HOVER_INFO[i]}
               >
                 <img
-                  className="sector_images glow-sectorimage"
                   key={SECTOR_IMAGES[i]}
                   src={SECTOR_IMAGES[i]}
                   data-index={i}

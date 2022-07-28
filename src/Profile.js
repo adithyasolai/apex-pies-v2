@@ -31,21 +31,21 @@ export default function Profile() {
     <div>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Profile</h2>
+          <h2>Profile</h2>
           {currentUser && (
-            <h3 className="text-center mb-4">
+            <h3>
               Current User: {currentUser["email"]}
             </h3>
           )}
           {error && <Alert variant="danger">{error}</Alert>}
-          <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
+          <Link to="/update-profile">
             {" "}
             Update Profile{" "}
           </Link>
         </Card.Body>
       </Card>
 
-      <div className="w-100 text-center mt-2">
+      <div>
         <Button variant="link" onClick={handleSignOut}>
           {" "}
           Sign Out{" "}

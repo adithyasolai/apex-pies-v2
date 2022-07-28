@@ -37,7 +37,7 @@ const Login = () => {
     <>
       <Card>
         <Card.Body>
-          <h2 className="text-center mb-4">Log In</h2>
+          <h2>Log In</h2>
           {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
           {currentUser &&
             "Current User: " + JSON.stringify(currentUser["email"])}
@@ -61,7 +61,7 @@ const Login = () => {
         </Card.Body>
       </Card>
 
-      <div className="w-100 text-center mt-2">
+      <div>
         Need an account? <Link to="/signup">Sign Up.</Link>
       </div>
     </>
