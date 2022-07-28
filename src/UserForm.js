@@ -9,7 +9,7 @@ import energy_logo from "./resources/sector_icons/energy-sector.jpeg";
 import health_logo from "./resources/sector_icons/health-sector.jpeg";
 import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 
-// import { useAuth } from "./contexts/AuthContext";
+import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
@@ -24,7 +24,7 @@ const SECTOR_HOVER_INFO = [
 const NUM_SECTORS = SECTORS.length;
 
 const UserForm = () => {
-  // const { currentUser } = useAuth();
+  const { currentUser } = useAuth();
   const [age, setAge] = useState(18);
   const [risk, setRisk] = useState(1);
   const [sector, setSector] = useState("Technology");
@@ -53,10 +53,8 @@ const UserForm = () => {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        // uid: currentUser["uid"],
-        // email: currentUser["email"],
-        uid: "GGYqAwMJ5SVNY50nrStJwyVy3pZ2",
-        email: "z@z.com",
+        uid: currentUser["uid"],
+        email: currentUser["email"],
         age: age,
         risk: risk,
         sector: sector
@@ -69,10 +67,8 @@ const UserForm = () => {
     history.push({
       pathname: "/pieresults",
       state: {
-        // uid: currentUser["uid"],
-        // email: currentUser["email"],
-        uid: "GGYqAwMJ5SVNY50nrStJwyVy3pZ2",
-        email: "z@z.com",
+        uid: currentUser["uid"],
+        email: currentUser["email"],
         age: age,
         risk: risk,
         sector: sector,
@@ -91,12 +87,13 @@ const UserForm = () => {
 
   return (
     <div className="userForm">
-      {/* <>
+      {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
+      <>
         {(() => {
           console.log("Customer UID: ", currentUser["uid"]);
           console.log("Customer Email: ", currentUser["email"]);
         })()}
-      </> */}
+      </>
 
       <form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
@@ -118,6 +115,11 @@ const UserForm = () => {
             tolerance, and what industry you’d like to invest in the most.
           </p>
         </h2>
+
+        <br />
+
+        {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
+        <h3>Current User: {currentUser["email"]}</h3>
 
         {/* Age Slider */}
         <label>
@@ -222,9 +224,7 @@ const UserForm = () => {
         <button className="button glow-button">Submit</button>
       </form>
 
-      <br />
-
-      {/* <h3>Current User: {currentUser ? currentUser["email"] : currentUser}</h3> */}
+      
 
       <br />
 
