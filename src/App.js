@@ -15,51 +15,44 @@ function App() {
   return (
     <div className="App">
       <StrictMode>
-
         <Router>
           <AuthProvider>
-          <header>
-            <Link to="/">
-              <img src={apex_logo} alt="" />
-            </Link>
-          </header>
+            <header>
+              <Link to="/">
+                <img src={apex_logo} alt="" />
+              </Link>
+            </header>
 
-          <Switch>
+            <Switch>
+              {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
+              <PrivateRoute exact path="/">
+                <UserForm />
+              </PrivateRoute>
 
+              <Route path="/pieresults">
+                <PieResults />
+              </Route>
 
-            {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
-            <PrivateRoute exact path='/'>
-              <UserForm/>
-            </PrivateRoute>
+              <Route path="/login">
+                <Login />
+              </Route>
 
-            <Route path='/pieresults'>
-              <PieResults/>
-            </Route>
+              <Route path="/signup">
+                <Signup />
+              </Route>
 
-            <Route path="/login">
-              <Login />
-            </Route>
+              {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
+              <PrivateRoute path="/profile">
+                <Profile />
+              </PrivateRoute>
 
-            <Route path="/signup">
-              <Signup />
-            </Route>
-
-            {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
-            <PrivateRoute path="/profile">
-              <Profile />
-            </PrivateRoute>
-
-            <Route path="/resourcesfaq">
-              <ResourcesFaq />
-            </Route>
-
-            
-          </Switch>
+              <Route path="/resourcesfaq">
+                <ResourcesFaq />
+              </Route>
+            </Switch>
           </AuthProvider>
         </Router>
-
       </StrictMode>
-      
     </div>
   );
 }

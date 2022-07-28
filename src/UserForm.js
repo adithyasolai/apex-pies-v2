@@ -50,15 +50,15 @@ const UserForm = () => {
     await fetch("http://127.0.0.1:5000/", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         uid: currentUser["uid"],
         email: currentUser["email"],
         age: age,
         risk: risk,
-        sector: sector
-      })
+        sector: sector,
+      }),
     });
 
     // Move to the PieResults page after confirming that backend server finished making Pie.
