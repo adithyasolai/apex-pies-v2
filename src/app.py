@@ -200,7 +200,7 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
         userSectorOfInterest, targetPortfolioBeta, stocksDataDf)
 
     # Add the first chosen stock to the portfolio
-    pieDf = pieDf.append(firstStockData)
+    pieDf = pieDf._append(firstStockData)
 
     # fetch the beta of the first stock
     firstStockBeta = firstStockData['Beta']
@@ -233,7 +233,7 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
                 sector, targetPortfolioBeta, raiseBeta, stocksDataDf)
 
             # Add the chosen stock to the portfolio
-            pieDf = pieDf.append(chosenStockData)
+            pieDf = pieDf._append(chosenStockData)
 
             # Re-calculate the new average beta of the portfolio
             newPortfolioBeta = pieDf['Beta'].mean()
