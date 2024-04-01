@@ -32,6 +32,9 @@ const UserForm = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
+  // const flask_endpoint = "http://127.0.0.1:5000/"
+  const flask_endpoint = "http://apex-flask-1587701782.us-east-1.elb.amazonaws.com:5000/"
+
   // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
   // A loading screen should show in the front-end immediately after the Submit button is clicked.
   // The loading screen should stay until the backend server confirms that the new Pie has been
@@ -47,7 +50,7 @@ const UserForm = () => {
     // Send request to backend server to calculate a diversified Pie
     // for the user's selected inputs (age, risk tolerance, and sector).
     // Wait for the request to finish.
-    await fetch("http://127.0.0.1:5000/", {
+    await fetch(flask_endpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -17,12 +17,15 @@ const PieResults = (props) => {
 
   const [numStocks, setNumStocks] = useState();
 
+  // const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
+  const flask_endpoint = "http://apex-flask-1587701782.us-east-1.elb.amazonaws.com:5000/fetchpies"
+
   useEffect(() => {
     async function fetchPieData() {
       try {
         // Send request to backend server to fetch the Pie & Plotly information
         // for the current userId. Wait for the request to give a response.
-        const response = await fetch("http://127.0.0.1:5000/fetchpies", {
+        const response = await fetch(flask_endpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

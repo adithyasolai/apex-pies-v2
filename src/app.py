@@ -47,6 +47,10 @@ app = Flask(__name__)
 CORS(app)
 
 
+@app.route('/health', methods=['GET'])
+def health_check():
+    return {'status': 'ok'}, 200
+
 @app.route('/', methods=['POST'])
 def calculatePies():
     app.logger.info("Starting / POST Run...")
