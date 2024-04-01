@@ -18,7 +18,7 @@ const PieResults = (props) => {
   const [numStocks, setNumStocks] = useState();
 
   // const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
-  const flask_endpoint = "http://apex-flask-1587701782.us-east-1.elb.amazonaws.com:5000/fetchpies"
+  const flask_endpoint = "http://apex-392442354.us-east-1.elb.amazonaws.com:5000/fetchpies"
 
   useEffect(() => {
     async function fetchPieData() {

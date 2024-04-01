@@ -33,7 +33,7 @@ const UserForm = () => {
   const history = useHistory();
 
   // const flask_endpoint = "http://127.0.0.1:5000/"
-  const flask_endpoint = "http://apex-flask-1587701782.us-east-1.elb.amazonaws.com:5000/"
+  const flask_endpoint = "http://apex-392442354.us-east-1.elb.amazonaws.com:5000/"
 
   // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
   // A loading screen should show in the front-end immediately after the Submit button is clicked.
