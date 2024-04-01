@@ -19,3 +19,9 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ### Starting Flask Server via Docker Locally (dev)
 - Run `docker build -t my_flask_app .`
 - Run `docker run -p 5000:5000 my_flask_app`
+
+### Building and Sending Docker Image for ECR
+- `docker buildx build --platform=linux/amd64 -t apex .`
+- `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 212840871911.dkr.ecr.us-east-1.amazonaws.com`
+- `docker tag apex:latest 212840871911.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
+- `docker push 212840871911.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
