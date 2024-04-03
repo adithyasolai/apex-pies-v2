@@ -17,8 +17,14 @@ const PieResults = (props) => {
 
   const [numStocks, setNumStocks] = useState();
 
-  // const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
-  const flask_endpoint = "http://apex-392442354.us-east-1.elb.amazonaws.com:5000/fetchpies"
+  // local dev endpoint
+  const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
+
+  // Raw ELB endpoint
+  // const flask_endpoint = "http://apex-392442354.us-east-1.elb.amazonaws.com:5000/fetchpies"
+
+  // Domain that routes to ELB
+  // const flask_endpoint = "https://apex-pies.com:5000/"
 
   useEffect(() => {
     async function fetchPieData() {
