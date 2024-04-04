@@ -34,8 +34,9 @@ const Signup = () => {
       // re-direct to user profile after signin up
       history.push("/profile");
     } catch (e) {
-      console.log(e);
-      setError("Failed to create an account.");
+      // TODO: cast error as a FirebaseError object and parse error message cleanly without revealing
+      // that a Firebase database is being used under the hood.
+      setError("Failed to create an account. " + e.message);
     }
 
     setLoading(false);
