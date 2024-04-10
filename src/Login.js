@@ -69,7 +69,7 @@ const Login = () => {
             <Row>
               <Col md={3}></Col>
               <Col md={6}>
-                <Button className="w-100" type="Submit">
+                <Button className="w-100" type="Submit" variant="primary">
                   Log In
                 </Button>
               </Col>

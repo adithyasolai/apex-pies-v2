@@ -12,6 +12,7 @@ import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
+import { Row, Col, Form, Button } from "react-bootstrap";
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
@@ -104,7 +105,7 @@ const UserForm = () => {
         })()}
       </>
 
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
 
         {/* Title */}
@@ -131,28 +132,29 @@ const UserForm = () => {
         <h3>Current User: {currentUser["email"]}</h3>
 
         {/* Age Slider */}
-        <label>
-          <span
-            className="hovertext"
-            data-hover="The younger an investor is, the riskier the portfolio should be. The rationale behind this logic is because these investors have more time until they need to cash out their investments. There are always ups and downs when investing, and having higher risk generally guarantees higher returns in the long run."
-          >
-            Age
-          </span>
-          <div />
 
-          <div className="slidecontainer">
-            <input
-              onChange={(e) => setAge(e.target.value)}
-              type="range"
-              min="18"
-              max="75"
-              value={age}
-              className="slider"
-              id="myRange"
-            ></input>
-            <p>{age + " years old"}</p>
-          </div>
-        </label>
+        <span
+          className="hovertext"
+          data-hover="The younger an investor is, the riskier the portfolio should be. The rationale behind this logic is because these investors have more time until they need to cash out their investments. There are always ups and downs when investing, and having higher risk generally guarantees higher returns in the long run."
+        >
+          Age
+        </span>
+        <div />
+
+
+        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
+          <Form.Control
+            type="range"
+            min="18"
+            max="75"
+            value={age}
+            onChange={(e) => setAge(e.target.value)}
+            style={{ width: '100%' }} // Set the width to 100%
+            className="border-dark"
+          />
+        </div>
+        
+        <p>{age + " years old"}</p>
 
         <br />
         <br />
@@ -196,15 +198,16 @@ const UserForm = () => {
         <p> {sector} </p>
 
         {/* Sector of Interest Buttons */}
-        <div>
+        <Row>
           {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
             const borderStyle =
               i === activeSectorImageIndex
                 ? "5px solid #ff0000"
                 : "5px solid #95bfd0ff";
             return (
-              // the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
+              // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
               // eslint-disable-next-line
+              <Col md={3}>
               <span
                 key={SECTOR_IMAGES[i]}
                 className="hovertext_image"
@@ -223,26 +226,29 @@ const UserForm = () => {
                   style={{ border: borderStyle }}
                 />
               </span>
+              </Col>
             );
           })}
-        </div>
+        </Row>
 
         <br />
 
-        <button>Submit</button>
-      </form>
+        <Button type="Submit" variant="primary">
+          Submit
+        </Button>
+      </Form>
 
       <br />
 
       <Link to={`/profile`}>
-        <button>View Profile</button>
+        <Button variant="secondary">View Profile</Button>
       </Link>
 
       <br />
       <br />
 
       <Link to={`/resourcesfaq`}>
-        <button>Resources and FAQ</button>
+        <Button variant="secondary">Resources and FAQ</Button>
       </Link>
     </div>
   );
