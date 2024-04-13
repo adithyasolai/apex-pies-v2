@@ -180,7 +180,7 @@ const UserForm = () => {
                     setSector(SECTORS[sectorIndex]);
                   }} // bind gives the click handler function context about what `this` is to access the state.
                   alt="asdf"
-                  style={{ border: borderStyle, borderRadius: "10%" }}
+                  style={{ border: borderStyle, borderRadius: "10%", width: "75%" }}
                   className={`opacity-${opacity}`}
                 />
               </Col>
