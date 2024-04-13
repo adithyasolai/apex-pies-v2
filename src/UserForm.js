@@ -16,12 +16,6 @@ import { Row, Col, Form, Button, Image } from "react-bootstrap";
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
-const SECTOR_HOVER_INFO = [
-  "Tech: These companies have a high beta and volatility. The technology sector is often one of the most attractive growth investments in an economy. Tech stocks have higher betas than the market, hence the presumed risk. If beta is greater than 1.0 then price swings are larger than the market over time. If beta is less than 1.0 then the stock has less risk and offers lower returns. Investors looking to benefit from intraday price changes and short-term momentum strategies usually pick high beta securities.",
-  "Healthcare: These companies have a low beta and volatility. However, users should be cautious of government intervention and principal-agent problems. Positive long-term demographics trends, including an aging global population and a growing middle class in emerging markets. Return in demand for elective procedures, drug sales, medical equipment and diagnostics",
-  "Energy: These companies have a high beta and volatility. It is subject to risks such as economic activity level, weather, and environmental regulations. They have potential for high dividends or company growth.",
-  "Banking: Financial companies have a low beta and volatility. The banking sector pays dividends, which demonstrates a great history and provides investors with a share in profits. Value investors are drawn to bank stocks, which are the most susceptible to emotional short-term forces given the leverage and nature of the business.",
-];
 const NUM_SECTORS = SECTORS.length;
 
 const UserForm = () => {
@@ -91,19 +85,8 @@ const UserForm = () => {
     return <h2>Creating your Pie ...</h2>;
   }
 
-  console.log("Current Age Value: ", age);
-  console.log("Current Risk Tolerance Value: ", risk);
-  console.log("Current Sector Selected: ", sector);
-
   return (
     <div className="userForm">
-      {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
-      <>
-        {(() => {
-          console.log("Customer UID: ", currentUser["uid"]);
-          console.log("Customer Email: ", currentUser["email"]);
-        })()}
-      </>
 
       <Form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
@@ -170,7 +153,7 @@ const UserForm = () => {
         <br />
 
         {/* Display currently-selected sector. */}
-        <h3> {sector} </h3>
+        <h3>{sector}</h3>
 
         {/* Sector of Interest Buttons */}
         <Row>
@@ -183,7 +166,7 @@ const UserForm = () => {
             const opacity = i === activeSectorImageIndex ? "100" : "50";
             return (
               // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
-              // TODO: Attempt to add back hovertext with SECTOR_HOVER_INFO[i], using the simple React Bootstrap tools
+              // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
               // eslint-disable-next-line
               <Col md={3}>
                 <Image
