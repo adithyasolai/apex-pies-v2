@@ -87,7 +87,6 @@ const UserForm = () => {
 
   return (
     <div className="userForm">
-
       <Form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
 
@@ -168,9 +167,11 @@ const UserForm = () => {
               // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
               // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
               // eslint-disable-next-line
-              <Col md={3}>
+              <Col
+                md={3}
+                key={SECTOR_IMAGES[i]} // a React prop used to identify the different images that are rendered dynamically.
+              >
                 <Image
-                  key={SECTOR_IMAGES[i]} // a React prop used to identify the different images that are rendered dynamically.
                   src={SECTOR_IMAGES[i]}
                   data-index={i} // a React prop that is used to define the `index` value that is used later in onClick below.
                   onClick={(event) => {
