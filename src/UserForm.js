@@ -12,7 +12,7 @@ import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button } from "react-bootstrap";
+import { Row, Col, Form, Button, Image } from "react-bootstrap";
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
@@ -109,38 +109,28 @@ const UserForm = () => {
         {/* missing htmlFor */}
 
         {/* Title */}
-        <h1>
-          <p className="p">Apex Portfolio Calculator</p>
-        </h1>
+        <h1>Apex Portfolio Maker</h1>
 
-        {/* Introductory Text */}
-        <h4>
-          <p className="p">An Introduction to Investing & Financial Literacy</p>
-        </h4>
-        <h2>
-          <p className="p">
-            Welcome to the Apex Pies Calculator! This app is intended for people
-            that are looking to start investing, but don’t know where to start.
-            Don’t worry, we’re here to help! Input your age, your risk
-            tolerance, and what industry you’d like to invest in the most.
-          </p>
-        </h2>
+        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
+          <h2 style={{ width: '100%' }}>
+              Welcome to the Apex Pies Calculator! This app is intended for people
+              that are looking to start investing, but don’t know where to start.
+              Don’t worry, we’re here to help! Input your age, your risk
+              tolerance, and what industry you’d like to invest in the most.
+          </h2>
+        </div>
 
         <br />
 
         {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
         <h3>Current User: {currentUser["email"]}</h3>
 
+        {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <span
-          className="hovertext"
-          data-hover="The younger an investor is, the riskier the portfolio should be. The rationale behind this logic is because these investors have more time until they need to cash out their investments. There are always ups and downs when investing, and having higher risk generally guarantees higher returns in the long run."
-        >
+        <h2>
           Age
-        </span>
-        <div />
-
+        </h2>
 
         <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
           <Form.Control
@@ -153,79 +143,71 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        
-        <p>{age + " years old"}</p>
+        <h3>{age + " years old"}</h3>
 
         <br />
         <br />
 
         {/* Risk Tolerance Slider */}
-        <label>
-          <span
-            className="hovertext"
-            data-hover="The amount of risk an investor takes on depends on several factors. The factors investors should take into account include: their existing debt, savings account balance, and net worth. For example: An investor with low debt combined with high savings account balance and net worth would have a higher risk tolerance."
-          >
-            Risk Tolerance
-          </span>
-          <div />
-          <div className="slidecontainer">
-            <input
-              onChange={(e) => setRisk(e.target.value)}
-              type="range"
-              min="1"
-              max="10"
-              value={risk}
-              className="slider"
-              id="myRange"
-            ></input>
-            <p>{risk}</p>
-          </div>
-        </label>
+        <h2>
+          Risk Tolerance
+        </h2>
+
+        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
+        <Form.Control
+            onChange={(e) => setRisk(e.target.value)}
+            type="range"
+            min="1"
+            max="10"
+            value={risk}
+            style={{ width: '100%' }} // Set the width to 100%
+            className="border-dark"
+          />
+        </div>
+        <h3>{risk}</h3>
 
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <span
-          className="hovertext"
-          data-hover="Each sector can provide vastly different returns and have varying levels of risk. Tech and Energy are considered to be high-return, high-risk sectors. Inversely, Banking and Healthcare tend to be less riskier sectors, meaning lower returns. "
-        >
+        <h2>
           Sector of Interest
-        </span>
+        </h2>
 
         <br />
 
         {/* Display currently-selected sector. */}
-        <p> {sector} </p>
+        <h3> {sector} </h3>
 
         {/* Sector of Interest Buttons */}
         <Row>
           {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
             const borderStyle =
               i === activeSectorImageIndex
-                ? "5px solid #ff0000"
+                ? "5px solid red"
                 : "5px solid #95bfd0ff";
+
+            const opacity =
+            i === activeSectorImageIndex
+              ? "100"
+              : "50";
             return (
               // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
+              // TODO: Attempt to add back hovertext with SECTOR_HOVER_INFO[i], using the simple React Bootstrap tools
               // eslint-disable-next-line
               <Col md={3}>
-              <span
-                key={SECTOR_IMAGES[i]}
-                className="hovertext_image"
-                data-hover={SECTOR_HOVER_INFO[i]}
-              >
-                <img
-                  key={SECTOR_IMAGES[i]}
+                <Image
+                  key={SECTOR_IMAGES[i]} // a React prop used to identify the different images that are rendered dynamically.
                   src={SECTOR_IMAGES[i]}
-                  data-index={i}
+                  data-index={i} // a React prop that is used to define the `index` value that is used later in onClick below.
                   onClick={(event) => {
                     const sectorIndex = +event.target.dataset.index;
                     setActiveSectorImageIndex(sectorIndex);
                     setSector(SECTORS[sectorIndex]);
                   }} // bind gives the click handler function context about what `this` is to access the state.
                   alt="asdf"
-                  style={{ border: borderStyle }}
+                  style={{ border: borderStyle, borderRadius: "10%" }}
+                  className={`opacity-${opacity}`}
                 />
-              </span>
               </Col>
             );
           })}
