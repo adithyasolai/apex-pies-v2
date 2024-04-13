@@ -49,18 +49,28 @@ const Login = () => {
               <Col md={6}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control className="border-dark" type="email" ref={emailRef} required />
+                  <Form.Control
+                    className="border-dark"
+                    type="email"
+                    ref={emailRef}
+                    required
+                  />
                 </Form.Group>
               </Col>
               <Col md={3}></Col>
             </Row>
-            
+
             <Row>
               <Col md={3}></Col>
               <Col md={6}>
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control className="border-dark" type="password" ref={passwordRef} required />
+                  <Form.Control
+                    className="border-dark"
+                    type="password"
+                    ref={passwordRef}
+                    required
+                  />
                 </Form.Group>
               </Col>
               <Col md={3}></Col>
@@ -75,8 +85,6 @@ const Login = () => {
               </Col>
               <Col md={3}></Col>
             </Row>
-            
-            
           </Form>
         </Card.Body>
       </Card>

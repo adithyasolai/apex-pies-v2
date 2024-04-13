@@ -40,7 +40,7 @@ const UserForm = () => {
   // const flask_endpoint = "http://apex-392442354.us-east-1.elb.amazonaws.com:5000/"
 
   // Domain that routes to ELB
-  const flask_endpoint = "https://api.apex-pies.com:5000/"
+  const flask_endpoint = "https://api.apex-pies.com:5000/";
 
   // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
   // A loading screen should show in the front-end immediately after the Submit button is clicked.
@@ -111,12 +111,12 @@ const UserForm = () => {
         {/* Title */}
         <h1>Apex Portfolio Maker</h1>
 
-        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
-          <h2 style={{ width: '100%' }}>
-              Welcome to the Apex Pies Calculator! This app is intended for people
-              that are looking to start investing, but don’t know where to start.
-              Don’t worry, we’re here to help! Input your age, your risk
-              tolerance, and what industry you’d like to invest in the most.
+        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
+          <h2 style={{ width: "100%" }}>
+            Welcome to the Apex Pies Calculator! This app is intended for people
+            that are looking to start investing, but don’t know where to start.
+            Don’t worry, we’re here to help! Input your age, your risk
+            tolerance, and what industry you’d like to invest in the most.
           </h2>
         </div>
 
@@ -128,18 +128,16 @@ const UserForm = () => {
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <h2>
-          Age
-        </h2>
+        <h2>Age</h2>
 
-        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
+        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
             type="range"
             min="18"
             max="75"
             value={age}
             onChange={(e) => setAge(e.target.value)}
-            style={{ width: '100%' }} // Set the width to 100%
+            style={{ width: "100%" }} // Set the width to 100%
             className="border-dark"
           />
         </div>
@@ -149,18 +147,16 @@ const UserForm = () => {
         <br />
 
         {/* Risk Tolerance Slider */}
-        <h2>
-          Risk Tolerance
-        </h2>
+        <h2>Risk Tolerance</h2>
 
-        <div style={{ maxWidth: '50%', width: '50%', marginLeft: '25%' }}>
-        <Form.Control
+        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
+          <Form.Control
             onChange={(e) => setRisk(e.target.value)}
             type="range"
             min="1"
             max="10"
             value={risk}
-            style={{ width: '100%' }} // Set the width to 100%
+            style={{ width: "100%" }} // Set the width to 100%
             className="border-dark"
           />
         </div>
@@ -169,9 +165,7 @@ const UserForm = () => {
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <h2>
-          Sector of Interest
-        </h2>
+        <h2>Sector of Interest</h2>
 
         <br />
 
@@ -186,10 +180,7 @@ const UserForm = () => {
                 ? "5px solid red"
                 : "5px solid #95bfd0ff";
 
-            const opacity =
-            i === activeSectorImageIndex
-              ? "100"
-              : "50";
+            const opacity = i === activeSectorImageIndex ? "100" : "50";
             return (
               // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
               // TODO: Attempt to add back hovertext with SECTOR_HOVER_INFO[i], using the simple React Bootstrap tools

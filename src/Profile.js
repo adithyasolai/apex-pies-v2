@@ -32,16 +32,9 @@ export default function Profile() {
       <Card>
         <Card.Body>
           <h2>Profile</h2>
-          {currentUser && (
-            <h3>
-              Current User: {currentUser["email"]}
-            </h3>
-          )}
+          {currentUser && <h3>Current User: {currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
-          <Link to="/update-profile">
-            {" "}
-            Update Profile{" "}
-          </Link>
+          <Link to="/update-profile"> Update Profile </Link>
         </Card.Body>
       </Card>
 
