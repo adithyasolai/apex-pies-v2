@@ -73,8 +73,6 @@ const PieResults = (props) => {
     <div>
       {/* Display fields chosen by user in User Form */}
       <h1>
-        User ID: {uid}
-        <br />
         Age: {age}
         <br />
         Risk: {risk}
