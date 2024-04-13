@@ -95,10 +95,9 @@ const UserForm = () => {
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <h2 style={{ width: "100%" }}>
-            Welcome to the Apex Pies Calculator! This app is intended for people
+            Welcome to Apex Pies! This app is intended for people
             that are looking to start investing, but don’t know where to start.
-            Don’t worry, we’re here to help! Input your age, your risk
-            tolerance, and what industry you’d like to invest in the most.
+            Input your age, risk tolerance, and what industry you’d like to invest in the most.
           </h2>
         </div>
 
