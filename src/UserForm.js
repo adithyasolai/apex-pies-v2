@@ -190,7 +190,7 @@ const UserForm = () => {
 
         <br />
 
-        <Button type="Submit" variant="primary">
+        <Button type="Submit" variant="primary" size="lg">
           Submit
         </Button>
       </Form>
