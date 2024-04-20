@@ -91,25 +91,25 @@ const UserForm = () => {
         {/* missing htmlFor */}
 
         {/* Title */}
-        <h1>Apex Portfolio Maker</h1>
+        <h1 class="display-1">Apex Portfolio Maker</h1>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <h2 style={{ width: "100%" }}>
+          <p class="display-6" style={{ width: "100%" }}>
             Welcome to Apex Pies! This app is intended for people
             that are looking to start investing, but don’t know where to start.
             Input your age, risk tolerance, and what industry you’d like to invest in the most.
-          </h2>
+          </p>
         </div>
 
         <br />
 
         {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
-        <h3>Current User: {currentUser["email"]}</h3>
+        <p class="display-6">Current User: {currentUser["email"]}</p>
 
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <h2>Age</h2>
+        <p class="display-6">Age</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -122,13 +122,13 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <h3>{age + " years old"}</h3>
+        <p class="display-6 text-muted">{age + " years old"}</p>
 
         <br />
         <br />
 
         {/* Risk Tolerance Slider */}
-        <h2>Risk Tolerance</h2>
+        <p class="display-6">Risk Tolerance</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -141,17 +141,17 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <h3>{risk}</h3>
+        <p class="display-6 text-muted">{risk}</p>
 
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <h2>Sector of Interest</h2>
+        <p class="display-6">Sector of Interest</p>
 
         <br />
 
         {/* Display currently-selected sector. */}
-        <h3>{sector}</h3>
+        <p class="display-6"><strong>{sector}</strong></p>
 
         {/* Sector of Interest Buttons */}
         <Row>
