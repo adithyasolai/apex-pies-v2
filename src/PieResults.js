@@ -68,6 +68,7 @@ const PieResults = (props) => {
   }
 
   console.log("Number of stocks", numStocks);
+  console.log(pie)
 
   return (
     <div>
@@ -80,33 +81,22 @@ const PieResults = (props) => {
         Sector: {sector}
       </h1>
 
-      {/* Educational Hovertext for Beta */}
-      {/* TODO: Not really clear that this Beta text is hoverable to user. Need to improve the UI. */}
-      <span
-        className="hovertext"
-        data-hover="Beta is a measure of how a stock/portfolio (pie) moves in comparison to the S&P 500. 
-                      A beta of 1 means that the pie has the same volatility as the market. A beta of 1.1 means that the pie is 10% more volatile than the market. 
-                      This means that it will have 10% more excess returns compared to the market."
-      >
-        <p> Overall Beta of Pie: {avgBeta} </p>
-        <div />
-      </span>
+      {/* Beta */}
+      {/* TODO: Make this hover-text */}
+      <h3> Overall Beta of Pie: {avgBeta} </h3>
 
       {/* Embed the Plotly Pie Chart */}
       <div dangerouslySetInnerHTML={{ __html: iframe }} />
 
       {/* Lists information about each stock in our Pie */}
-      {/* {Array.from(Array(numStocks), (x, i) => i).map((stockIndex) => {
+      {/* TODO: Make percentage of pie something that is returned by backend when algorithm gets more complex. */}
+      {Array.from(Array(numStocks), (x, i) => i).map((stockIndex) => {
           return (
             <p key={stockIndex}>
-              Percentage: {this.state.pie[stockIndex]["Percentage"]}
-              {lineBreak}
-              Sector: {this.state.pie[stockIndex]["Sector"]}
-              {lineBreak}
-              Ticker: {this.state.pie[stockIndex]["Ticker"]}
+              Percentage: 5% Sector: {pie[stockIndex]["Sector"]} Ticker: {pie[stockIndex]["Ticker"]}
             </p>
           );
-        })} */}
+        })}
 
       <br />
     </div>

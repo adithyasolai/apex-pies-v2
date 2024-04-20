@@ -7,5 +7,6 @@
     "Healthcare": "These companies have a low beta and volatility. However, users should be cautious of government intervention and principal-agent problems. Positive long-term demographics trends, including an aging global population and a growing middle class in emerging markets. Return in demand for elective procedures, drug sales, medical equipment and diagnostics",
     "Energy": "These companies have a high beta and volatility. It is subject to risks such as economic activity level, weather, and environmental regulations. They have potential for high dividends or company growth.",
     "Banking": "Financial companies have a low beta and volatility. The banking sector pays dividends, which demonstrates a great history and provides investors with a share in profits. Value investors are drawn to bank stocks, which are the most susceptible to emotional short-term forces given the leverage and nature of the business."
-  }
+  },
+  "beta": "Beta is a measure of how a stock/portfolio (pie) moves in comparison to the S&P 500. A beta of 1 means that the pie has the same volatility as the market. A beta of 1.1 means that the pie is 10% more volatile than the market. This means that it will have 10% more excess returns compared to the market."
 }
