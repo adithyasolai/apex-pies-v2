@@ -86,7 +86,7 @@ const UserForm = () => {
   }
 
   return (
-    <div className="userForm">
+    <div>
       <Form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
 

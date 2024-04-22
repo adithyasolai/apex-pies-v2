@@ -16,7 +16,7 @@ class ResourcesFaq extends Component {
           triggerClassName="collapsible"
           triggerOpenedClassName="collapsible"
         >
-          <p className="content">
+          <p>
             {" "}
             The Apex Fund is a student fund with ~$7.5K in AUM with a focus on
             high-quality, FCF generative small to mid-cap businesses. We
@@ -33,7 +33,7 @@ class ResourcesFaq extends Component {
           triggerClassName="collapsible"
           triggerOpenedClassName="collapsible"
         >
-          <p className="content">
+          <p>
             {" "}
             Diversification is a technique that reduces risk by allocating
             investments among various financial instruments, industries and
@@ -50,7 +50,7 @@ class ResourcesFaq extends Component {
           triggerClassName="collapsible"
           triggerOpenedClassName="collapsible"
         >
-          <p className="content">
+          <p>
             {" "}
             A stock is considered risky when it does not have a lot of earnings
             history. This is important because it proves to investors that the
@@ -68,7 +68,7 @@ class ResourcesFaq extends Component {
           triggerClassName="collapsible"
           triggerOpenedClassName="collapsible"
         >
-          <p className="content">
+          <p>
             {" "}
             The Standard and Poor's 500, or simply the S&P 500, is a stock
             market index tracking the performance of 500 large companies listed
@@ -84,7 +84,7 @@ class ResourcesFaq extends Component {
           triggerClassName="collapsible"
           triggerOpenedClassName="collapsible"
         >
-          <p className="content">
+          <p>
             {" "}
             https://www.youtube.com/watch?v=bJHr6_skXWc <br />{" "}
             https://www.youtube.com/watch?v=Pmlsa5-ruMk
