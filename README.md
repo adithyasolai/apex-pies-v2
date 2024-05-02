@@ -17,8 +17,8 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - For Debug mode, run `python3 /src/app.py` with `app.run(debug=True)` uncommented.
 
 ### Starting Flask Server via Docker Locally (dev)
-- Run `docker build -t my_flask_app .`
-- Run `docker run -p 5000:5000 my_flask_app`
+- Run `docker build -t apex .`
+- Run `docker run -p 5000:5000 apex`
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`
