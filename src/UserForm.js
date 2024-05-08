@@ -9,6 +9,8 @@ import energy_logo from "./resources/sector_icons/energy-sector.jpeg";
 import health_logo from "./resources/sector_icons/health-sector.jpeg";
 import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 
+import apex_logo from "./resources/Apex_Logo_Final.png";
+
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -83,15 +85,26 @@ const UserForm = () => {
   }
 
   return (
-    <div>
+    <div className="bg-gradient-primary-to-secondary">
+        <aside className="text-center">
+            <div className="container px-5">
+                <div className="row gx-5 justify-content-center">
+                    <div className="col-xl-8">
+                        <div className="h2 fs-1 text-white mb-4">"An intuitive solution to a common problem that we all face, wrapped up in a single app!"</div>
+                        <img src={apex_logo} alt="..." style={{"height": "3rem"}} />
+                    </div>
+                </div>
+            </div>
+        </aside>
+
       <Form onSubmit={handleSubmit}>
         {/* missing htmlFor */}
 
         {/* Title */}
-        <h1 className="display-1">Apex Portfolio Maker</h1>
+        <h1 className="h2 fs-1 text-white mb-4">Apex Portfolio Maker</h1>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-6" style={{ width: "100%" }}>
+          <p className="display-6 fs-1 text-white mb-4" style={{ width: "100%" }}>
             Welcome to Apex Pies! This app is intended for people
             that are looking to start investing, but don’t know where to start.
             Input your age, risk tolerance, and what industry you’d like to invest in the most.
@@ -101,12 +114,12 @@ const UserForm = () => {
         <br />
 
         {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
-        <p className="display-6">Current User: {currentUser["email"]}</p>
+        <p className="display-6 fs-1 text-white mb-4">Current User: {currentUser["email"]}</p>
 
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <p className="display-6">Age</p>
+        <p className="display-6 fs-1 text-white mb-4">Age</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -119,13 +132,13 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <p className="display-6 text-muted">{age + " years old"}</p>
+        <p className="display-6 fs-1 text-white mb-4">{age + " years old"}</p>
 
         <br />
         <br />
 
         {/* Risk Tolerance Slider */}
-        <p className="display-6">Risk Tolerance</p>
+        <p className="display-6 fs-1 text-white mb-4">Risk Tolerance</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -138,17 +151,17 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <p className="display-6 text-muted">{risk}</p>
+        <p className="display-6 fs-1 text-white mb-4">{risk}</p>
 
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <p className="display-6">Sector of Interest</p>
+        <p className="display-6 fs-1 text-white mb-4">Sector of Interest</p>
 
         <br />
 
         {/* Display currently-selected sector. */}
-        <p className="display-6"><strong>{sector}</strong></p>
+        <p className="display-6 fs-1 text-white mb-4"><strong>{sector}</strong></p>
 
         {/* Sector of Interest Buttons */}
         <Row>

@@ -17,7 +17,7 @@ function App() {
       <StrictMode>
         <Router>
           <AuthProvider>
-            <header>
+            <header className="bg-gradient-primary-to-secondary">
               <Link to="/">
                 <img src={apex_logo} alt="" />
               </Link>
