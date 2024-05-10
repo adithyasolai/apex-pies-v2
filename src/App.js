@@ -13,11 +13,11 @@ import Signup from "./Signup";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-gradient-primary-to-secondary">
       <StrictMode>
         <Router>
           <AuthProvider>
-            <header className="bg-gradient-primary-to-secondary">
+            <header className="text-center">
               <Link to="/">
                 <img src={apex_logo} alt="" />
               </Link>
