@@ -1,4 +1,5 @@
 import "./App.css";
+import "./styles.css";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import apex_logo from "./resources/Apex_Logo_Final.png";
 import UserForm from "./UserForm";
