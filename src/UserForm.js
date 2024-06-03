@@ -107,7 +107,7 @@ const UserForm = () => {
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <p className="display-6 fs-1 text-black mb-4">Age</p>
+        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Age</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -126,7 +126,7 @@ const UserForm = () => {
         <br />
 
         {/* Risk Tolerance Slider */}
-        <p className="display-6 fs-1 text-black mb-4">Risk Tolerance</p>
+        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Risk Tolerance</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -144,7 +144,7 @@ const UserForm = () => {
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <p className="display-6 fs-1 text-black mb-4">Sector of Interest</p>
+        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Sector of Interest</p>
 
         <br />
 
