@@ -87,17 +87,6 @@ const UserForm = () => {
   return (
     <div className="text-center">
 
-      {/* <aside className="text-center">
-          <div className="container px-5">
-              <div className="row gx-5 justify-content-center">
-                  <div className="col-xl-8">
-                      <div className="h2 fs-1 text-white mb-4">"An intuitive solution to a common problem that we all face, wrapped up in a single app!"</div>
-                      <img src={apex_logo} alt="..." style={{"height": "3rem"}} />
-                  </div>
-              </div>
-          </div>
-      </aside> */}
-
       <Form onSubmit={handleSubmit}>
         {/* Title */}
         <h1 className="h2 fs-1 text-white mb-4">Apex Portfolio Maker</h1>
