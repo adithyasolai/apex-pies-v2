@@ -89,10 +89,10 @@ const UserForm = () => {
 
       <Form onSubmit={handleSubmit}>
         {/* Title */}
-        <h1 className="h2 fs-1 text-white mb-4">Apex Portfolio Maker</h1>
+        <h1 className="h2 fs-1 text-black mb-4">Apex Portfolio Maker</h1>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-6 fs-1 text-white mb-4" style={{ width: "100%" }}>
+          <p className="display-6 fs-1 text-black mb-4" style={{ width: "100%" }}>
             Welcome to Apex Pies! This app is intended for people
             that are looking to start investing, but don’t know where to start.
             Input your age, risk tolerance, and what industry you’d like to invest in the most.
@@ -102,12 +102,12 @@ const UserForm = () => {
         <br />
 
         {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
-        <p className="display-6 fs-1 text-white mb-4">Current User: {currentUser["email"]}</p>
+        <p className="display-6 fs-1 text-black mb-4">Current User: {currentUser["email"]}</p>
 
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <p className="display-6 fs-1 text-white mb-4">Age</p>
+        <p className="display-6 fs-1 text-black mb-4">Age</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -120,13 +120,13 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <p className="display-6 fs-1 text-white mb-4">{age + " years old"}</p>
+        <p className="display-6 fs-1 text-black mb-4">{age + " years old"}</p>
 
         <br />
         <br />
 
         {/* Risk Tolerance Slider */}
-        <p className="display-6 fs-1 text-white mb-4">Risk Tolerance</p>
+        <p className="display-6 fs-1 text-black mb-4">Risk Tolerance</p>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <Form.Control
@@ -139,17 +139,17 @@ const UserForm = () => {
             className="border-dark"
           />
         </div>
-        <p className="display-6 fs-1 text-white mb-4">{risk}</p>
+        <p className="display-6 fs-1 text-black mb-4">{risk}</p>
 
         <br />
 
         {/* Sector of Interest Hoverable Text */}
-        <p className="display-6 fs-1 text-white mb-4">Sector of Interest</p>
+        <p className="display-6 fs-1 text-black mb-4">Sector of Interest</p>
 
         <br />
 
         {/* Display currently-selected sector. */}
-        <p className="display-6 fs-1 text-white mb-4"><strong>{sector}</strong></p>
+        <p className="display-6 fs-1 text-black mb-4"><strong>{sector}</strong></p>
 
         {/* Sector of Interest Buttons */}
         <Row>
@@ -187,7 +187,7 @@ const UserForm = () => {
 
         <br />
 
-        <Button type="Submit" variant="primary" size="lg">
+        <Button type="Submit" variant="secondary" size="lg">
           Submit
         </Button>
       </Form>
