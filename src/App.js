@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRoute";
 import Profile from "./Profile";
 import ResourcesFaq from "./ResourcesFaq";
 import Signup from "./Signup";
+import ApexNavBar from "./ApexNavBar";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
                 <img src={apex_logo} alt="" />
               </Link>
             </header>
+
+            <ApexNavBar/>
 
             <Switch>
               {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
