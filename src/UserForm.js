@@ -85,7 +85,8 @@ const UserForm = () => {
   }
 
   return (
-    <div className="text-center">
+    // TODO: A better way to do top-padding instead of an explicit px amount
+    <div className="text-center" style={{paddingTop: "100px"}}>
 
       <Form onSubmit={handleSubmit}>
         {/* Title */}
@@ -191,19 +192,6 @@ const UserForm = () => {
           Submit
         </Button>
       </Form>
-
-      <br />
-
-      <Link to={`/profile`}>
-        <Button variant="secondary">View Profile</Button>
-      </Link>
-
-      <br />
-      <br />
-
-      <Link to={`/resourcesfaq`}>
-        <Button variant="secondary">Resources and FAQ</Button>
-      </Link>
     </div>
   );
 };

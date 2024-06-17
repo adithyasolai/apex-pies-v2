@@ -15,15 +15,15 @@ import ApexNavBar from "./ApexNavBar";
 
 function App() {
   return (
-    <div className="App bg-gradient-primary-to-secondary">
+    <div className="App">
       <StrictMode>
         <Router>
           <AuthProvider>
-            <header className="text-center">
+            {/* <header className="text-center">
               <Link to="/">
                 <img src={apex_logo} alt="" />
               </Link>
-            </header>
+            </header> */}
 
             <ApexNavBar/>
 
@@ -54,6 +54,7 @@ function App() {
                 <ResourcesFaq />
               </Route>
             </Switch>
+
           </AuthProvider>
         </Router>
       </StrictMode>
