@@ -2,14 +2,11 @@ import React from "react";
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { withRouter } from "react-router-dom";
-import { Link } from "react-router-dom";
 
 import banking_logo from "./resources/sector_icons/banking-sector.jpeg";
 import energy_logo from "./resources/sector_icons/energy-sector.jpeg";
 import health_logo from "./resources/sector_icons/health-sector.jpeg";
 import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
-
-import apex_logo from "./resources/Apex_Logo_Final.png";
 
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
@@ -101,9 +98,6 @@ const UserForm = () => {
         </div>
 
         <br />
-
-        {/* Since we use PrivateRoutes, we know that currentUser must be defined if we reach and render this component. */}
-        <p className="display-6 fs-1 text-black mb-4">Current User: {currentUser["email"]}</p>
 
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}

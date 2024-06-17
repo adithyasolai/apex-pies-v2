@@ -1,7 +1,6 @@
 import "./App.css";
 import "./styles.css";
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import apex_logo from "./resources/Apex_Logo_Final.png";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import UserForm from "./UserForm";
 import PieResults from "./PieResults";
 import Login from "./Login";
@@ -19,11 +18,6 @@ function App() {
       <StrictMode>
         <Router>
           <AuthProvider>
-            {/* <header className="text-center">
-              <Link to="/">
-                <img src={apex_logo} alt="" />
-              </Link>
-            </header> */}
 
             <ApexNavBar/>
 

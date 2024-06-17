@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Nav, Navbar } from "react-bootstrap";
+import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
+import apex_logo from "./resources/Apex_Logo_Final.png";
 
 const ApexNavBar = () => {
   // LOOK INTO USING BOOTSTRAP'S OWN NAVBAR COMPONENT AS A STARTING POINT TO IMPLEMENT THIS !
@@ -7,6 +8,22 @@ const ApexNavBar = () => {
   return (
     <Navbar className="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-gradient-primary-to-secondary">
       <Container className="container px-5">
+        <Button variant="link" href="/" style={{ padding: 0 }}> {/* Added Button and styles */}
+          <Image 
+            src={apex_logo} 
+            style={
+              { 
+                width: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
+                height: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
+                marginRight: "10px"
+
+              }
+            }
+            href="/"
+          
+          />
+        </Button>
+
         <Navbar.Brand href="/">
           Apex Pies
         </Navbar.Brand>
