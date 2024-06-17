@@ -28,22 +28,19 @@ export default function Profile() {
   }
 
   return (
-    <div>
-      <Card>
+    // TODO: need a bit more top margin because it still looks too close
+    <div className="text-center mt-5">
+      <Card style={{border: "none"}}>
         <Card.Body>
-          <h2>Profile</h2>
           {currentUser && <h3>Current User: {currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
           <Link to="/update-profile"> Update Profile </Link>
         </Card.Body>
       </Card>
 
-      <div>
-        <Button variant="link" onClick={handleSignOut}>
-          {" "}
-          Sign Out{" "}
-        </Button>
-      </div>
+      <Button variant="secondary" onClick={handleSignOut}>
+        Sign Out
+      </Button>
     </div>
   );
 }

@@ -34,16 +34,14 @@ const Login = () => {
   }
 
   return (
-    <>
-      <Card>
+    // TODO: need a bit more top margin because it still looks too close
+    <div className="text-center mt-5">
+      <Card style={{border: "none"}}>
         <Card.Body>
-          <h2>Log In</h2>
-          {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
-          {currentUser &&
-            "Current User: " + JSON.stringify(currentUser["email"])}
           {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
           {error && <Alert variant="danger">{error}</Alert>}
           <Form onSubmit={handleSubmit}>
+            {/* TODO: Figure out a better way to write this Row/Col stuff in a re-usable way */}
             <Row>
               <Col md={3}></Col>
               <Col md={6}>
@@ -60,7 +58,7 @@ const Login = () => {
               <Col md={3}></Col>
             </Row>
 
-            <Row>
+            <Row className="mt-4">
               <Col md={3}></Col>
               <Col md={6}>
                 <Form.Group id="password">
@@ -76,10 +74,10 @@ const Login = () => {
               <Col md={3}></Col>
             </Row>
 
-            <Row>
+            <Row className="mt-4">
               <Col md={3}></Col>
               <Col md={6}>
-                <Button className="w-100" type="Submit" variant="primary">
+                <Button className="w-100" type="Submit" variant="secondary">
                   Log In
                 </Button>
               </Col>
@@ -88,11 +86,13 @@ const Login = () => {
           </Form>
         </Card.Body>
       </Card>
+      
+      {/* TODO: Figure out how to remove black horizontal line btwn Form above and Div */}
 
-      <div>
-        Need an account? <Link to="/signup">Sign Up.</Link>
+      <div className="mt-3">
+        Need an account? <Link to="/signup" className="text-secondary">Sign Up.</Link>
       </div>
-    </>
+    </div>
   );
 };
 
