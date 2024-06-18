@@ -82,8 +82,9 @@ const UserForm = () => {
   }
 
   return (
+    // TODO: Why does this div not need style={{ height: "100vh" }} like Profile? But it still has bg-primary fill up everything in the page?
     // TODO: A better way to do top-padding instead of an explicit px amount
-    <div className="text-center" style={{paddingTop: "100px"}}>
+    <div className="text-center bg-primary" style={{paddingTop: "100px"}}>
 
       <Form onSubmit={handleSubmit}>
         {/* Title */}
@@ -93,7 +94,6 @@ const UserForm = () => {
           <p className="display-6 fs-1 text-black mb-4" style={{ width: "100%" }}>
             Welcome to Apex Pies! This app is intended for people
             that are looking to start investing, but don’t know where to start.
-            Input your age, risk tolerance, and what industry you’d like to invest in the most.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ const UserForm = () => {
             value={age}
             onChange={(e) => setAge(e.target.value)}
             style={{ width: "100%" }} // Set the width to 100%
-            className="border-dark"
+            className="border-dark bg-primary"
           />
         </div>
         <p className="display-6 fs-1 text-black mb-4">{age + " years old"}</p>
@@ -131,7 +131,7 @@ const UserForm = () => {
             max="10"
             value={risk}
             style={{ width: "100%" }} // Set the width to 100%
-            className="border-dark"
+            className="border-dark bg-primary"
           />
         </div>
         <p className="display-6 fs-1 text-black mb-4">{risk}</p>

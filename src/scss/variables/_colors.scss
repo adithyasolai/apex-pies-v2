@@ -2,15 +2,17 @@
 // Colors
 // 
 
-// Override Bootstrap color systel colors
 
-// $blue: #2937f0;
-// $purple: #9f1ae2;
-
+// primary
 $white: white;
-$light-blue: #61dafb;
+// $cream-too-dark: #F5F5DC;
+$cream: #FAF3E0;
+
+// secondary
+$light-blue-modern: #61dafb;
+$light-blue-sophisticated: #87CEEB;
 
 // Override Bootstrap default state colors
 
-$primary: $white;
-$secondary: $light-blue;
+$primary: $cream;
+$secondary: $light-blue-sophisticated;

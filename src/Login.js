@@ -35,8 +35,12 @@ const Login = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5">
-      <Card style={{border: "none"}}>
+    <div className="text-center mt-5 vh-100 bg-primary">
+      {/* 
+        because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
+        Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
+      */}
+      <Card className="bg-primary" style={{border: "none"}}>
         <Card.Body>
           {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
           {error && <Alert variant="danger">{error}</Alert>}

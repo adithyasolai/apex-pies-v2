@@ -4,7 +4,7 @@ import { Card, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
-export default function Profile() {
+const Profile = () => {
   const { currentUser, signout } = useAuth();
   const [error, setError] = useState("");
   const history = useHistory();
@@ -29,12 +29,16 @@ export default function Profile() {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5">
-      <Card style={{border: "none"}}>
+    <div className="text-center mt-5 bg-primary vh-100">
+      {/* 
+        because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
+        Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
+      */}
+      <Card className="bg-primary" style={{border: "none"}}>
         <Card.Body>
           {currentUser && <h3>Current User: {currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
-          <Link to="/update-profile"> Update Profile </Link>
+          <Link to="/update-profile" className="text-secondary"> Update Profile </Link>
         </Card.Body>
       </Card>
 
@@ -44,3 +48,5 @@ export default function Profile() {
     </div>
   );
 }
+
+export default Profile;
