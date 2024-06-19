@@ -4,16 +4,12 @@
 
 
 // primary
-$white: white;
-// $cream-too-dark: #F5F5DC;
-$cream: #FAF3E0;
+$cream: #FFFBF0;
 
 // secondary
-$light-blue-modern: #61dafb;
-// $light-blue-sophisticated: #87CEEB;
-$light-blue-sophisticated: #000000;
+$light-blue: #87CEEB;
 
 // Override Bootstrap default state colors
 
 $primary: $cream;
-$secondary: $light-blue-sophisticated;
+$secondary: $light-blue;
