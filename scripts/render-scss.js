@@ -18,6 +18,8 @@ module.exports = function renderSCSS() {
         ],
       });
 
+    // if the directory in which the output css is going to be written to does not exist,
+    // make that directory first
     const destPathDirname = upath.dirname(destPath);
     if (!sh.test('-e', destPathDirname)) {
         sh.mkdir('-p', destPathDirname);

@@ -2,7 +2,8 @@ const fs = require('fs');
 const path = require('path');  // Required for path manipulation
 
 const watchedDir = 'src/scss/'; // Replace with your directory path
-const scriptToRun = './build-scss'; // Replace with your script path
+const scriptToRun = './render-scss'; // Replace with your script path
+const renderCSS = require(scriptToRun); // import scss --> css render script
 
 // Recursive function to check for changes in the directory and subdirectories
 function watchDir(dir) {
@@ -15,7 +16,9 @@ function watchDir(dir) {
       fs.watch(fullPath, (eventType, filename) => {
         if (eventType === 'change') {
           console.log(`File changed: ${filename}`);
-          require(scriptToRun); // Execute the script
+
+          console.log("running render-scss script from watch-scss script...")
+          renderCSS()
         }
       });
     }

@@ -4,7 +4,9 @@
 
 - Put Firebase Project ID and API key in `.env.local` file.
 
-- Run `npm start` in `/` project directory.
+- Run `npm run start` in `/` project directory.
+  - Since this uses `react-scripts`, it uses webpack under the hood, which means any local code changes will automatically restart the local JS server with your changes.
+  - However, this only works well for JS changes. SCSS code changes will not be automatically re-compiled into the output css file. To do this, open a separate terminal and run `node scripts/watch-scss.js` from the `/` project directory.
 
 ### Starting Flask Server Locally (Dev)
 
