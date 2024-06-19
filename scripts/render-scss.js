@@ -1,7 +1,6 @@
 'use strict';
 const autoprefixer = require('autoprefixer')
 const fs = require('fs');
-const packageJSON = require('../package.json');
 const upath = require('upath');
 const postcss = require('postcss')
 const sass = require('sass');
@@ -33,10 +32,4 @@ module.exports = function renderSCSS() {
 
 };
 
-const entryPoint = `/*!
-* Start Bootstrap - ${packageJSON.title} v${packageJSON.version} (${packageJSON.homepage})
-* Copyright 2013-${new Date().getFullYear()} ${packageJSON.author}
-* Licensed under ${packageJSON.license} (https://github.com/StartBootstrap/${packageJSON.name}/blob/master/LICENSE)
-*/
-@import "${stylesPath}"
-`
+const entryPoint = `@import "${stylesPath}"`
