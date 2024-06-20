@@ -89,9 +89,13 @@ const UserForm = () => {
   }
 
   return (
-    // TODO: Why does this div not need style={{ height: "100vh" }} like Profile? But it still has bg-primary fill up everything in the page?
-    // TODO: A better way to do top-padding instead of an explicit px amount
-    <div className="text-center bg-primary" style={{paddingTop: "100px"}}>
+    // TODO: A better way to do top-margin instead of an explicit px amount
+
+    // TODO: If I add vh-100 to this, then the bg color is only applied to what is in the screen view,
+    // and scrolling below that to the bottom part of the form reveals white default bg color.
+    // I don't include vh-100 to this, zooming out a bunch beyond the end of the form reveals a white default bg color.
+    // Investigate and fix this.
+    <div className="text-center bg-primary" style={{marginTop: "75px"}}>
 
       <Form onSubmit={handleSubmit}>
         {/* Title */}

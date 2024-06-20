@@ -15,8 +15,8 @@
 - For Debug mode, run `flask run --debug` uncommented.
 
 ### Starting Flask Server via Docker Locally (Dev)
-- Run `docker build -t apex .`
-- Run `docker run -p 5000:5000 apex` (this will automatically be in Debug mode)
+- Run `docker build -t apex-dev .`
+- Run `docker run -p 5000:5000 apex-dev` (this will automatically be in Debug mode)
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`
