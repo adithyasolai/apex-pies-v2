@@ -95,7 +95,9 @@ const UserForm = () => {
     // and scrolling below that to the bottom part of the form reveals white default bg color.
     // I don't include vh-100 to this, zooming out a bunch beyond the end of the form reveals a white default bg color.
     // Investigate and fix this.
-    <div className="text-center bg-primary" style={{marginTop: "75px"}}>
+
+    // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
+    <div className="text-center bg-primary" style={{paddingTop: "75px"}}>
 
       <Form onSubmit={handleSubmit}>
         {/* Title */}
