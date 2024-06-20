@@ -60,12 +60,29 @@ def calculatePies():
     age = int(request.json['age'])
     risk = int(request.json['risk'])
     sector = request.json['sector']
+    is_guest = request.json['is_guest']
+
     app.logger.info(
-        "Front-End Request: Age {age} Risk {risk} Sector {sector} UID {uid} Email {email}".format(
-            age=age, risk=risk, sector=sector, uid=uid, email=email))
+        f"""
+        Front-End Request:
+        Age {age}
+        Risk {risk}
+        Sector {sector}
+        UID {uid}
+        Email {email}
+        is_guest {is_guest}
+        """
+    )
 
     # TODO: Pie Calculation Algorithm goes here!
-    publishPieToDB(age, risk, sector, uid, email)
+    publishPieToDB(
+        age, 
+        risk, 
+        sector, 
+        uid, 
+        email,
+        is_guest
+    )
 
     app.logger.info("Finished / POST Run...")
 
@@ -79,7 +96,11 @@ def fetchPies():
     app.logger.info("Starting /fetchpies POST Run...")
 
     uid = request.json['uid']
-    result = db.reference().child("users").child(uid)
+    is_guest = request.json['is_guest']
+
+    user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
+
+    result = user_directory_ref.child(uid)
 
     resultDict = result.get()
 
@@ -103,7 +124,7 @@ Helper methods used by GET/POST Handlers.
 # data to the FireBase DB for this user.
 
 
-def publishPieToDB(age, risk, sector, userId, email):
+def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     pieDf = makePie(age, risk, sector)
     app.logger.info("New Pie: \n" + pprint.pformat(pieDf))
 
@@ -117,7 +138,8 @@ def publishPieToDB(age, risk, sector, userId, email):
 
     # Publish Pie portfolio details and Plotly embed details to the Firebase
     # DB for this user
-    ref = db.reference().child("users").child(userId)
+    user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
+    ref = user_directory_ref.child(userId)
     ref.set({
         # 'r' records option stores each row as a dict in an overall array
         'pie': pieDf.to_dict('records'),

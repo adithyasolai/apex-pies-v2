@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 
+import { useAuth } from "./contexts/AuthContext";
+
 const PieResults = (props) => {
+  const { currentUser } = useAuth();
   const [uid, setUid] = useState(props.location.state.uid);
   const [age, setAge] = useState(props.location.state.age);
   const [risk, setRisk] = useState(props.location.state.risk);
@@ -33,7 +36,10 @@ const PieResults = (props) => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ uid: uid }),
+          body: JSON.stringify({
+            uid: uid,
+            is_guest: currentUser ? false : true
+          }),
         });
 
         // removing the `await` here causes the PieReults page to just hang for some reason
