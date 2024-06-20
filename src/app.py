@@ -357,15 +357,3 @@ def pickRandomStock(sector, targetBeta, raiseBeta, stocksDataDf):
 
     # This data is in the form of a pd.Series
     return chosenStockData
-
-
-'''
-Uncomment the line below to manually allow Debug Mode when
-starting this Flask server. If uncommented, Debug Mode will
-only be activated if the `python app.py` terminal command is used.
-
-Alternatively, keep this line of code commented and just run the
-`export FLASK_ENV=development` terminal command once before
-any subsequent `flask run` commands.
-'''
-# app.run(debug=True)

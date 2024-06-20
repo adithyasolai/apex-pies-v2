@@ -12,11 +12,11 @@
 
 - Run `pip3 install -r requirements.txt` from `/src` project directory.
 - Run `flask run` from `/src` project directory.
-- For Debug mode, run `python3 /src/app.py` with `app.run(debug=True)` uncommented.
+- For Debug mode, run `flask run --debug` uncommented.
 
-### Starting Flask Server via Docker Locally (dev)
+### Starting Flask Server via Docker Locally (Dev)
 - Run `docker build -t apex .`
-- Run `docker run -p 5000:5000 apex`
+- Run `docker run -p 5000:5000 apex` (this will automatically be in Debug mode)
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`

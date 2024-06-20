@@ -47,19 +47,26 @@ const UserForm = () => {
     // Send request to backend server to calculate a diversified Pie
     // for the user's selected inputs (age, risk tolerance, and sector).
     // Wait for the request to finish.
-    await fetch(flask_endpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: currentUser["uid"],
-        email: currentUser["email"],
-        age: age,
-        risk: risk,
-        sector: sector,
-      }),
-    });
+    if (currentUser) {
+      await fetch(flask_endpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uid: currentUser["uid"],
+          email: currentUser["email"],
+          age: age,
+          risk: risk,
+          sector: sector,
+        }),
+      });
+    } else {
+      // for a guest user, generate a temporary UUID.
+      // TODO: the guest user's data will be deleted at the end of their session
+    }
+
+
 
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
