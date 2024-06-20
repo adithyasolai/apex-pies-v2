@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@testing-library/jest-dom": "^5.16.4",
+    "@testing-library/react": "^13.3.0",
+    "@testing-library/user-event": "^13.5.0",
     "bootstrap": "^5.3.3",
     "firebase": "^9.9.1",
     "prettier": "^2.7.1",
@@ -17,9 +20,6 @@
     "web-vitals": "^2.1.4"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
-    "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0"
   },
   "scripts": {
     "start": "npm run build && react-scripts start",
