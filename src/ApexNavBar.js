@@ -1,9 +1,10 @@
 import React from "react";
 import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import arrows from "./resources/ArrowsNoBckgd.png";
+import { useAuth } from "./contexts/AuthContext";
 
 const ApexNavBar = () => {
-  // LOOK INTO USING BOOTSTRAP'S OWN NAVBAR COMPONENT AS A STARTING POINT TO IMPLEMENT THIS !
+  const { currentUser } = useAuth();
 
   return (
     <Navbar className="navbar navbar-expand-lg navbar-light fixed-top shadow-sm bg-gradient-primary-to-secondary">
@@ -32,7 +33,7 @@ const ApexNavBar = () => {
           {/* Navigation Links */}
           <Navbar.Collapse>
           <Nav className="ms-auto">
-            <Nav.Link href="/profile">Profile</Nav.Link>
+            {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Log In</Nav.Link>}
             <Nav.Link href="/resourcesfaq">Resources and FAQ</Nav.Link>
           </Nav>
         </Navbar.Collapse>

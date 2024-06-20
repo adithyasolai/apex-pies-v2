@@ -23,9 +23,9 @@ function App() {
 
             <Switch>
               {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
-              <PrivateRoute exact path="/">
+              <Route exact path="/">
                 <UserForm />
-              </PrivateRoute>
+              </Route>
 
               <Route path="/pieresults">
                 <PieResults />

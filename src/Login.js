@@ -25,7 +25,7 @@ const Login = () => {
     try {
       setError("");
       await login(emailRef.current.value, passwordRef.current.value);
-      // re-direct to user profile after logging in
+      // re-direct to main page after logging in
       history.push("/");
     } catch (e) {
       console.log(e);
