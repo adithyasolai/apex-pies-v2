@@ -74,7 +74,7 @@ const PieResults = (props) => {
   console.log(pie)
 
   return (
-    <div>
+    <div className="text-center bg-primary" style={{marginTop: "50px"}}>
       {/* Display fields chosen by user in User Form */}
       <h1>
         Age: {age}

@@ -85,7 +85,7 @@ const UserForm = () => {
 
   // Loading screen that is shown immediately after the user clicks Submit button.
   if (loading) {
-    return <h2>Creating your Pie ...</h2>;
+    return <h2 style={{marginTop: "75px"}}>Creating your Pie ...</h2>;
   }
 
   return (
