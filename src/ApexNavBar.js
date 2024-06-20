@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
-import apex_logo from "./resources/Apex_Logo_Final.png";
 import arrows from "./resources/ArrowsNoBckgd.png";
 
 const ApexNavBar = () => {
