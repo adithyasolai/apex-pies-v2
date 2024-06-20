@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import apex_logo from "./resources/Apex_Logo_Final.png";
+import arrows from "./resources/ArrowsNoBckgd.png";
 
 const ApexNavBar = () => {
   // LOOK INTO USING BOOTSTRAP'S OWN NAVBAR COMPONENT AS A STARTING POINT TO IMPLEMENT THIS !
@@ -10,12 +11,13 @@ const ApexNavBar = () => {
       <Container className="container px-5">
         <Button variant="link" href="/" style={{ padding: 0 }}> {/* Added Button and styles */}
           <Image 
-            src={apex_logo} 
+            src={arrows} 
             style={
               { 
                 width: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
-                height: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
-                marginRight: "10px"
+                // height: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
+                paddingBottom: '5px',
+                marginRight: '3px'
 
               }
             }

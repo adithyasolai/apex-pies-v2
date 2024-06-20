@@ -93,7 +93,7 @@ const UserForm = () => {
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
           <p className="display-6 fs-1 text-black mb-4" style={{ width: "100%" }}>
             Welcome to Apex Pies! This app is intended for people
-            that are looking to start investing, but don’t know where to start.
+            that are looking to start investing in publicly-traded companies, but don’t know where to start.
           </p>
         </div>
 
