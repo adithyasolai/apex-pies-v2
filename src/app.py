@@ -160,30 +160,23 @@ def makeViz(userID, pieDf):
     username = 'adithyasolai'
     api_key = 'TibH1jVTDgFFrOA1bbE6'
 
-    # Fetch data needed for the Pie plot from `pieDf`
-    tickers_list = pieDf['Ticker'].tolist()
-    name_list = pieDf['Name'].tolist()
-    sectors_list = pieDf['Sector'].tolist()
-    marketcap_list = pieDf['Market Cap'].round(2).tolist()
-    beta_list = pieDf['Beta'].tolist()
-
-    # Just giving equal % weightage to each slice of the pie
-    vals = [100 / len(pieDf.index)] * len(pieDf.index)
-
-    # This map determines what data is available to be shown in the hovertext
-    # of each slice
-    df = pd.DataFrame({"Ticker": tickers_list,
-                       "Name": name_list,
-                       "Percentage": vals,
-                       "Sector": sectors_list,
-                       "Market Cap": marketcap_list,
-                       "Beta": beta_list
-                       })
+    color_mapping = {
+        "Technology": "#ADD8E6",
+        "Health Care": "#F0E6E6",
+        "Banking": "#F08080",
+        "Energy ": "#90EE90"
+    }
 
     # Determines which data should be shown on the slices itself, the legend
     # on the right, and which data should be used for hovertext
-    fig = px.pie(df, values="Percentage", names="Ticker",
-                 hover_data=["Name", "Sector", "Market Cap", "Beta"])
+    fig = px.pie(
+        pieDf, 
+        values="Percentage", 
+        names="Ticker",
+        color="Sector",
+        color_discrete_map=color_mapping,
+        hover_data=["Name", "Sector", "Market Cap", "Beta"]
+    )
 
     # Configure hovertext formatting. Omitting Percentage because that is
     # shown on the slice itself.
@@ -274,9 +267,19 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
             # Re-evaluate whether the next chosen stock should raise or reduce
             # the portfolio's beta
             raiseBeta = newPortfolioBeta < targetPortfolioBeta
+    
+    # round market cap to 2 decimal points
+    pieDf['Market Cap'] = pieDf['Market Cap'].round(2)
+
+    # give equal % weightage to each slice of the pie
+    pieDf['Percentage'] = 100 / len(pieDf.index)
+
+    # Ensure all string columns are converted from object dtypes to str dtypes
+    pieDf['Ticker'] = pieDf['Ticker'].astype("string")
+    pieDf['Name'] = pieDf['Name'].astype("string")
+    pieDf['Sector'] = pieDf['Sector'].astype("string")
 
     return pieDf
-
 
 def calculateTargetPortfolioBeta(userAge, userRiskTolerance):
     # The Keys are the possible Risk Tolerance levels (1-10) from the user.
