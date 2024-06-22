@@ -279,6 +279,9 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
     pieDf['Name'] = pieDf['Name'].astype("string")
     pieDf['Sector'] = pieDf['Sector'].astype("string")
 
+    # sort by sector so that they are grouped on the final pie (it looks nice when colors are applied)
+    pieDf = pieDf.sort_values(by='Sector')
+
     return pieDf
 
 def calculateTargetPortfolioBeta(userAge, userRiskTolerance):
