@@ -3,6 +3,8 @@ import { withRouter } from "react-router-dom";
 
 import { useAuth } from "./contexts/AuthContext";
 
+import Plotly from 'plotly.js-dist-min'
+
 const PieResults = (props) => {
   const { currentUser } = useAuth();
   const [uid, setUid] = useState(props.location.state.uid);
@@ -53,7 +55,7 @@ const PieResults = (props) => {
         setLoading(false);
         setAvgBeta((Math.round(json.avgBeta * 100) / 100).toFixed(2));
         setPie(json.pie);
-        setNumStocks(json.pie.length);
+        setNumStocks(json.pie['Beta'].length); // just using any of the lists to get the length
         setVizLink(json.vizLink);
         setUsername(json.username);
         setApiKey(json.apiKey);
@@ -93,11 +95,10 @@ const PieResults = (props) => {
       <div dangerouslySetInnerHTML={{ __html: iframe }} />
 
       {/* Lists information about each stock in our Pie */}
-      {/* TODO: Make percentage of pie something that is returned by backend when algorithm gets more complex. */}
       {Array.from(Array(numStocks), (x, i) => i).map((stockIndex) => {
           return (
             <p key={stockIndex}>
-              Percentage: 5% Sector: {pie[stockIndex]["Sector"]} Ticker: {pie[stockIndex]["Ticker"]}
+              Percentage: {pie["Percentage"][stockIndex]}% Sector: {pie["Sector"][stockIndex]} Ticker: {pie["Ticker"][stockIndex]}
             </p>
           );
         })}

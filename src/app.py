@@ -141,8 +141,8 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
     ref = user_directory_ref.child(userId)
     ref.set({
-        # 'r' records option stores each row as a dict in an overall array
-        'pie': pieDf.to_dict('records'),
+        # save pie column-wise to make ReactJS logic easier to render on client-side
+        'pie': pieDf.to_dict(orient='list'),
         'avgBeta': pieDf['Beta'].mean(),
         'vizLink': vizLink,
         'iframe': iframe,
