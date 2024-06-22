@@ -191,7 +191,11 @@ def makeViz(userID, pieDf):
         hovertemplate=' Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}')
 
     # make plot's background color transparent so that front-end background color can show
-    fig.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+    fig.update_layout(
+        paper_bgcolor='rgba(0,0,0,0)', 
+        plot_bgcolor='rgba(0,0,0,0)',
+        showlegend=False
+    )
 
     # Publishes this Pie to the Plotly server
     chart_studio.tools.set_credentials_file(username=username, api_key=api_key)
