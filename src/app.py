@@ -128,16 +128,15 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     pieDf = makePie(age, risk, sector)
     app.logger.info("New Pie: \n" + pprint.pformat(pieDf))
 
-    vizLink = makeViz(userId, pieDf)
-    app.logger.info(pprint.pformat("New Viz Link: \n" + vizLink))
+    # vizLink = makeViz(userId, pieDf)
+    # app.logger.info(pprint.pformat("New Viz Link: \n" + vizLink))
 
     # Get the HTML code that enables the front-end to directly embed the Pie
     # Chart from Plotly's servers
-    iframe = tls.get_embed(vizLink)
-    app.logger.info(pprint.pformat("New iFrame HTML: \n" + iframe))
+    # iframe = tls.get_embed(vizLink)
+    # app.logger.info(pprint.pformat("New iFrame HTML: \n" + iframe))
 
-    # Publish Pie portfolio details and Plotly embed details to the Firebase
-    # DB for this user
+    # Publish Pie portfolio details to the Firebase DB for this user
     user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
     ref = user_directory_ref.child(userId)
     ref.set({
@@ -145,19 +144,15 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
         'pie': pieDf.to_dict(orient='list'),
         # save row-wise as well for other front-end rendering simplification
         'pieRows': pieDf.to_dict('records'),
-        'avgBeta': pieDf['Beta'].mean(),
-        'vizLink': vizLink,
-        'iframe': iframe,
-        'email': email
+        'avgBeta': pieDf['Beta'].mean() # still better to calculate this in Python to reduce load on client
     })
 
     app.logger.info("Published data to Firebase DB...")
 
+# NOTE: THIS HAS ALL BEEN MOVED TO CLIENT-SIDE RENDERING TO AVOID PLOTLY SERVERS
 # Uses the pie portfolio data in pieDf to create a Plotly Pie Chart,
 # and publishes that Pie to Plotly's servers so that it can be fetched by
 # the front-end later.
-
-
 def makeViz(userID, pieDf):
     username = 'adithyasolai'
     api_key = 'TibH1jVTDgFFrOA1bbE6'
@@ -204,7 +199,7 @@ def makeViz(userID, pieDf):
 Pie-Making Diversification + Beta Balancing Logic
 '''
 
-
+# TODO: Summary comment for this
 def makePie(userAge, userRiskTolerance, userSectorOfInterest):
     targetPortfolioBeta = calculateTargetPortfolioBeta(
         userAge, userRiskTolerance)
@@ -289,6 +284,7 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
 
     return pieDf
 
+# TODO: Summary comment for this
 def colorMapper(sector):
     color_mapping = {
         "Technology": "#ADD8E6",
@@ -299,6 +295,7 @@ def colorMapper(sector):
 
     return color_mapping[sector]
 
+# TODO: Summary comment for this
 def calculateTargetPortfolioBeta(userAge, userRiskTolerance):
     # The Keys are the possible Risk Tolerance levels (1-10) from the user.
     # The Values are baseline betas for a portfolio made with the key's Risk Tolerance level.
@@ -362,8 +359,6 @@ def calculateTargetPortfolioBeta(userAge, userRiskTolerance):
 # Picks a stock from the given sector that is within +/- 0.2 beta
 # from the target portfolio beta to serve as a good starting point
 # for the balancing algorithm.
-
-
 def pickFirstStock(sector, targetBeta, stocksDataDf):
     # Get only the stocks info for the given sector
     currSectorStocksDataDf = stocksDataDf.loc[stocksDataDf['Sector'] == sector]
@@ -383,8 +378,6 @@ def pickFirstStock(sector, targetBeta, stocksDataDf):
 
 # Picks a random stock in the given sector that has a beta higher than targetBeta when raiseBeta is True,
 # and lower than targetBeta when raiseBeta is False.
-
-
 def pickRandomStock(sector, targetBeta, raiseBeta, stocksDataDf):
 
     # Get only the stocks info for the given sector

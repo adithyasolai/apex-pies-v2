@@ -13,16 +13,12 @@ const PieResults = (props) => {
   const [sector, setSector] = useState(props.location.state.sector);
 
   const [loading, setLoading] = useState(true);
-  const [avgBeta, setAvgBeta] = useState();
-  const [vizLink, setVizLink] = useState();
-  const [username, setUsername] = useState();
-  const [apiKey, setApiKey] = useState();
-  const [iframe, setIframe] = useState();
   const [plotConfig, setPlotConfig] = useState({});
   const [numStocks, setNumStocks] = useState();
 
   const pie = useRef(null);
   const pieRows = useRef(null);
+  const avgBeta = useRef(0);
 
   // local dev endpoint
   const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
@@ -52,14 +48,10 @@ const PieResults = (props) => {
         // Put all the results from the backend server into our State to be rendered.
         // Remove the loading screen so that the page can finally be rendered.
         setLoading(false);
-        setAvgBeta((Math.round(json.avgBeta * 100) / 100).toFixed(2));
         pie.current = json.pie
         pieRows.current = json.pieRows
+        avgBeta.current = (Math.round(json.avgBeta * 100) / 100).toFixed(2)
         setNumStocks(json.pie['Beta'].length); // just using any of the lists to get the length
-        setVizLink(json.vizLink);
-        setUsername(json.username);
-        setApiKey(json.apiKey);
-        setIframe(json.iframe);
 
         console.log(json.pieRows)
         console.log(pie)
@@ -121,10 +113,7 @@ const PieResults = (props) => {
 
       {/* Beta */}
       {/* TODO: Make this hover-text */}
-      <h3> Overall Beta of Pie: {avgBeta} </h3>
-
-      {/* Embed the Plotly Pie Chart */}
-      <div dangerouslySetInnerHTML={{ __html: iframe }} />
+      <h3> Overall Beta of Pie: {avgBeta.current} </h3>
 
       <Plot
         data={plotConfig['data']}
