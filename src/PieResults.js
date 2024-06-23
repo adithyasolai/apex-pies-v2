@@ -87,8 +87,8 @@ const PieResults = (props) => {
         // Put all the results from the backend server into our State to be rendered.
         pie.current = json.pie
         pieRows.current = json.pieRows
-        avgBeta.current = (Math.round(json.avgBeta * 100) / 100).toFixed(2)
         numStocks.current = json.pie['Beta'].length // just using any of the lists to get the length
+        avgBeta.current = (Math.round(json.pie['Beta'].reduce((acc, current) => acc + current, 0) / numStocks.current * 100) / 100).toFixed(2)
 
         // construct plot configs as soon as results from backend come
         var data = [{

@@ -144,7 +144,6 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
         'pie': pieDf.to_dict(orient='list'),
         # save row-wise as well for other front-end rendering simplification
         'pieRows': pieDf.to_dict('records'),
-        'avgBeta': pieDf['Beta'].mean() # still better to calculate this in Python to reduce load on client
     })
 
     app.logger.info("Published data to Firebase DB...")
