@@ -288,8 +288,8 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
 def colorMapper(sector):
     color_mapping = {
         "Technology": "#ADD8E6",
-        "Health Care": "#F0E6E6",
-        "Banking": "#F08080",
+        "Health Care": "#F08080",
+        "Banking": "#F0E6E6",
         "Energy ": "#90EE90"
     }
 
