@@ -50,6 +50,7 @@ const PiePlot = (props) => {
           marker: {
             colors: pie.current['Color']
           },
+          automargin: true
         }]
 
         var layout = {
@@ -57,10 +58,10 @@ const PiePlot = (props) => {
           plot_bgcolor: 'rgba(0,0,0,0)',
           showlegend: false,
           margin: {
-            l: 25,
-            r: 25,
-            b: 25,
-            t: 25,
+            l: 0,
+            r: 0,
+            b: 0,
+            t: 0,
           },
         }
 
