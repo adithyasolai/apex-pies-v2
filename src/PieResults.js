@@ -23,11 +23,11 @@ const PieResults = (props) => {
   // holds backend response data
   const pie = useRef(null);
   const pieRows = useRef(null);
-  const avgBeta = useRef(0);
 
   // data calculated when backend data is received to make render logic faster
-  const plotConfig = useRef(null)
   const numStocks = useRef(0)
+  const avgBeta = useRef(0)
+  const plotConfig = useRef(null)
 
   // local dev endpoint
   const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
