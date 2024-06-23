@@ -67,8 +67,6 @@ export function AuthProvider({ children }) {
       setLoading(false);
     });
 
-    console.log("Set currentUser to: ", currentUser);
-
     // Not really sure why this return is needed, since this is just a side-effect function, and
     // no code is waiting for the return value of this function.
     return unsubscribe;

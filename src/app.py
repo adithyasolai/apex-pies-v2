@@ -22,6 +22,8 @@ import chart_studio.tools as tls
 import os
 import pprint
 
+import uuid
+
 '''
 HOW TO USE THIS SERVER SCRIPT:
 `pip install flask` and `pip install flask_cors` before running this server.
@@ -113,6 +115,7 @@ def savepie():
     app.logger.info("Starting /savepie POST Run...")
 
     uid = request.json['uid']
+    pieId = request.json['pieId']
     pie = request.json['pie']
     pieRows = request.json['pieRows']
 
@@ -123,7 +126,14 @@ def savepie():
     if hasSavedBefore:
         saved_dict = saved_db_ref.get()
 
+        # first, verify that this pie was not saved before
+        if pieId in saved_dict["pieIds"]:
+            app.logger.info(f"Pie {pieId} already saved for user {uid}.")
+            return jsonify("SavePie Reply Message")
+
         saved_dict['numSaved'] += 1
+
+        saved_dict['pieIds'][pieId] = 'present'
 
         saved_dict[str(saved_dict['numSaved'])] = {
             'pie': pie,
@@ -136,6 +146,7 @@ def savepie():
         saved_db_ref.set(
             {
                 'numSaved': 1,
+                'pieIds': {pieId: 'present'},
                 '1': {
                     'pie': pie,
                     'pieRows': pieRows
@@ -145,9 +156,7 @@ def savepie():
 
     app.logger.info(f"Saved pie for {uid} to Firebase DB...")
 
-    response = jsonify("SavePie Reply Message")
-
-    return response
+    return jsonify("SavePie Reply Message")
 
 
 '''
@@ -176,6 +185,7 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     db_path = "guests/" + str(userId) if is_guest else "users/" + str(userId) + "/current"
     db_ref = db.reference().child(db_path)
     db_ref.set({
+        'pieId': str(uuid.uuid4()),
         # save pie column-wise to make ReactJS logic easier to render on client-side
         'pie': pieDf.to_dict(orient='list'),
         # save row-wise as well for other front-end rendering simplification

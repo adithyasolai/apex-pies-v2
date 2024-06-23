@@ -23,7 +23,8 @@ const PieResults = () => {
   const [saveAllowed, setSaveAllowed] = useState(Boolean(currentUser))
   const [saveDone, setSaveDone] = useState(false)
 
-  // holds backend response data
+  // backend response data
+  const pieId = useRef(null);
   const pie = useRef(null);
   const pieRows = useRef(null);
 
@@ -64,6 +65,7 @@ const PieResults = () => {
         const json = await response.json();
 
         // Put all the results from the backend server into our State to be rendered.
+        pieId.current = json.pieId
         pie.current = json.pie
         pieRows.current = json.pieRows
         numStocks.current = json.pie['Beta'].length // just using any of the lists to get the length
@@ -117,6 +119,7 @@ const PieResults = () => {
       },
       body: JSON.stringify({
         uid: uid.current,
+        pieId: pieId.current,
         pie: pie.current,
         pieRows: pieRows.current
       }),
