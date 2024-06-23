@@ -111,7 +111,7 @@ def fetchPies():
     return jsonify(resultDict)
 
 @app.route('/savepie', methods=['POST'])
-def savepie():
+def savePie():
     app.logger.info("Starting /savepie POST Run...")
 
     uid = request.json['uid']
@@ -158,6 +158,34 @@ def savepie():
 
     return jsonify("SavePie Reply Message")
 
+@app.route('/fetchsavedpie', methods=['POST'])
+def fetchSavedPie():
+    app.logger.info("Starting /fetchsavedpie POST Run...")
+
+    uid = request.json['uid']
+    pieNum = request.json['pieNum']
+
+    saved_db_ref = db.reference().child("users/" + uid + "/saved/" + pieNum)
+
+    resultDict = saved_db_ref.get()
+
+    app.logger.info(f"Fetched pie {pieNum} for {uid} from Firebase DB...")
+
+    return jsonify(resultDict)
+
+@app.route('/fetchnumsaved', methods=['POST'])
+def fetchNumSaved():
+    app.logger.info("Starting /fetchsavedpie POST Run...")
+
+    uid = request.json['uid']
+
+    saved_db_ref = db.reference().child("users/" + uid + "/saved/numSaved")
+
+    resultDict = saved_db_ref.get()
+
+    app.logger.info(f"Fetched num pies saved for {uid} from Firebase DB...")
+
+    return jsonify(resultDict)
 
 '''
 Helper methods used by GET/POST Handlers.
