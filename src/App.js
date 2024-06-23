@@ -7,6 +7,8 @@ import Login from "./Login";
 import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
+import PublicOnlyRoute from "./PublicOnlyRoute";
+import FormRouteOnly from "./FormRouteOnly"
 import Profile from "./Profile";
 import ResourcesFaq from "./ResourcesFaq";
 import Signup from "./Signup";
@@ -27,13 +29,13 @@ function App() {
                 <UserForm />
               </Route>
 
-              <Route path="/pieresults">
+              <FormRouteOnly path="/pieresults">
                 <PieResults />
-              </Route>
+              </FormRouteOnly>
 
-              <Route path="/login">
+              <PublicOnlyRoute path="/login">
                 <Login />
-              </Route>
+              </PublicOnlyRoute>
 
               <Route path="/signup">
                 <Signup />
