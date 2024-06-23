@@ -67,15 +67,17 @@ const Profile = () => {
     // TODO: need a bit more top margin because it still looks too close
     <div className="text-center mt-5 bg-primary vh-100">
 
-      {
-        Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
-          return (
-            <div key={i} className="bg-primary">
-              <PiePlot pieNum={i.toString()}/>
-            </div>
-          );
-        })
-      }
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+        {
+          Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
+            return (
+              <div key={i} className="bg-primary">
+                <PiePlot pieNum={i.toString()}/>
+              </div>
+            );
+          })
+        }
+      </div>
 
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default

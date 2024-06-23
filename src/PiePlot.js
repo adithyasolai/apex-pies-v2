@@ -55,7 +55,13 @@ const PiePlot = (props) => {
         var layout = {
           paper_bgcolor: 'rgba(0,0,0,0)', 
           plot_bgcolor: 'rgba(0,0,0,0)',
-          showlegend: false
+          showlegend: false,
+          margin: {
+            l: 25,
+            r: 25,
+            b: 25,
+            t: 25,
+          },
         }
 
         plotConfig.current = {
