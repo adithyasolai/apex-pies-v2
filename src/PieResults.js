@@ -4,6 +4,9 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 import Plot from 'react-plotly.js';
+import { Button } from "react-bootstrap";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
 
 const PieResults = (props) => {
   const { currentUser } = useAuth();
@@ -13,6 +16,9 @@ const PieResults = (props) => {
   const sector = useRef(props.location.state.sector);
 
   const [loading, setLoading] = useState(true);
+  const [saveInProgress, setSaveInProgress] = useState(false)
+  const [saveAllowed, setSaveAllowed] = useState(Boolean(currentUser))
+  const [saveDone, setSaveDone] = useState(false)
 
   // holds backend response data
   const pie = useRef(null);
@@ -28,6 +34,36 @@ const PieResults = (props) => {
 
   // Domain that routes to ELB
   // const flask_endpoint = "https://api.apex-pies.com:5000/fetchpies";
+
+  async function handleSaveToProfile(event) {
+    setSaveInProgress(true)
+
+    event.preventDefault();
+
+    // Send request to backend server to save this Pie so that it can be retrieved
+    // in the Profile page.
+    // Wait for the request to finish.
+    // await fetch(flask_endpoint, {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
+    //     uid: uid,
+    //     email: currentUser ? currentUser["email"] : null,
+    //     age: age,
+    //     risk: risk,
+    //     sector: sector,
+    //     is_guest: currentUser ? false : true
+    //   }),
+    // });
+
+    await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    setSaveInProgress(false)
+    setSaveAllowed(false)
+    setSaveDone(true)
+  }
 
   useEffect(() => {
     async function fetchPieData() {
@@ -115,6 +151,36 @@ const PieResults = (props) => {
         data={plotConfig.current['data']}
         layout={plotConfig.current['layout']}
       />
+
+      <br/>
+
+      <OverlayTrigger
+        placement="right"
+        overlay={
+          <Tooltip {...props}>
+            {/* This hover will only show if saveAllowed=false */}
+            {saveDone ? "Already saved!" : "Log In to save pies!"}
+          </Tooltip>
+        }
+        trigger={saveAllowed ? []: ['hover']}
+      >
+        <div style={{display: 'inline-block'}}>
+          <Button 
+            type="Submit" 
+            variant="secondary"
+            disabled={saveAllowed ? false : true}
+            onClick={handleSaveToProfile}
+            style={{
+              opacity: saveAllowed ? 1 : 0.5,
+              cursor: saveAllowed ? 'pointer' : 'not-allowed',
+            }}
+            >
+            Save To Profile
+          </Button>
+        </div>
+      </OverlayTrigger>
+      
+      <p> {saveInProgress ? "saving..." : ""} </p>
 
       {/* Lists information about each stock in our Pie */}
       {Array.from(Array(numStocks.current), (x, i) => i).map((stockIndex) => {
