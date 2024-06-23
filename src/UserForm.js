@@ -71,16 +71,16 @@ const UserForm = () => {
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
     // the PieResults page has access to the user's selected inputs.
-    history.push({
-      pathname: "/pieresults",
-      state: {
+    history.push("/pieresults",
+      {
         uid: uid,
         email: currentUser ? currentUser["email"] : null,
         age: age,
         risk: risk,
         sector: sector,
+        cameFromUserForm: true
       },
-    });
+    );
   }
 
   // Loading screen that is shown immediately after the user clicks Submit button.

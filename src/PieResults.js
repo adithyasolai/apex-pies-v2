@@ -7,13 +7,16 @@ import Plot from 'react-plotly.js';
 import { Button } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
+import { useLocation } from "react-router-dom";
 
-const PieResults = (props) => {
+const PieResults = () => {
   const { currentUser } = useAuth();
-  const uid = useRef(props.location.state.uid);
-  const age = useRef(props.location.state.age);
-  const risk = useRef(props.location.state.risk);
-  const sector = useRef(props.location.state.sector);
+  const location = useLocation();
+
+  const uid = useRef(null);
+  const age = useRef(null);
+  const risk = useRef(null);
+  const sector = useRef(null);
 
   const [loading, setLoading] = useState(true);
   const [saveInProgress, setSaveInProgress] = useState(false)
@@ -30,47 +33,23 @@ const PieResults = (props) => {
   const plotConfig = useRef(null)
 
   // local dev endpoint
-  const flask_endpoint = "http://127.0.0.1:5000/fetchpies"
+  const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
+  const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
 
   // Domain that routes to ELB
-  // const flask_endpoint = "https://api.apex-pies.com:5000/fetchpies";
-
-  async function handleSaveToProfile(event) {
-    setSaveInProgress(true)
-
-    event.preventDefault();
-
-    // Send request to backend server to save this Pie so that it can be retrieved
-    // in the Profile page.
-    // Wait for the request to finish.
-    // await fetch(flask_endpoint, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
-    //     uid: uid,
-    //     email: currentUser ? currentUser["email"] : null,
-    //     age: age,
-    //     risk: risk,
-    //     sector: sector,
-    //     is_guest: currentUser ? false : true
-    //   }),
-    // });
-
-    await new Promise((resolve) => setTimeout(resolve, 3000));
-
-    setSaveInProgress(false)
-    setSaveAllowed(false)
-    setSaveDone(true)
-  }
+  // const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
 
   useEffect(() => {
+    uid.current = location.state?.uid;
+    age.current = location.state?.age;
+    risk.current = location.state?.risk;
+    sector.current = location.state?.sector;
+
     async function fetchPieData() {
       try {
         // Send request to backend server to fetch the Pie & Plotly information
         // for the current userId. Wait for the request to give a response.
-        const response = await fetch(flask_endpoint, {
+        const response = await fetch(fetchPiesEndpoint, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -124,12 +103,35 @@ const PieResults = (props) => {
     fetchPieData();
   }, []);
 
+  async function handleSaveToProfile(event) {
+    setSaveInProgress(true)
+
+    event.preventDefault();
+
+    // Send request to backend server to save this Pie so that it can be retrieved
+    // in the Profile page. Wait for the request to finish.
+    await fetch(savePiesEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        uid: uid.current,
+        pie: pie.current,
+        pieRows: pieRows.current
+      }),
+    });
+
+    // await new Promise((resolve) => setTimeout(resolve, 3000));
+
+    setSaveInProgress(false)
+    setSaveAllowed(false)
+    setSaveDone(true)
+  }
+
   if (loading) {
     return <h2>loading ...</h2>;
   }
-
-  console.log("Number of stocks", numStocks);
-  console.log(pie)
 
   return (
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
@@ -157,12 +159,12 @@ const PieResults = (props) => {
       <OverlayTrigger
         placement="right"
         overlay={
-          <Tooltip {...props}>
+          <Tooltip >
             {/* This hover will only show if saveAllowed=false */}
             {saveDone ? "Already saved!" : "Log In to save pies!"}
           </Tooltip>
         }
-        trigger={saveAllowed ? []: ['hover']}
+        trigger={saveAllowed ? []: ['focus', 'hover']}
       >
         <div style={{display: 'inline-block'}}>
           <Button 

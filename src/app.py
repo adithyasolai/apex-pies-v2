@@ -98,20 +98,56 @@ def fetchPies():
     uid = request.json['uid']
     is_guest = request.json['is_guest']
 
-    user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
+    db_path = "guests/" + str(uid) if is_guest else "users/" + str(uid) + "/current"
+    db_ref = db.reference().child(db_path)
 
-    result = user_directory_ref.child(uid)
-
-    resultDict = result.get()
-
-    # Append Plotly credentials to API
-    resultDict['username'] = "adithyasolai"
-    resultDict['apiKey'] = "TibH1jVTDgFFrOA1bbE6"
+    resultDict = db_ref.get()
 
     app.logger.info("Result Dict Sent to User: \n" +
                     pprint.pformat(resultDict))
 
     return jsonify(resultDict)
+
+@app.route('/savepie', methods=['POST'])
+def savepie():
+    app.logger.info("Starting /savepie POST Run...")
+
+    uid = request.json['uid']
+    pie = request.json['pie']
+    pieRows = request.json['pieRows']
+
+    saved_db_ref = db.reference().child("users").child(uid).child("saved")
+
+    hasSavedBefore = saved_db_ref.get() is not None
+
+    if hasSavedBefore:
+        saved_dict = saved_db_ref.get()
+
+        saved_dict['numSaved'] += 1
+
+        saved_dict[str(saved_dict['numSaved'])] = {
+            'pie': pie,
+            'pieRows': pieRows
+        }
+
+        saved_db_ref.set(saved_dict)
+
+    else:
+        saved_db_ref.set(
+            {
+                'numSaved': 1,
+                '1': {
+                    'pie': pie,
+                    'pieRows': pieRows
+                }
+            }
+        )
+
+    app.logger.info(f"Saved pie for {uid} to Firebase DB...")
+
+    response = jsonify("SavePie Reply Message")
+
+    return response
 
 
 '''
@@ -137,9 +173,9 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     # app.logger.info(pprint.pformat("New iFrame HTML: \n" + iframe))
 
     # Publish Pie portfolio details to the Firebase DB for this user
-    user_directory_ref = db.reference().child("guests") if is_guest else db.reference().child("users")
-    ref = user_directory_ref.child(userId)
-    ref.set({
+    db_path = "guests/" + str(userId) if is_guest else "users/" + str(userId) + "/current"
+    db_ref = db.reference().child(db_path)
+    db_ref.set({
         # save pie column-wise to make ReactJS logic easier to render on client-side
         'pie': pieDf.to_dict(orient='list'),
         # save row-wise as well for other front-end rendering simplification
