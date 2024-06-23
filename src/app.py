@@ -143,6 +143,8 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     ref.set({
         # save pie column-wise to make ReactJS logic easier to render on client-side
         'pie': pieDf.to_dict(orient='list'),
+        # save row-wise as well for other front-end rendering simplification
+        'pieRows': pieDf.to_dict('records'),
         'avgBeta': pieDf['Beta'].mean(),
         'vizLink': vizLink,
         'iframe': iframe,
@@ -219,6 +221,11 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
     # Each row is information about one stock chosen for the Pie.
     pieDf = pd.DataFrame(columns=stocksDataDf.columns)
 
+    # Ensure all string columns are converted from object dtypes to str dtypes
+    pieDf['Ticker'] = pieDf['Ticker'].astype("string")
+    pieDf['Name'] = pieDf['Name'].astype("string")
+    pieDf['Sector'] = pieDf['Sector'].astype("string")
+
     # Choose a first stock for the portfolio that has a beta close to the target portfolio beta
     # to assist the beta balancing algorithm.
     # Choose the first stock from the user's selected Sector of Interest
@@ -274,15 +281,23 @@ def makePie(userAge, userRiskTolerance, userSectorOfInterest):
     # give equal % weightage to each slice of the pie
     pieDf['Percentage'] = 100 / len(pieDf.index)
 
-    # Ensure all string columns are converted from object dtypes to str dtypes
-    pieDf['Ticker'] = pieDf['Ticker'].astype("string")
-    pieDf['Name'] = pieDf['Name'].astype("string")
-    pieDf['Sector'] = pieDf['Sector'].astype("string")
+    # assign Colors based on sector
+    pieDf['Color'] = pieDf['Sector'].apply(colorMapper)
 
     # sort by sector so that they are grouped on the final pie (it looks nice when colors are applied)
     pieDf = pieDf.sort_values(by='Sector')
 
     return pieDf
+
+def colorMapper(sector):
+    color_mapping = {
+        "Technology": "#ADD8E6",
+        "Health Care": "#F0E6E6",
+        "Banking": "#F08080",
+        "Energy ": "#90EE90"
+    }
+
+    return color_mapping[sector]
 
 def calculateTargetPortfolioBeta(userAge, userRiskTolerance):
     # The Keys are the possible Risk Tolerance levels (1-10) from the user.
