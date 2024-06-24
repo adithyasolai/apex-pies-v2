@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Card, Button, Alert } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 
 const Profile = () => {
