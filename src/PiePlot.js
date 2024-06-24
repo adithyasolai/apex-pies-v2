@@ -8,7 +8,8 @@ const PiePlot = (props) => {
   const uid = useRef(currentUser["uid"])
   const pieNum = useRef(props.pieNum);
 
-  const fetchSavedPieEndpoint = "http://127.0.0.1:5000/fetchsavedpie"
+  // const fetchSavedPieEndpoint = "http://127.0.0.1:5000/fetchsavedpie"
+  const fetchSavedPieEndpoint = "http://api.apex-pies.com:5000/fetchsavedpie"
 
   const pie = useRef(null);
   const pieRows = useRef(null);

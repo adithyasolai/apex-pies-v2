@@ -34,11 +34,12 @@ const PieResults = () => {
   const plotConfig = useRef(null)
 
   // local dev endpoint
-  const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
-  const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
+  // const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
+  // const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
 
   // Domain that routes to ELB
-  // const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
+  const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
+  const savePiesEndpoint = "http://api.apex-pies.com:5000/savepie"
 
   useEffect(() => {
     uid.current = location.state?.uid;

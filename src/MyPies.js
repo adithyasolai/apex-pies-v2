@@ -11,7 +11,8 @@ const MyPies = () => {
 
   const [activePie, setActivePie] = useState(1);
 
-  const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
+  // const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
+  const fetchNumSavedEndpoint = "http://api.apex-pies.com:5000/fetchnumsaved"
 
   useEffect(() => {
     async function fetchPieData() {
