@@ -1,6 +1,6 @@
 import "./App.css";
 import "./styles.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import UserForm from "./UserForm";
 import PieResults from "./PieResults";
 import Login from "./Login";
@@ -13,6 +13,7 @@ import Profile from "./Profile";
 import ResourcesFaq from "./ResourcesFaq";
 import Signup from "./Signup";
 import ApexNavBar from "./ApexNavBar";
+import MyPies from "./MyPies";
 
 function App() {
   return (
@@ -41,6 +42,11 @@ function App() {
                 <Signup />
               </Route>
 
+              {/* Must be signed-in to access mypies page */}
+              <PrivateRoute path="/mypies">
+                <MyPies />
+              </PrivateRoute>
+
               {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
               <PrivateRoute path="/profile">
                 <Profile />
@@ -48,6 +54,11 @@ function App() {
 
               <Route path="/resourcesfaq">
                 <ResourcesFaq />
+              </Route>
+
+              {/* route everything else to UserForm homepage as well */}
+              <Route path="/">
+                <Redirect to="/" />
               </Route>
             </Switch>
 

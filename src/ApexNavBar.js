@@ -33,7 +33,8 @@ const ApexNavBar = () => {
           {/* Navigation Links */}
           <Navbar.Collapse>
           <Nav className="ms-auto">
-            {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Log In</Nav.Link>}
+            {currentUser && <Nav.Link href="/mypies">My Pies</Nav.Link> }
+            {currentUser ? <Nav.Link href="/profile">Profile</Nav.Link> : <Nav.Link href="/login">Log In</Nav.Link> }
             <Nav.Link href="/resourcesfaq">Resources and FAQ</Nav.Link>
           </Nav>
         </Navbar.Collapse>
