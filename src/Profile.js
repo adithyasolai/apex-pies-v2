@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import PiePlot from "./PiePlot";
@@ -12,6 +12,8 @@ const Profile = () => {
 
   const uid = useRef(currentUser["uid"])
   const [numSaved, setNumSaved] = useState(0)
+
+  const [activePie, setActivePie] = useState(1);
 
   const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
 
@@ -63,21 +65,38 @@ const Profile = () => {
     fetchPieData();
   }, []);
 
+  const handleSelect = (selectedIndex, e) => {
+    setActivePie(selectedIndex % numSaved);
+  };
   return (
     // TODO: need a bit more top margin because it still looks too close
     <div className="text-center mt-5 bg-primary vh-100">
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)' }}>
+      <Carousel 
+        activeIndex={activePie}
+        onSelect={handleSelect}
+        data-bs-theme="dark"
+        interval={null}
+        controls={true}
+        fade={false} // use this to toggle slide vs fade animation while testing
+        style={{width: '50%', margin: 'auto'}}
+      >
+
         {
           Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
             return (
-              <div key={i} className="bg-primary">
+              <Carousel.Item key={i} className="mb-5">
                 <PiePlot pieNum={i.toString()}/>
-              </div>
+              </Carousel.Item>
             );
           })
         }
-      </div>
+          
+      </Carousel>
+
+      <p>
+        {activePie+1}
+      </p>
 
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default

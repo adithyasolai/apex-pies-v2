@@ -86,7 +86,15 @@ const PieResults = () => {
         var layout = {
           paper_bgcolor: 'rgba(0,0,0,0)', 
           plot_bgcolor: 'rgba(0,0,0,0)',
-          showlegend: false
+          showlegend: false,
+          width: 500,
+          height: 500,
+          margin: {
+            l: 0,
+            r: 0,
+            b: 20,
+            t: 20,
+          },
         }
 
         plotConfig.current = {
