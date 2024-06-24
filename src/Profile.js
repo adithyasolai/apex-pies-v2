@@ -37,7 +37,7 @@ const Profile = () => {
       */}
       <Card className="bg-primary" style={{border: "none"}}>
         <Card.Body>
-          {currentUser && <h3>Current User: {currentUser["email"]}</h3>}
+          {currentUser && <h3>{currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
           <Link to="/update-profile" className="text-secondary"> Update Profile </Link>
         </Card.Body>
