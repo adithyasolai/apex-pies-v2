@@ -39,7 +39,7 @@ const PieResults = () => {
 
   // Domain that routes to ELB
   const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
-  const savePiesEndpoint = "http://api.apex-pies.com:5000/savepie"
+  const savePiesEndpoint = "https://api.apex-pies.com:5000/savepie"
 
   useEffect(() => {
     uid.current = location.state?.uid;
