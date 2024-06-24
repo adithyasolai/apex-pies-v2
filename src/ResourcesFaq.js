@@ -1,13 +1,24 @@
 import { Component } from "react";
+import { Button } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
 const ResourcesFaq = () => {
   return (
-    <div className="bg-primary vh-100">
+    <div className="bg-primary vh-100 text-center" style={{paddingTop: "75px"}}>
       <h1> Resources/FAQs</h1>
 
+      <br />
+
       <Collapsible
-        trigger="What is Apex Fund?"
+        trigger={
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+          >
+            What is Apex Fund?
+          </Button>
+        }
         triggerClassName="collapsible"
         triggerOpenedClassName="collapsible"
       >
@@ -24,7 +35,15 @@ const ResourcesFaq = () => {
       <br />
 
       <Collapsible
-        trigger="Why is diversification important?"
+        trigger={
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+          >
+            Why is diversification important?
+          </Button>
+        }
         triggerClassName="collapsible"
         triggerOpenedClassName="collapsible"
       >
@@ -41,7 +60,15 @@ const ResourcesFaq = () => {
       <br />
 
       <Collapsible
-        trigger="What makes a stock risky?"
+        trigger={
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+          >
+            What makes a stock risky?
+          </Button>
+        }
         triggerClassName="collapsible"
         triggerOpenedClassName="collapsible"
       >
@@ -59,7 +86,15 @@ const ResourcesFaq = () => {
       <br />
 
       <Collapsible
-        trigger="What is the S&P 500?"
+        trigger={
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+          >
+            What is the S&P 500?
+          </Button>
+        }
         triggerClassName="collapsible"
         triggerOpenedClassName="collapsible"
       >
@@ -75,7 +110,15 @@ const ResourcesFaq = () => {
       <br />
 
       <Collapsible
-        trigger="Resources"
+        trigger={
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+          >
+            Resources
+          </Button>
+        }
         triggerClassName="collapsible"
         triggerOpenedClassName="collapsible"
       >
