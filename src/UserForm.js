@@ -94,64 +94,65 @@ const UserForm = () => {
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
     <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
 
-      <Form onSubmit={handleSubmit} className="bg-primary vh-100">
+      <Form onSubmit={handleSubmit} className="bg-primary">
         {/* Title */}
-        <h1 className="h2 fs-1 text-black mb-4">Apex Portfolio Maker</h1>
+        <h1 className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</h1>
 
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-6 fs-1 text-black mb-4" style={{ width: "100%" }}>
+          <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
             Welcome to Apex Pies! An app for people that are looking to invest in publicly-traded companies, but don’t know where to start.
           </p>
         </div>
 
-        <br />
-
         {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
         {/* Age Slider */}
 
-        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Age</p>
+        <p className="display-6 fs-1 text-secondary fw-bold">Age</p>
 
-        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <Form.Control
-            type="range"
-            min="18"
-            max="75"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-            style={{ width: "100%" }} // Set the width to 100%
-            className="border-dark bg-primary"
-          />
-        </div>
-        <p className="display-6 fs-1 text-black mb-4">{age + " years old"}</p>
+        <Row>
+          <Col md={4}/>
+          <Col md={4}>
+            <Form.Control
+              type="range"
+              min="18"
+              max="75"
+              value={age}
+              onChange={(e) => setAge(e.target.value)}
+              style={{ width: "100%" }} // Set the width to 100%
+              className="border-dark bg-primary"
+            />
+          </Col>
+          <Col md={4}/>
+        </Row>
 
-        <br />
-        <br />
+        <p className="display-6 fs-1 text-black">{age + " years old"}</p>
 
         {/* Risk Tolerance Slider */}
-        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Risk Tolerance</p>
+        <p className="display-6 fs-1 text-secondary fw-bold">Risk Tolerance</p>
 
-        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <Form.Control
-            onChange={(e) => setRisk(e.target.value)}
-            type="range"
-            min="1"
-            max="10"
-            value={risk}
-            style={{ width: "100%" }} // Set the width to 100%
-            className="border-dark bg-primary"
-          />
-        </div>
-        <p className="display-6 fs-1 text-black mb-4">{risk}</p>
+        <Row>
+          <Col md={4}/>
+          <Col md={4}>
+            <Form.Control
+              onChange={(e) => setRisk(e.target.value)}
+              type="range"
+              min="1"
+              max="10"
+              value={risk}
+              style={{ width: "100%" }} // Set the width to 100%
+              className="border-dark bg-primary"
+            />
+          </Col>
+          <Col md={4}/>
+        </Row>
 
-        <br />
+        <p className="display-6 fs-1 text-black">{risk}</p>
 
         {/* Sector of Interest Hoverable Text */}
-        <p className="display-6 fs-1 text-secondary mb-4 fw-bold">Sector of Interest</p>
-
-        <br />
+        <p className="display-6 fs-1 text-secondary fw-bold">Sector of Interest</p>
 
         {/* Display currently-selected sector. */}
-        <p className="display-6 fs-1 text-black mb-4"><strong>{sector}</strong></p>
+        <p className="display-6 fs-1 text-black"><strong>{sector}</strong></p>
 
         {/* Sector of Interest Buttons */}
         <Row className="bg-primary">
@@ -167,7 +168,7 @@ const UserForm = () => {
               // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
               // eslint-disable-next-line
               <Col
-                md={3}
+                md={3} // if adding more sectors, this should be 12 / NUM_SECTORS
                 key={SECTOR_IMAGES[i]} // a React prop used to identify the different images that are rendered dynamically.
               >
                 <Image
@@ -179,7 +180,7 @@ const UserForm = () => {
                     setSector(SECTORS[sectorIndex]);
                   }} // bind gives the click handler function context about what `this` is to access the state.
                   alt="asdf"
-                  style={{ border: borderStyle, borderRadius: "10%", width: "75%" }}
+                  style={{ border: borderStyle, borderRadius: "10%", width: "65%" }}
                   className={`opacity-${opacity}`}
                 />
               </Col>
@@ -188,8 +189,6 @@ const UserForm = () => {
         </Row>
 
         <div className="bg-primary">
-          <br/>
-
           <Button 
             type="Submit" 
             variant="secondary" 

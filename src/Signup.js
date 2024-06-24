@@ -13,7 +13,7 @@ const Signup = () => {
   const { signup, currentUser } = useAuth();
   // default is "" so that we don't have an error by default
   const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false); // just keeping for future if needed.
   const history = useHistory();
 
   async function handleSubmit(e) {

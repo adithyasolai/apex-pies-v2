@@ -1,4 +1,3 @@
-import { Component } from "react";
 import { Button } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
