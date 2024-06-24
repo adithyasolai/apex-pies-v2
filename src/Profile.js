@@ -39,7 +39,6 @@ const Profile = () => {
         <Card.Body>
           {currentUser && <h3>{currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
-          <Link to="/update-profile" className="text-secondary"> Update Profile </Link>
         </Card.Body>
       </Card>
       
