@@ -5,19 +5,12 @@ from flask import request
 
 import pandas as pd
 import random
-
-import yfinance as yf
 import requests
 
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import db
 from html.parser import HTMLParser
-
-import plotly.express as px
-import chart_studio
-import chart_studio.plotly as py2
-import chart_studio.tools as tls
 
 import os
 import pprint
@@ -201,14 +194,6 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     pieDf = makePie(age, risk, sector)
     app.logger.info("New Pie: \n" + pprint.pformat(pieDf))
 
-    # vizLink = makeViz(userId, pieDf)
-    # app.logger.info(pprint.pformat("New Viz Link: \n" + vizLink))
-
-    # Get the HTML code that enables the front-end to directly embed the Pie
-    # Chart from Plotly's servers
-    # iframe = tls.get_embed(vizLink)
-    # app.logger.info(pprint.pformat("New iFrame HTML: \n" + iframe))
-
     # Publish Pie portfolio details to the Firebase DB for this user
     db_path = "guests/" + str(userId) if is_guest else "users/" + str(userId) + "/current"
     db_ref = db.reference().child(db_path)
@@ -221,51 +206,6 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     })
 
     app.logger.info("Published data to Firebase DB...")
-
-# NOTE: THIS HAS ALL BEEN MOVED TO CLIENT-SIDE RENDERING TO AVOID PLOTLY SERVERS
-# Uses the pie portfolio data in pieDf to create a Plotly Pie Chart,
-# and publishes that Pie to Plotly's servers so that it can be fetched by
-# the front-end later.
-def makeViz(userID, pieDf):
-    username = 'adithyasolai'
-    api_key = 'TibH1jVTDgFFrOA1bbE6'
-
-    color_mapping = {
-        "Technology": "#ADD8E6",
-        "Health Care": "#F08080",
-        "Banking": "#F0E6E6",
-        "Energy ": "#90EE90"
-    }
-
-    # Determines which data should be shown on the slices itself, the legend
-    # on the right, and which data should be used for hovertext
-    fig = px.pie(
-        pieDf, 
-        values="Percentage", 
-        names="Ticker",
-        color="Sector",
-        color_discrete_map=color_mapping,
-        hover_data=["Name", "Sector", "Market Cap", "Beta"]
-    )
-
-    # Configure hovertext formatting. Omitting Percentage because that is
-    # shown on the slice itself.
-    fig.update_traces(
-        hovertemplate=' Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}')
-
-    # make plot's background color transparent so that front-end background color can show
-    fig.update_layout(
-        paper_bgcolor='rgba(0,0,0,0)', 
-        plot_bgcolor='rgba(0,0,0,0)',
-        showlegend=False
-    )
-
-    # Publishes this Pie to the Plotly server
-    chart_studio.tools.set_credentials_file(username=username, api_key=api_key)
-    fileName = str(userID) + "-viz"
-    vizLink = py2.plot(fig, filename=fileName, auto_open=False)
-
-    return vizLink
 
 
 '''
