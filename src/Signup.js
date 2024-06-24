@@ -44,8 +44,8 @@ const Signup = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5">
-      <Card style={{border: "none"}}>
+    <div className="text-center mt-5 bg-primary vh-100">
+      <Card style={{border: "none"}} className="bg-primary">
         <Card.Body>
           {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
           {currentUser &&
@@ -55,36 +55,36 @@ const Signup = () => {
           <Form onSubmit={handleSubmit}>
             {/* TODO: Figure out a better way to write this Row/Col stuff in a re-usable way */}
             <Row>
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control className="border-dark" type="email" ref={emailRef} required />
                 </Form.Group>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
 
             <Row className="my-2">
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control className="border-dark" type="password" ref={passwordRef} required />
                 </Form.Group>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
 
             <Row className="my-2">
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Form.Group id="password-confirm">
                   <Form.Label>Password Confirmation</Form.Label>
                   <Form.Control className="border-dark" type="password" ref={passwordConfirmRef} required />
                 </Form.Group>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
 
             <Button className="my-2" type="Submit" variant="secondary">Sign Up</Button>

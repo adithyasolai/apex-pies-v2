@@ -47,8 +47,8 @@ const Login = () => {
           <Form onSubmit={handleSubmit}>
             {/* TODO: Figure out a better way to write this Row/Col stuff in a re-usable way */}
             <Row>
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
                   <Form.Control
@@ -59,12 +59,12 @@ const Login = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
 
             <Row className="mt-4">
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control
@@ -75,17 +75,17 @@ const Login = () => {
                   />
                 </Form.Group>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
 
             <Row className="mt-4">
-              <Col md={3}></Col>
-              <Col md={6}>
+              <Col md={4}></Col>
+              <Col md={4}>
                 <Button className="w-100" type="Submit" variant="secondary">
                   Log In
                 </Button>
               </Col>
-              <Col md={3}></Col>
+              <Col md={4}></Col>
             </Row>
           </Form>
         </Card.Body>

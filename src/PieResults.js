@@ -146,7 +146,7 @@ const PieResults = () => {
 
   return (
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <div className="text-center bg-primary" style={{paddingTop: "75px"}}>
+    <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
       {/* Display fields chosen by user in User Form */}
       <h1>
         Age: {age.current}
@@ -194,17 +194,6 @@ const PieResults = () => {
       </OverlayTrigger>
       
       <p> {saveInProgress ? "saving..." : ""} </p>
-
-      {/* Lists information about each stock in our Pie */}
-      {Array.from(Array(numStocks.current), (x, i) => i).map((stockIndex) => {
-          return (
-            <p key={stockIndex}>
-              Percentage: {pie.current["Percentage"][stockIndex]}% Sector: {pie.current["Sector"][stockIndex]} Ticker: {pie.current["Ticker"][stockIndex]}
-            </p>
-          );
-        })}
-
-      <br />
     </div>
   );
 };
