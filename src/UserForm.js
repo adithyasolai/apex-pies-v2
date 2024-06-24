@@ -83,11 +83,6 @@ const UserForm = () => {
     );
   }
 
-  // Loading screen that is shown immediately after the user clicks Submit button.
-  if (loading) {
-    return <h2 style={{marginTop: "75px"}}>Creating your Pie ...</h2>;
-  }
-
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount
 
@@ -97,9 +92,9 @@ const UserForm = () => {
     // Investigate and fix this.
 
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <div className="text-center bg-primary" style={{paddingTop: "75px"}}>
+    <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
 
-      <Form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit} className="bg-primary vh-100">
         {/* Title */}
         <h1 className="h2 fs-1 text-black mb-4">Apex Portfolio Maker</h1>
 
@@ -159,7 +154,7 @@ const UserForm = () => {
         <p className="display-6 fs-1 text-black mb-4"><strong>{sector}</strong></p>
 
         {/* Sector of Interest Buttons */}
-        <Row>
+        <Row className="bg-primary">
           {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
             const borderStyle =
               i === activeSectorImageIndex
@@ -192,11 +187,20 @@ const UserForm = () => {
           })}
         </Row>
 
-        <br />
+        <div className="bg-primary">
+          <br/>
 
-        <Button type="Submit" variant="secondary" size="lg">
-          Submit
-        </Button>
+          <Button 
+            type="Submit" 
+            variant="secondary" 
+            size="lg"
+            disabled={loading ? true : false}
+          >
+            Submit
+          </Button>
+        </div>
+
+
       </Form>
     </div>
   );

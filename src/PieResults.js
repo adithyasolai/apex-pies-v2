@@ -140,10 +140,6 @@ const PieResults = () => {
     setSaveDone(true)
   }
 
-  if (loading) {
-    return <h2>loading ...</h2>;
-  }
-
   return (
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
     <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
@@ -160,10 +156,15 @@ const PieResults = () => {
       {/* TODO: Make this hover-text */}
       <h3> Overall Beta of Pie: {avgBeta.current} </h3>
 
-      <Plot
-        data={plotConfig.current['data']}
-        layout={plotConfig.current['layout']}
-      />
+      {
+        loading ?
+        <p> loading ... </p> :
+        <Plot
+          data={plotConfig.current['data']}
+          layout={plotConfig.current['layout']}
+        />
+      }
+
 
       <br/>
 
