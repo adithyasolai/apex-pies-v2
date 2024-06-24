@@ -28,7 +28,7 @@ const Profile = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5 bg-primary vh-100">
+    <div className="text-center bg-primary vh-100" style={{paddingTop: "50px"}}>
 
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default

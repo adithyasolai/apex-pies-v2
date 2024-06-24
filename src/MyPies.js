@@ -7,7 +7,7 @@ const MyPies = () => {
   const { currentUser } = useAuth();
 
   const uid = useRef(currentUser["uid"])
-  const [numSaved, setNumSaved] = useState(0)
+  const [numSaved, setNumSaved] = useState(null)
 
   const [activePie, setActivePie] = useState(1);
 
@@ -44,40 +44,61 @@ const MyPies = () => {
     fetchPieData();
   }, []);
 
-  const handleSelect = (selectedIndex, e) => {
-    setActivePie(selectedIndex % numSaved);
-  };
-  return (
-    // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5 bg-primary vh-100">
-
-      <Carousel 
-        activeIndex={activePie}
-        onSelect={handleSelect}
-        data-bs-theme="dark"
-        interval={null}
-        controls={true}
-        fade={false} // use this to toggle slide vs fade animation while testing
-        style={{width: '50%', margin: 'auto'}}
-      >
-
-        {
-          Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
-            return (
-              <Carousel.Item key={i} className="mb-5">
-                <PiePlot pieNum={i.toString()}/>
-              </Carousel.Item>
-            );
-          })
-        }
-          
-      </Carousel>
-
-      <p>
-        {activePie+1}
-      </p>
-    </div>
-  );
+  if (numSaved === null) {
+    return (
+      <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
+          <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
+            loading...
+          </p>
+        </div>
+      </div>
+    )
+  } else if (numSaved === 0) {
+    return (
+      <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
+          <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
+            No pies to display.
+          </p>
+        </div>
+      </div>
+    )
+  } else {
+    const handleSelect = (selectedIndex, e) => {
+      setActivePie(selectedIndex % numSaved);
+    };
+    return (
+      <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+  
+        <Carousel 
+          activeIndex={activePie}
+          onSelect={handleSelect}
+          data-bs-theme="dark"
+          interval={null}
+          controls={true}
+          fade={false} // use this to toggle slide vs fade animation while testing
+          style={{width: '50%', margin: 'auto'}}
+        >
+  
+          {
+            Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
+              return (
+                <Carousel.Item key={i} className="mb-5">
+                  <PiePlot pieNum={i.toString()}/>
+                </Carousel.Item>
+              );
+            })
+          }
+            
+        </Carousel>
+  
+        <p>
+          {activePie+1}
+        </p>
+      </div>
+    );
+  }
 }
 
 export default MyPies;
