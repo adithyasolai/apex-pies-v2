@@ -8,29 +8,6 @@ const ResourcesFaq = () => {
 
       <br />
 
-      <Collapsible
-        trigger={
-          <Button 
-            type="Submit" 
-            variant="secondary" 
-            size="lg"
-          >
-            What is Apex Fund?
-          </Button>
-        }
-        triggerClassName="collapsible"
-        triggerOpenedClassName="collapsible"
-      >
-        <p>
-          {" "}
-          The Apex Fund is a student fund with ~$7.5K in AUM with a focus on
-          high-quality, FCF generative small to mid-cap businesses. We
-          evaluate businesses with fundamental research and derive support
-          from underlying thematic trends, data science models, and market
-          timing strategies to generate and maximize α.
-        </p>
-      </Collapsible>
-
       <br />
 
       <Collapsible
