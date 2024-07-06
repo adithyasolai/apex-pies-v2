@@ -25,7 +25,7 @@
   "scripts": {
     "start": "npm run build && react-scripts start",
     "build-css": "node scripts/build-scss.js",
-    "watch-scss": "node scripts/watch-scss.js",
+    "watch-scss": "node scripts/build-scss.js && node scripts/watch-scss.js",
     "build": "npm run build-css && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

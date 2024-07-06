@@ -3,7 +3,7 @@ import Collapsible from "react-collapsible";
 
 const ResourcesFaq = () => {
   return (
-    <div className="bg-primary vh-100 text-center" style={{paddingTop: "75px"}}>
+    <div className="bg-primary vh-100 text-center navbar-padding-top-extra">
       <h1> Resources/FAQs</h1>
 
       <br />

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Card, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { Card, Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 
 import { useAuth } from "./contexts/AuthContext";
 
@@ -44,7 +44,7 @@ const Signup = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5 bg-primary vh-100">
+    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top">
       <Card style={{border: "none"}} className="bg-primary">
         <Card.Body>
           {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
@@ -94,7 +94,7 @@ const Signup = () => {
       <div className="my-2">
         Already have an account? <Link to="/login" className="text-secondary">Log In.</Link>
       </div>
-    </div>
+    </Container>
   );
 };
 

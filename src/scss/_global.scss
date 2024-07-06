@@ -45,3 +45,11 @@ section {
 .app-badge {
     height: 3rem;
 }
+
+.navbar-padding-top-extra {
+  padding-top: $navbar-height + $navbar-padding-top;
+}
+
+.navbar-padding-top {
+  padding-top: $navbar-height;
+}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import { Carousel } from "react-bootstrap";
+import { Carousel, Container } from "react-bootstrap";
 import PiePlot from "./PiePlot";
 
 const MyPies = () => {
@@ -51,27 +51,27 @@ const MyPies = () => {
   return (
     <>
       {numSaved === null ? (
-        <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
               loading...
             </p>
           </div>
-        </div>
+        </Container>
       ) : numSaved === 0 ? (
-        <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
               No pies to display.
             </p>
           </div>
-        </div>
+        </Container>
       ) : numSaved === 1 ? (
-        <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
           <PiePlot pieNum={numSaved.toString()}/>
-        </div>
+        </Container>
       ) : (
-        <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
   
           <Carousel 
             activeIndex={activePie}
@@ -98,7 +98,7 @@ const MyPies = () => {
           <p>
             {activePie+1}
           </p>
-        </div>
+        </Container>
       )}
     </>
   )

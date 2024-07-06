@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 
-import { Card, Form, Button, Alert, Row, Col } from "react-bootstrap";
+import { Card, Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 
@@ -34,13 +34,12 @@ const Login = () => {
   }
 
   return (
-    // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center mt-5 vh-100 bg-primary">
+    <Container fluid className="text-center vh-100 bg-primary">
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
         Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
       */}
-      <Card className="bg-primary" style={{border: "none"}}>
+      <Card className="bg-primary navbar-padding-top" style={{border: "none"}}>
         <Card.Body>
           {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
           {error && <Alert variant="danger">{error}</Alert>}
@@ -96,7 +95,7 @@ const Login = () => {
       <div className="mt-3">
         Need an account? <Link to="/signup" className="text-secondary">Sign Up.</Link>
       </div>
-    </div>
+    </Container>
   );
 };
 

@@ -3,14 +3,15 @@
 // 
 
 #mainNav {
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    background-color: $white;
+    height: $navbar-height;
 
     .navbar-brand {
         font-family: $alt-font-family;
 
-        &:hover,
+        &:hover {
+            color: $secondary
+        }
+
         &:active {
             color: $primary;
         }
@@ -22,17 +23,13 @@
         color: $gray-900;
     }
 
-    .navbar-nav {
-        .nav-item {
-            .nav-link {
-                color: $gray-900;
-                &:hover {
-                    color: $gray-600;
-                }
-                &.active {
-                    color: $primary;
-                }
-            }
+    .nav-link {
+        color: $gray-900;
+        &:hover {
+            color: $secondary;
+        }
+        &.active {
+            color: $primary;
         }
     }
 }

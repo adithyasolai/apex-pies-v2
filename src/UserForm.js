@@ -11,7 +11,7 @@ import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button, Image } from "react-bootstrap";
+import { Row, Col, Form, Button, Image, Container } from "react-bootstrap";
 
 import uuid from 'react-uuid'
 
@@ -92,7 +92,7 @@ const UserForm = () => {
     // Investigate and fix this.
 
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
 
       <Form onSubmit={handleSubmit} className="bg-primary">
         {/* Title */}
@@ -188,7 +188,7 @@ const UserForm = () => {
           })}
         </Row>
 
-        <div className="bg-primary">
+        <Container fluid className="bg-primary pt-2 pb-4">
           <Button 
             type="Submit" 
             variant="secondary" 
@@ -197,11 +197,11 @@ const UserForm = () => {
           >
             Submit
           </Button>
-        </div>
+        </Container>
 
 
       </Form>
-    </div>
+    </Container>
   );
 };
 

@@ -143,7 +143,7 @@ const PieResults = () => {
 
   return (
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <div className="text-center bg-primary vh-100" style={{paddingTop: "75px"}}>
+    <div className="text-center bg-primary vh-100">
       {/* Display fields chosen by user in User Form */}
       <h1>
         Age: {age.current}

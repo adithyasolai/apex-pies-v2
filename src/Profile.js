@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert, Container } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 
 const Profile = () => {
@@ -28,7 +28,7 @@ const Profile = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <div className="text-center bg-primary vh-100" style={{paddingTop: "50px"}}>
+    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top">
 
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
@@ -46,7 +46,7 @@ const Profile = () => {
           Sign Out
         </Button>
       </div>
-    </div>
+    </Container>
   );
 }
 
