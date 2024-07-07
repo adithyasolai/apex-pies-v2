@@ -9,7 +9,7 @@ const MyPies = () => {
   const uid = useRef(currentUser["uid"])
   const [numSaved, setNumSaved] = useState(null)
 
-  const [activePie, setActivePie] = useState(1);
+  const [activePie, setActivePie] = useState(0);
 
   // const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
   const fetchNumSavedEndpoint = "https://api.apex-pies.com:5000/fetchnumsaved"
@@ -72,30 +72,37 @@ const MyPies = () => {
         </Container>
       ) : (
         <Container fluid className="bg-primary vh-100 navbar-padding-top-extra">
-
-          {/* IDEA! MAKE ANOTHER CAROUSEL IN USERFORM WITH JUST IMAGES, AND SEE IF MOBILE STILL HAS ISSUES */}
           <Row>
+              <Col/>
+              <Col xs={12} md={6}>
               <Carousel 
                 activeIndex={activePie}
                 onSelect={handleSelect}
-                data-bs-theme="dark"
+                data-bs-theme="dark" // makes left/arrows black
                 interval={null} // disables auto-play of carousel
                 controls={true} // making left/right arrows show up
                 fade={false} // use this to toggle slide vs fade animation while testing
-                className="vw-100"
               >
-        
                 {
-                  Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
+                  Array.from(Array(numSaved), (x, i) => i).map((i) => {
                     return (
-                      <Carousel.Item key={i} className="vw-100 text-center">
-                        <PiePlot pieNum={i.toString()} className=""/>                          
+                      <Carousel.Item key={i}>
+                        <Container fluid>
+                          <Row>
+                            <Col/>
+                            <Col xs={12} md={8}>
+                              <PiePlot pieNum={(i+1).toString()} active={activePie === i} />
+                            </Col>
+                            <Col/>
+                          </Row>
+                        </Container>
                       </Carousel.Item>
                     );
                   })
                 }
-                  
               </Carousel>
+              </Col>
+              <Col/>
           </Row>
 
           <Row className="bg-primary text-center">

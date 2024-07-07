@@ -18,79 +18,104 @@ const PiePlot = (props) => {
 
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchPieData() {
-      try {
-        // Send request to backend server to fetch the Pie & Plotly information
-        // for the current userId. Wait for the request to give a response.
-        const response = await fetch(fetchSavedPieEndpoint, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            uid: uid.current,
-            pieNum: pieNum.current
-          }),
-        });
-
-        // need to also wait for data to arrive
-        const json = await response.json();
-
-        // Put all the results from the backend server into our State to be rendered.
-        pie.current = json.pie
-        pieRows.current = json.pieRows
-
-        // construct plot configs as soon as results from backend come
-        var data = [{
-          values: pie.current['Percentage'],
-          labels: pie.current['Ticker'],
-          type: 'pie',
-          customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]), 
-          hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
-          marker: {
-            colors: pie.current['Color']
-          }
-        }]
-
-        var layout = {
-          paper_bgcolor: 'rgba(0,0,0,0)', 
-          plot_bgcolor: 'rgba(0,0,0,0)',
-          showlegend: false,
-          // responsive: true,
-          // useResizeHandler: true,
-          // autosize: true,
-          width: '100%',
-          height: '100%'
-        }
-
-        plotConfig.current = {
-          'data': data,
-          'layout': layout,
-        }
-
-        // Remove the loading screen so that the page can finally be rendered.
-        setLoading(false);
-
-      } catch (err) {
-        console.log(err);
+  const dummyPlotConfig = {
+    'data': [{
+      values: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+      type: 'pie',
+      marker: {
+        colors: new Array(20).fill("#ADD8E6")
       }
+    }],
+    'layout': {
+      paper_bgcolor: 'rgba(0,0,0,0)', 
+      plot_bgcolor: 'rgba(0,0,0,0)',
+      showlegend: false
+    }
+  }
+
+  async function fetchPieData() {
+    try {
+      // Send request to backend server to fetch the Pie & Plotly information
+      // for the current userId. Wait for the request to give a response.
+      const response = await fetch(fetchSavedPieEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uid: uid.current,
+          pieNum: pieNum.current
+        }),
+      });
+
+      // need to also wait for data to arrive
+      const json = await response.json();
+
+      // Put all the results from the backend server into our State to be rendered.
+      pie.current = json.pie
+      pieRows.current = json.pieRows
+
+      // construct plot configs as soon as results from backend come
+      var data = [{
+        values: pie.current['Percentage'],
+        labels: pie.current['Ticker'],
+        type: 'pie',
+        customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]), 
+        hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
+        marker: {
+          colors: pie.current['Color']
+        }
+      }]
+
+      var layout = {
+        paper_bgcolor: 'rgba(0,0,0,0)', 
+        plot_bgcolor: 'rgba(0,0,0,0)',
+        showlegend: false
+      }
+
+      plotConfig.current = {
+        'data': data,
+        'layout': layout
+      }
+
+      // Remove the loading screen so that the page can finally be rendered.
+      setLoading(false);
+
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
+  useEffect(() => {
+    if (!props.active) {
+      return
     }
 
     fetchPieData();
-  }, []);
-
+  }, [props.active]);
 
   if (loading) {
-    return <h2>loading ...</h2>;
+    return <h2 className='text-center pb-5'>loading ...</h2>;
   }
 
   return (
-    <Plot
-      data={plotConfig.current['data']}
-      layout={plotConfig.current['layout']}
-      config={plotConfig.current['config']}
-    />
+    <>
+      { props.active ?
+          <Plot
+            data={plotConfig.current['data']}
+            layout={plotConfig.current['layout']}
+            useResizeHandler={true}
+            style={{width: '100%', height: '100%'}}
+          /> :
+          // TODO: make this look better
+          <Plot
+            data={dummyPlotConfig['data']}
+            layout={dummyPlotConfig['layout']}
+            useResizeHandler={true}
+            style={{width: '100%', height: '100%', opacity: '10%'}}
+          />
+        }
+    </>
   )
 }
 

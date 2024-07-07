@@ -176,9 +176,7 @@ const UserForm = () => {
               {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
                 const borderStyle = "5px solid #95bfd0ff";
                 return (
-                  // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
                   // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-                  // eslint-disable-next-line
                   <Carousel.Item key={SECTOR_IMAGES[i]} className="pb-5">
                     <Container fluid>
                       <Row>
