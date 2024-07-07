@@ -11,9 +11,11 @@ import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button, Image, Container } from "react-bootstrap";
+import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootstrap";
 
 import uuid from 'react-uuid'
+
+import "./App.css";
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
@@ -82,6 +84,11 @@ const UserForm = () => {
       },
     );
   }
+
+  const handleSelect = (selectedIndex, e) => {
+    setActiveSectorImageIndex(selectedIndex % 4);
+    setSector(SECTORS[selectedIndex % 4]);
+  };
 
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount
@@ -154,38 +161,51 @@ const UserForm = () => {
         {/* Display currently-selected sector. */}
         <p className="display-6 fs-1 text-black"><strong>{sector}</strong></p>
 
-        {/* Sector of Interest Buttons */}
-        <Row className="bg-primary">
-          {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
-            const borderStyle =
-              i === activeSectorImageIndex
-                ? "5px solid red"
-                : "5px solid #95bfd0ff";
-
-            const opacity = i === activeSectorImageIndex ? "100" : "50";
-            return (
-              // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
-              // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-              // eslint-disable-next-line
-              <Col
-                md={3} // if adding more sectors, this should be 12 / NUM_SECTORS
-                key={SECTOR_IMAGES[i]} // a React prop used to identify the different images that are rendered dynamically.
-              >
-                <Image
-                  src={SECTOR_IMAGES[i]}
-                  data-index={i} // a React prop that is used to define the `index` value that is used later in onClick below.
-                  onClick={(event) => {
-                    const sectorIndex = +event.target.dataset.index;
-                    setActiveSectorImageIndex(sectorIndex);
-                    setSector(SECTORS[sectorIndex]);
-                  }} // bind gives the click handler function context about what `this` is to access the state.
-                  alt="asdf"
-                  style={{ border: borderStyle, borderRadius: "10%", width: "65%" }}
-                  className={`opacity-${opacity}`}
-                />
-              </Col>
-            );
-          })}
+        {/* Sector of Interest Selection */}
+        <Row>
+          <Col/>
+          <Col xs={12} md={6}>
+            <Carousel
+              activeIndex={activeSectorImageIndex}
+              onSelect={handleSelect}
+              data-bs-theme="dark"
+              interval={null} // disables auto-play of carousel
+              controls={true} // making left/right arrows show up
+              fade={false} // use this to toggle slide vs fade animation while testing
+            >
+              {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
+                const borderStyle = "5px solid #95bfd0ff";
+                return (
+                  // TODO: the below should be a button, and not an image. (so that screen-readers can read it, and it will be more accesible.)
+                  // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
+                  // eslint-disable-next-line
+                  <Carousel.Item key={SECTOR_IMAGES[i]} className="pb-5">
+                    <Container fluid>
+                      <Row>
+                        <Col/>
+                        <Col xs={12} md={6}>
+                          <Image
+                            src={SECTOR_IMAGES[i]}
+                            alt="asdf"
+                            style={{ 
+                              border: borderStyle,
+                              borderRadius: "10%",
+                              // TODO: do with this CSS classes instead
+                              width: "90%",
+                              ...(window.screen.width <= 400 ? { width: "75%" } : {}),
+                            }}
+                            fluid
+                          />
+                        </Col>
+                        <Col/>
+                      </Row>
+                    </Container>
+                  </Carousel.Item>
+                );
+              })}    
+            </Carousel>
+            </Col>
+          <Col/>
         </Row>
 
         <Container fluid className="bg-primary pt-2 pb-4">

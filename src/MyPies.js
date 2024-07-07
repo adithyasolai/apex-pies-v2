@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import { Carousel, Container } from "react-bootstrap";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
 import PiePlot from "./PiePlot";
 
 const MyPies = () => {
@@ -71,33 +71,38 @@ const MyPies = () => {
           <PiePlot pieNum={numSaved.toString()}/>
         </Container>
       ) : (
-        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
-  
-          <Carousel 
-            activeIndex={activePie}
-            onSelect={handleSelect}
-            data-bs-theme="dark"
-            interval={null}
-            controls={true}
-            fade={false} // use this to toggle slide vs fade animation while testing
-            style={{width: '50%', margin: 'auto'}}
-          >
-    
-            {
-              Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
-                return (
-                  <Carousel.Item key={i} className="mb-5">
-                    <PiePlot pieNum={i.toString()}/>
-                  </Carousel.Item>
-                );
-              })
-            }
-              
-          </Carousel>
-    
-          <p>
-            {activePie+1}
-          </p>
+        <Container fluid className="bg-primary vh-100 navbar-padding-top-extra">
+
+          {/* IDEA! MAKE ANOTHER CAROUSEL IN USERFORM WITH JUST IMAGES, AND SEE IF MOBILE STILL HAS ISSUES */}
+          <Row>
+              <Carousel 
+                activeIndex={activePie}
+                onSelect={handleSelect}
+                data-bs-theme="dark"
+                interval={null} // disables auto-play of carousel
+                controls={true} // making left/right arrows show up
+                fade={false} // use this to toggle slide vs fade animation while testing
+                className="vw-100"
+              >
+        
+                {
+                  Array.from(Array(numSaved), (x, i) => i+1).map((i) => {
+                    return (
+                      <Carousel.Item key={i} className="vw-100 text-center">
+                        <PiePlot pieNum={i.toString()} className=""/>                          
+                      </Carousel.Item>
+                    );
+                  })
+                }
+                  
+              </Carousel>
+          </Row>
+
+          <Row className="bg-primary text-center">
+            <p>
+              {activePie+1}
+            </p>
+          </Row>
         </Container>
       )}
     </>

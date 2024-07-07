@@ -50,25 +50,23 @@ const PiePlot = (props) => {
           hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
           marker: {
             colors: pie.current['Color']
-          },
-          automargin: true
+          }
         }]
 
         var layout = {
           paper_bgcolor: 'rgba(0,0,0,0)', 
           plot_bgcolor: 'rgba(0,0,0,0)',
           showlegend: false,
-          margin: {
-            l: 0,
-            r: 0,
-            b: 0,
-            t: 0,
-          },
+          // responsive: true,
+          // useResizeHandler: true,
+          // autosize: true,
+          width: '100%',
+          height: '100%'
         }
 
         plotConfig.current = {
           'data': data,
-          'layout': layout
+          'layout': layout,
         }
 
         // Remove the loading screen so that the page can finally be rendered.
@@ -88,12 +86,11 @@ const PiePlot = (props) => {
   }
 
   return (
-    <div className="text-center" style={{paddingTop: "75px"}}>
-      <Plot
-        data={plotConfig.current['data']}
-        layout={plotConfig.current['layout']}
-      />
-    </div>
+    <Plot
+      data={plotConfig.current['data']}
+      layout={plotConfig.current['layout']}
+      config={plotConfig.current['config']}
+    />
   )
 }
 
