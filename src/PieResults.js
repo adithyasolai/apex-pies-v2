@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 import Plot from 'react-plotly.js';
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useLocation } from "react-router-dom";
@@ -142,8 +142,7 @@ const PieResults = () => {
   }
 
   return (
-    // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <div className="text-center bg-primary vh-100">
+    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
       {/* Display fields chosen by user in User Form */}
       <h1>
         Age: {age.current}
@@ -196,7 +195,7 @@ const PieResults = () => {
       </OverlayTrigger>
       
       <p> {saveInProgress ? "saving..." : ""} </p>
-    </div>
+    </Container>
   );
 };
 

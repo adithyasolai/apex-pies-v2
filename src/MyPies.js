@@ -34,7 +34,7 @@ const MyPies = () => {
 
         // Put all the results from the backend server into our State to be rendered.
         // TODO: figure out better logic than a flat 4 limit
-        setNumSaved( Math.min(numSavedResponse, 4) )
+        setNumSaved( numSavedResponse )
 
       } catch (err) {
         console.log(err);
@@ -84,14 +84,14 @@ const MyPies = () => {
                 fade={false} // use this to toggle slide vs fade animation while testing
               >
                 {
-                  Array.from(Array(numSaved), (x, i) => i).map((i) => {
+                  Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map((i) => {
                     return (
                       <Carousel.Item key={i}>
                         <Container fluid>
                           <Row>
                             <Col/>
                             <Col xs={12} md={8}>
-                              <PiePlot pieNum={(i+1).toString()} active={activePie === i} />
+                              <PiePlot pieNum={(numSaved-i).toString()} active={activePie === i} />
                             </Col>
                             <Col/>
                           </Row>
