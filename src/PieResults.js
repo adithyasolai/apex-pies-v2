@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 import Plot from 'react-plotly.js';
-import { Button, Container } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useLocation } from "react-router-dom";
@@ -87,15 +87,7 @@ const PieResults = () => {
         var layout = {
           paper_bgcolor: 'rgba(0,0,0,0)', 
           plot_bgcolor: 'rgba(0,0,0,0)',
-          showlegend: false,
-          width: 500,
-          height: 500,
-          margin: {
-            l: 0,
-            r: 0,
-            b: 20,
-            t: 20,
-          },
+          showlegend: false
         }
 
         plotConfig.current = {
@@ -143,58 +135,78 @@ const PieResults = () => {
 
   return (
     <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
-      {/* Display fields chosen by user in User Form */}
-      <h1>
-        Age: {age.current}
-        <br />
-        Risk: {risk.current}
-        <br />
-        Sector: {sector.current}
-      </h1>
+      <Row className="bg-primary">
+        {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+        <Col md={4}/>
+        <Col md={4}>
+          {/* Display fields chosen by user in User Form */}
+          <h1>
+            Age: {age.current}
+            <br />
+            Risk: {risk.current}
+            <br />
+            Sector: {sector.current}
+          </h1>
 
-      {/* Beta */}
-      {/* TODO: Make this hover-text */}
-      <h3> Overall Beta of Pie: {avgBeta.current} </h3>
+          {/* Beta */}
+          {/* TODO: Make this hover-text */}
+          <h3> Overall Beta of Pie: {avgBeta.current} </h3>
+        </Col>
+        <Col md={4}/>
+      </Row>
 
       {
         loading ?
         <p> loading ... </p> :
-        <Plot
-          data={plotConfig.current['data']}
-          layout={plotConfig.current['layout']}
-        />
+        <Row className="bg-primary">
+          <Col className="bg-primary"/>
+          <Col xs={12} md={8}>
+          <Plot
+            data={plotConfig.current['data']}
+            layout={plotConfig.current['layout']}
+            useResizeHandler={true}
+            style={{width: '100%', height: '100%'}}
+          />
+          </Col>
+          <Col className="bg-primary"/>
+        </Row>
       }
 
-
-      <br/>
-
-      <OverlayTrigger
-        placement="right"
-        overlay={
-          <Tooltip >
-            {/* This hover will only show if saveAllowed=false */}
-            {saveDone ? "Already saved!" : "Log In to save pies!"}
-          </Tooltip>
-        }
-        trigger={saveAllowed ? []: ['focus', 'hover']}
-      >
-        <div style={{display: 'inline-block'}}>
-          <Button 
-            type="Submit" 
-            variant="secondary"
-            disabled={saveAllowed ? false : true}
-            onClick={handleSaveToProfile}
-            style={{
-              opacity: saveAllowed ? 1 : 0.5,
-              cursor: saveAllowed ? 'pointer' : 'not-allowed',
-            }}
-            >
-            Save To Profile
-          </Button>
-        </div>
-      </OverlayTrigger>
-      
-      <p> {saveInProgress ? "saving..." : ""} </p>
+      <Row className="bg-primary">
+        {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+        <Col md={4}/>
+        <Col md={4}>
+          <OverlayTrigger
+            placement="right"
+            overlay={
+              <Tooltip >
+                {/* This hover will only show if saveAllowed=false */}
+                {saveDone ? "Already saved!" : "Log In to save pies!"}
+              </Tooltip>
+            }
+            trigger={saveAllowed ? []: ['focus', 'hover']}
+            className="bg-primary"
+          >
+            <div style={{display: 'inline-block'}} className="bg-primary">
+              <Button 
+                type="Submit" 
+                variant="secondary"
+                disabled={saveAllowed ? false : true}
+                onClick={handleSaveToProfile}
+                style={{
+                  opacity: saveAllowed ? 1 : 0.5,
+                  cursor: saveAllowed ? 'pointer' : 'not-allowed',
+                }}
+                >
+                Save To Profile
+              </Button>
+            </div>
+          </OverlayTrigger>
+          
+          <p className="bg-primary"> {saveInProgress ? "saving..." : ""} </p>
+        </Col>
+        <Col md={4}/>
+      </Row>
     </Container>
   );
 };

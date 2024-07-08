@@ -102,69 +102,62 @@ const UserForm = () => {
     <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
 
       <Form onSubmit={handleSubmit} className="bg-primary">
-        {/* Title */}
-        <h1 className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</h1>
-
-        <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
-            Welcome to Apex Pies! An app for people that are looking to invest in publicly-traded companies, but don’t know where to start.
-          </p>
-        </div>
-
-        {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-        {/* Age Slider */}
-
-        <p className="display-6 fs-1 text-secondary fw-bold">Age</p>
-
-        <Row>
+        <Row className="bg-primary">
+          {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
           <Col md={4}/>
           <Col md={4}>
+            {/* Title */}
+            <h1 className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</h1>
+
+            <p className="display-6 fs-2 text-black">
+              Welcome to Apex Pies! An app for people that are looking to invest in publicly-traded companies, but don’t know where to start.
+            </p>
+
+            <p className="display-6 fs-1 text-secondary fw-bold">Age</p>
+
+            {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
+            {/* Age Slider */}
             <Form.Control
               type="range"
               min="18"
               max="75"
               value={age}
               onChange={(e) => setAge(e.target.value)}
-              style={{ width: "100%" }} // Set the width to 100%
+              // need bg-primary here to make slider bg color match overall bg color
               className="border-dark bg-primary"
             />
-          </Col>
-          <Col md={4}/>
-        </Row>
 
-        <p className="display-6 fs-1 text-black">{age + " years old"}</p>
+            <p className="display-6 fs-1 text-black">{age + " years old"}</p>
 
-        {/* Risk Tolerance Slider */}
-        <p className="display-6 fs-1 text-secondary fw-bold">Risk Tolerance</p>
+            {/* Risk Tolerance Slider */}
+            <p className="display-6 fs-1 text-secondary fw-bold">Risk Tolerance</p>
 
-        <Row>
-          <Col md={4}/>
-          <Col md={4}>
             <Form.Control
               onChange={(e) => setRisk(e.target.value)}
               type="range"
               min="1"
               max="10"
               value={risk}
-              style={{ width: "100%" }} // Set the width to 100%
               className="border-dark bg-primary"
             />
+
+            <p className="display-6 fs-1 text-black">{risk}</p>
+
+            {/* Sector of Interest Hoverable Text */}
+            <p className="display-6 fs-1 text-secondary fw-bold">Sector of Interest</p>
+
+            {/* Display currently-selected sector. */}
+            <p className="display-6 fs-1 text-black"><strong>{sector}</strong></p>
+
           </Col>
           <Col md={4}/>
         </Row>
 
-        <p className="display-6 fs-1 text-black">{risk}</p>
-
-        {/* Sector of Interest Hoverable Text */}
-        <p className="display-6 fs-1 text-secondary fw-bold">Sector of Interest</p>
-
-        {/* Display currently-selected sector. */}
-        <p className="display-6 fs-1 text-black"><strong>{sector}</strong></p>
-
         {/* Sector of Interest Selection */}
-        <Row>
+        <Row className="bg-primary">
+          {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
           <Col/>
-          <Col xs={12} md={6}>
+          <Col xs={12} md={4}>
             <Carousel
               activeIndex={activeSectorImageIndex}
               onSelect={handleSelect}
@@ -172,12 +165,13 @@ const UserForm = () => {
               interval={null} // disables auto-play of carousel
               controls={true} // making left/right arrows show up
               fade={false} // use this to toggle slide vs fade animation while testing
+              className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
             >
               {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
                 const borderStyle = "5px solid #95bfd0ff";
                 return (
                   // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-                  <Carousel.Item key={SECTOR_IMAGES[i]} className="pb-5">
+                  <Carousel.Item key={SECTOR_IMAGES[i]}>
                     <Container fluid>
                       <Row>
                         <Col/>
@@ -189,8 +183,7 @@ const UserForm = () => {
                               border: borderStyle,
                               borderRadius: "10%",
                               // TODO: do with this CSS classes instead
-                              width: "90%",
-                              ...(window.screen.width <= 400 ? { width: "75%" } : {}),
+                              width: window.screen.width <= 400 ? "75%" : "90%",
                             }}
                             fluid
                           />
@@ -202,20 +195,22 @@ const UserForm = () => {
                 );
               })}    
             </Carousel>
-            </Col>
+
+            {/* Container wrapper creates some space below button for visual appeal */}
+            <Container fluid className="pb-2">
+              <Button 
+                type="Submit" 
+                variant="secondary" 
+                size="lg"
+                disabled={loading ? true : false}
+              >
+                Submit
+              </Button>
+            </Container>
+
+          </Col>
           <Col/>
         </Row>
-
-        <Container fluid className="bg-primary pt-2 pb-4">
-          <Button 
-            type="Submit" 
-            variant="secondary" 
-            size="lg"
-            disabled={loading ? true : false}
-          >
-            Submit
-          </Button>
-        </Container>
 
 
       </Form>
