@@ -11,8 +11,8 @@ const MyPies = () => {
 
   const [activePie, setActivePie] = useState(0);
 
-  // const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
-  const fetchNumSavedEndpoint = "https://api.apex-pies.com:5000/fetchnumsaved"
+  const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
+  // const fetchNumSavedEndpoint = "https://api.apex-pies.com:5000/fetchnumsaved"
 
   useEffect(() => {
     async function fetchPieData() {
@@ -68,7 +68,13 @@ const MyPies = () => {
         </Container>
       ) : numSaved === 1 ? (
         <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
-          <PiePlot pieNum={numSaved.toString()}/>
+          <Row>
+              <Col/>
+              <Col xs={12} md={6}>
+                <PiePlot pieNum={numSaved.toString()} active={true}/>
+              </Col>
+              <Col/>
+          </Row>
         </Container>
       ) : (
         <Container fluid className="bg-primary vh-100 navbar-padding-top-extra">

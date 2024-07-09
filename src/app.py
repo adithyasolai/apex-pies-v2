@@ -108,9 +108,14 @@ def savePie():
     app.logger.info("Starting /savepie POST Run...")
 
     uid = request.json['uid']
-    pieId = request.json['pieId']
-    pie = request.json['pie']
-    pieRows = request.json['pieRows']
+
+    current_pie_dict = db.reference().child("users").child(uid).child("current").get()
+    pieId = current_pie_dict['pieId']
+    pie = current_pie_dict['pie']
+    pieRows = current_pie_dict['pieRows']
+    age = current_pie_dict['age']
+    risk = current_pie_dict['risk']
+    primary_sector = current_pie_dict['primarySector']
 
     saved_db_ref = db.reference().child("users").child(uid).child("saved")
 
@@ -130,7 +135,10 @@ def savePie():
 
         saved_dict[str(saved_dict['numSaved'])] = {
             'pie': pie,
-            'pieRows': pieRows
+            'pieRows': pieRows,
+            'age': age,
+            'risk': risk,
+            'primarySector': primary_sector
         }
 
         saved_db_ref.set(saved_dict)
@@ -142,7 +150,10 @@ def savePie():
                 'pieIds': {pieId: 'present'},
                 '1': {
                     'pie': pie,
-                    'pieRows': pieRows
+                    'pieRows': pieRows,
+                    'age': age,
+                    'risk': risk,
+                    'primarySector': primary_sector
                 }
             }
         )
@@ -176,6 +187,9 @@ def fetchNumSaved():
 
     resultDict = saved_db_ref.get()
 
+    if resultDict is None:
+        return jsonify(0)
+
     app.logger.info(f"Fetched num pies saved for {uid} from Firebase DB...")
 
     return jsonify(resultDict)
@@ -203,6 +217,10 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
         'pie': pieDf.to_dict(orient='list'),
         # save row-wise as well for other front-end rendering simplification
         'pieRows': pieDf.to_dict('records'),
+        # save info about user input that influenced the creation of this pie
+        'age': age,
+        'risk': risk,
+        'primarySector': sector
     })
 
     app.logger.info("Published data to Firebase DB...")

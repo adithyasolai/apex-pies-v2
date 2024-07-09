@@ -38,12 +38,12 @@ const PieResults = () => {
   const tableRows = useRef([])
 
   // local dev endpoint
-  // const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
-  // const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
+  const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
+  const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
 
   // Domain that routes to ELB
-  const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
-  const savePiesEndpoint = "https://api.apex-pies.com:5000/savepie"
+  // const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
+  // const savePiesEndpoint = "https://api.apex-pies.com:5000/savepie"
 
   useEffect(() => {
     uid.current = location.state?.uid;
@@ -132,10 +132,7 @@ const PieResults = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uid: uid.current,
-        pieId: pieId.current,
-        pie: pie.current,
-        pieRows: pieRows.current
+        uid: uid.current
       }),
     });
 
