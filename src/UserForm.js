@@ -107,7 +107,7 @@ const UserForm = () => {
           <Col md={4}/>
           <Col md={4}>
             {/* Title */}
-            <h1 className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</h1>
+            <p className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</p>
 
             <p className="display-6 fs-2 text-black">
               Welcome to Apex Pies! An app for people that are looking to invest in publicly-traded companies, but don’t know where to start.

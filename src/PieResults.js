@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 
 import Plot from 'react-plotly.js';
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Col, Container, Row, Table } from "react-bootstrap";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useLocation } from "react-router-dom";
@@ -32,6 +32,10 @@ const PieResults = () => {
   const numStocks = useRef(0)
   const avgBeta = useRef(0)
   const plotConfig = useRef(null)
+
+  // stock data table fields
+  const tableHeadings = ["Sector", "Name", "Ticker", "%"];
+  const tableRows = useRef([])
 
   // local dev endpoint
   // const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
@@ -71,6 +75,15 @@ const PieResults = () => {
         pieRows.current = json.pieRows
         numStocks.current = json.pie['Beta'].length // just using any of the lists to get the length
         avgBeta.current = (Math.round(json.pie['Beta'].reduce((acc, current) => acc + current, 0) / numStocks.current * 100) / 100).toFixed(2)
+
+        // construct table row data
+        tableRows.current = pieRows.current.map((dict) => {
+          const { Sector, Name, Ticker, Percentage } = dict; // Destructure desired fields
+          const percentageString = `${Percentage}%`; // Concatenate '%'
+          return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
+        });
+
+        console.log(pieRows.current)
 
         // construct plot configs as soon as results from backend come
         var data = [{
@@ -140,17 +153,17 @@ const PieResults = () => {
         <Col md={4}/>
         <Col md={4}>
           {/* Display fields chosen by user in User Form */}
-          <h1>
+          <p className="h2">
             Age: {age.current}
             <br />
             Risk: {risk.current}
             <br />
             Sector: {sector.current}
-          </h1>
+          </p>
 
           {/* Beta */}
           {/* TODO: Make this hover-text */}
-          <h3> Overall Beta of Pie: {avgBeta.current} </h3>
+          <p className="h3"> Overall Beta of Pie: {avgBeta.current} </p>
         </Col>
         <Col md={4}/>
       </Row>
@@ -206,6 +219,33 @@ const PieResults = () => {
           <p className="bg-primary"> {saveInProgress ? "saving..." : ""} </p>
         </Col>
         <Col md={4}/>
+      </Row>
+
+      <Row className="bg-primary">
+        {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+        <Col/>
+        <Col xs={12} md={6}>
+          <Table striped bordered hover responsive>
+              <thead>
+                <tr>
+                  {tableHeadings.map((heading, index) => (
+                    <th key={index}>{heading}</th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {tableRows.current.map((row, rowIndex) => (
+                  <tr key={rowIndex}>
+                    {Object.keys(row).map((key, colIndex) => (
+                      <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+        </Col>
+        <Col/>
+
       </Row>
     </Container>
   );
