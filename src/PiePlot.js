@@ -92,7 +92,7 @@ const PiePlot = (props) => {
     }
 
     fetchPieData();
-  }, [props.active]);
+  }, [props.active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
 
   if (loading) {
     return <h2 className='text-center pb-5'>loading ...</h2>;

@@ -11,6 +11,10 @@ const MyPies = () => {
 
   const [activePie, setActivePie] = useState(0);
 
+  // stock data table fields
+  const tableHeadings = ["Sector", "Name", "Ticker", "%"];
+  const tableRows = useRef([])
+
   const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
   // const fetchNumSavedEndpoint = "https://api.apex-pies.com:5000/fetchnumsaved"
 
@@ -97,6 +101,8 @@ const MyPies = () => {
                           <Row>
                             <Col/>
                             <Col xs={12} md={8}>
+                              {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
+                              {/* It works because the PieNums in the backend start at 1, not 0. */}
                               <PiePlot pieNum={(numSaved-i).toString()} active={activePie === i} />
                             </Col>
                             <Col/>
