@@ -15,6 +15,8 @@ import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootst
 
 import uuid from 'react-uuid'
 
+import apiEndpoints from "./api-endpoints.json";
+
 import "./App.css";
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
@@ -30,11 +32,8 @@ const UserForm = () => {
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
-  // local dev endpoint
-  // const flask_endpoint = "http://127.0.0.1:5000/"
-
   // Domain that routes to ELB
-  const flask_endpoint = "https://api.apex-pies.com:5000/";
+  const makePieEndpoint = apiEndpoints["makePieEndpoint"];
 
   // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
   // A loading screen should show in the front-end immediately after the Submit button is clicked.
@@ -55,7 +54,7 @@ const UserForm = () => {
     // Send request to backend server to calculate a diversified Pie
     // for the user's selected inputs (age, risk tolerance, and sector).
     // Wait for the request to finish.
-    await fetch(flask_endpoint, {
+    await fetch(makePieEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

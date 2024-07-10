@@ -3,6 +3,8 @@ import { useAuth } from "./contexts/AuthContext";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import PiePlot from "./PiePlot";
 
+import apiEndpoints from "./api-endpoints.json";
+
 const MyPies = () => {
   const { currentUser } = useAuth();
 
@@ -15,8 +17,7 @@ const MyPies = () => {
   const tableHeadings = ["Sector", "Name", "Ticker", "%"];
   const tableRows = useRef([])
 
-  const fetchNumSavedEndpoint = "http://127.0.0.1:5000/fetchnumsaved"
-  // const fetchNumSavedEndpoint = "https://api.apex-pies.com:5000/fetchnumsaved"
+  const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"]
 
   useEffect(() => {
     async function fetchPieData() {

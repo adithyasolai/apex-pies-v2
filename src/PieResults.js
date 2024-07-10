@@ -9,6 +9,8 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useLocation } from "react-router-dom";
 
+import apiEndpoints from "./api-endpoints.json";
+
 const PieResults = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
@@ -37,13 +39,9 @@ const PieResults = () => {
   const tableHeadings = ["Sector", "Name", "Ticker", "%"];
   const tableRows = useRef([])
 
-  // local dev endpoint
-  // const fetchPiesEndpoint = "http://127.0.0.1:5000/fetchpies"
-  // const savePiesEndpoint = "http://127.0.0.1:5000/savepie"
-
   // Domain that routes to ELB
-  const fetchPiesEndpoint = "https://api.apex-pies.com:5000/fetchpies";
-  const savePiesEndpoint = "https://api.apex-pies.com:5000/savepie"
+  const fetchPiesEndpoint = apiEndpoints["fetchPiesEndpoint"]
+  const savePiesEndpoint = apiEndpoints["savePiesEndpoint"]
 
   useEffect(() => {
     uid.current = location.state?.uid;
