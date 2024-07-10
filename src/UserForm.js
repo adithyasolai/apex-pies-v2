@@ -16,6 +16,7 @@ import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootst
 import uuid from 'react-uuid'
 
 import apiEndpoints from "./api-endpoints.json";
+// import apiEndpoints from "./api-endpoints-dev.json";
 
 import "./App.css";
 
