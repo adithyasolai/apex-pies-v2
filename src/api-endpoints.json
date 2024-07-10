@@ -2,5 +2,6 @@
   "makePieEndpoint": "https://api.apex-pies.com:5000/",
   "fetchNumSavedEndpoint": "https://api.apex-pies.com:5000/fetchnumsaved",
   "fetchPiesEndpoint": "https://api.apex-pies.com:5000/fetchpies",
-  "savePiesEndpoint": "https://api.apex-pies.com:5000/savepie"
+  "savePiesEndpoint": "https://api.apex-pies.com:5000/savepie",
+  "fetchSavedPieEndpoint": "https://api.apex-pies.com:5000/fetchsavedpie"
 }

@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef} from 'react';
 import { useAuth } from "./contexts/AuthContext";
 
+import apiEndpoints from "./api-endpoints.json";
+
 import Plot from 'react-plotly.js';
 
 const PiePlot = (props) => {
@@ -8,8 +10,7 @@ const PiePlot = (props) => {
   const uid = useRef(currentUser["uid"])
   const pieNum = useRef(props.pieNum);
 
-  // const fetchSavedPieEndpoint = "http://127.0.0.1:5000/fetchsavedpie"
-  const fetchSavedPieEndpoint = "https://api.apex-pies.com:5000/fetchsavedpie"
+  const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"]
 
   const pie = useRef(null);
   const pieRows = useRef(null);
