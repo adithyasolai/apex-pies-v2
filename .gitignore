@@ -11,6 +11,9 @@
 # testing
 /coverage
 
+# backend endpoints so that localhost is never pushed to prod frontend
+/src/api-endpoints.json
+
 # production
 /build
 
