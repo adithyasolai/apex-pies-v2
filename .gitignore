@@ -12,7 +12,7 @@
 /coverage
 
 # backend endpoints so that localhost is never pushed to prod frontend
-/src/api-endpoints.json
+/src/api-endpoints-dev.json
 
 # production
 /build

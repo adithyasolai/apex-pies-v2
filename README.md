@@ -14,7 +14,7 @@
 - Run `flask run` from `/src` project directory.
 - For Debug mode, run `flask run --debug` uncommented.
 
-### Starting Flask Server via Docker Locally (Dev)
+### Starting Flask Server via Docker Locally (Dev) (Recommended)
 - Run `docker build -t apex-dev .`
 - Run `docker run -p 5000:5000 apex-dev` (this will automatically be in Debug mode)
 
@@ -26,3 +26,6 @@
 
 ### Triggering new deploy of backend via ECS
 - After pushing the Docker Image to ECR with steps above, run this: `aws --region us-east-1 ecs update-service --cluster apex-dev --service apex --force-new-deployment`
+
+### Other Dev Workflow Tips
+- Make a copy of src/api-endpoints.json and rename it 'api-endpoints-dev.json' (which is already gitignore'd so that it won't show up in commits). Change the endpoints to localhost in the `-dev.json` version of the file to avoid pushing localhost endpoints to the prod frontend server.
