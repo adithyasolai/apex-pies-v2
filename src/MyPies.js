@@ -13,6 +13,10 @@ const MyPies = () => {
   const [numSaved, setNumSaved] = useState(null)
   const numSavedRef = useRef(null)
 
+  const age = useRef(null);
+  const risk = useRef(null);
+  const sector = useRef(null);
+
   const [activePie, setActivePie] = useState(0);
 
   // backend response data
@@ -77,6 +81,9 @@ const MyPies = () => {
       // Put all the results from the backend server into our State to be rendered.
       pie.current = json.pie
       pieRows.current = json.pieRows
+      age.current = json.age;
+      risk.current = json.risk;
+      sector.current = json.primarySector;
 
       // construct table row data
       setTableRows(pieRows.current.map((dict) => {
@@ -131,9 +138,51 @@ const MyPies = () => {
               </Col>
               <Col/>
           </Row>
+
+          <Row className="bg-primary text-center">
+            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+            <Col md={4}/>
+            <Col md={4}>
+              {/* Display fields chosen by user in User Form */}
+              <p className="h2">
+                Age: {age.current}
+                <br />
+                Risk: {risk.current}
+                <br />
+                Sector: {sector.current}
+              </p>
+            </Col>
+            <Col md={4}/>
+          </Row>
+
+          <Row className="bg-primary">
+            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+            <Col/>
+            <Col xs={12} md={6}>
+              <Table striped bordered hover responsive>
+                  <thead>
+                    <tr>
+                      {tableHeadings.map((heading, index) => (
+                        <th key={index}>{heading}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {tableRows.map((row, rowIndex) => (
+                      <tr key={rowIndex}>
+                        {Object.keys(row).map((key, colIndex) => (
+                          <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+            </Col>
+            <Col/>
+          </Row>
         </Container>
       ) : (
-        <Container fluid className="bg-primary vh-100 navbar-padding-top-extra">
+        <Container fluid className="bg-primary vh-100 navbar-padding-top">
           <Row>
               <Col/>
               <Col xs={12} md={6}>
@@ -173,6 +222,22 @@ const MyPies = () => {
             <p>
               {activePie+1}
             </p>
+          </Row>
+
+          <Row className="bg-primary text-center">
+            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+            <Col md={4}/>
+            <Col md={4}>
+              {/* Display fields chosen by user in User Form */}
+              <p className="h2">
+                Age: {age.current}
+                <br />
+                Risk: {risk.current}
+                <br />
+                Sector: {sector.current}
+              </p>
+            </Col>
+            <Col md={4}/>
           </Row>
 
           <Row className="bg-primary">
