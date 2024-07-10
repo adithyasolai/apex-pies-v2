@@ -82,8 +82,6 @@ const PieResults = () => {
           return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
         });
 
-        console.log(pieRows.current)
-
         // construct plot configs as soon as results from backend come
         var data = [{
           values: pie.current['Percentage'],
@@ -241,7 +239,6 @@ const PieResults = () => {
             </Table>
         </Col>
         <Col/>
-
       </Row>
     </Container>
   );
