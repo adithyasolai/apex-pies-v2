@@ -20,18 +20,33 @@ const PiePlot = (props) => {
 
   const [loading, setLoading] = useState(true);
 
+  // const dummyPlotConfig = {
+  //   'data': [{
+  //     values: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+  //     type: 'pie',
+  //     marker: {
+  //       colors: new Array(20).fill("#ADD8E6")
+  //     }
+  //   }],
+  //   'layout': {
+  //     paper_bgcolor: 'rgba(0,0,0,0)', 
+  //     plot_bgcolor: 'rgba(0,0,0,0)',
+  //     showlegend: false
+  //   }
+  // }
+
   const dummyPlotConfig = {
     'data': [{
-      values: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
+      values: [25,25,25,25],
+      labels: ["Banking", "Energy", "Health Care", "Technology"],
       type: 'pie',
       marker: {
-        colors: new Array(20).fill("#ADD8E6")
+        colors: new Array(4).fill("#ADD8E6")
       }
     }],
     'layout': {
       paper_bgcolor: 'rgba(0,0,0,0)', 
       plot_bgcolor: 'rgba(0,0,0,0)',
-      showlegend: false
     }
   }
 
