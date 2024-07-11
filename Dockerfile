@@ -12,7 +12,6 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 # copy just the flask stuff into the Docker directory
 COPY src/app.py .
-# COPY src/apex-pies.json .
 COPY src/resources/ ./resources/
 
 # Expose port 5000 to allow external connections to the Flask app
