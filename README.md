@@ -20,9 +20,9 @@
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`
-- `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 212840871911.dkr.ecr.us-east-1.amazonaws.com`
-- `docker tag apex:latest 212840871911.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
-- `docker push 212840871911.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
+- `aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <account-id>.dkr.ecr.us-east-1.amazonaws.com`
+- `docker tag apex:latest <account-id>.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
+- `docker push <account-id>.dkr.ecr.us-east-1.amazonaws.com/apex:latest`
 
 ### Triggering new deploy of backend via ECS
 - After pushing the Docker Image to ECR with steps above, run this: `aws --region us-east-1 ecs update-service --cluster apex-dev --service apex --force-new-deployment`
