@@ -29,3 +29,6 @@
 
 ### Other Dev Workflow Tips
 - Make a copy of src/api-endpoints.json and rename it 'api-endpoints-dev.json' (which is already gitignore'd so that it won't show up in commits). Change the endpoints to localhost in the `-dev.json` version of the file to avoid pushing localhost endpoints to the prod frontend server.
+
+### Updating requirements.txt used by Docker when adding more dependencies for Flask backend
+- `pipreqs ./src/ --force`
