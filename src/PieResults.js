@@ -184,18 +184,7 @@ const PieResults = () => {
         {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
         <Col md={4}/>
         <Col md={4}>
-          {/* Display fields chosen by user in User Form */}
-          <p className="h2">
-            Age: {age.current}
-            <br />
-            Risk: {risk.current}
-            <br />
-            Sector: {sector.current}
-          </p>
 
-          {/* Beta */}
-          {/* TODO: Make this hover-text */}
-          <p className="h3"> Overall Beta of Pie: {avgBeta.current} </p>
         </Col>
         <Col md={4}/>
       </Row>
@@ -249,6 +238,19 @@ const PieResults = () => {
           </OverlayTrigger>
           
           <p className="bg-primary"> {saveInProgress ? "saving..." : ""} </p>
+
+          {/* Display fields chosen by user in User Form */}
+          <p className="display-6 fs-4">
+            Age: {age.current}
+            <br />
+            Risk: {risk.current}
+            <br />
+            Sector: {sector.current}
+          </p>
+
+          {/* Beta */}
+          {/* TODO: Make this hover-text */}
+          {/* <p className="h3"> Overall Beta of Pie: {avgBeta.current} </p> */}
         </Col>
         <Col md={4}/>
       </Row>

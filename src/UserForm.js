@@ -110,10 +110,10 @@ const UserForm = () => {
             <p className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</p>
 
             <p className="display-6 fs-2 text-black">
-              Welcome to Apex Pies! An app for people that are looking to invest in publicly-traded companies, but don’t know where to start.
+              Welcome to Apex Pies! An app for people that are looking to invest in companies, but don’t know where to start.
             </p>
 
-            <p className="display-6 fs-1 text-secondary fw-bold">Age</p>
+            <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
             {/* Age Slider */}
@@ -127,10 +127,10 @@ const UserForm = () => {
               className="border-dark bg-primary"
             />
 
-            <p className="display-6 fs-1 text-black">{age + " years old"}</p>
+            <p className="display-6 fs-3 text-black">{age + " years old"}</p>
 
             {/* Risk Tolerance Slider */}
-            <p className="display-6 fs-1 text-secondary fw-bold">Risk Tolerance</p>
+            <p className="display-6 fs-2 text-secondary fw-bold">Risk Tolerance</p>
 
             <Form.Control
               onChange={(e) => setRisk(e.target.value)}
@@ -141,13 +141,13 @@ const UserForm = () => {
               className="border-dark bg-primary"
             />
 
-            <p className="display-6 fs-1 text-black">{risk}</p>
+            <p className="display-6 fs-3 text-black">{risk}</p>
 
             {/* Sector of Interest Hoverable Text */}
-            <p className="display-6 fs-1 text-secondary fw-bold">Sector of Interest</p>
+            <p className="display-6 fs-2 text-secondary fw-bold">Sector of Interest</p>
 
             {/* Display currently-selected sector. */}
-            <p className="display-6 fs-1 text-black"><strong>{sector}</strong></p>
+            <p className="display-6 fs-3 text-black"><strong>{sector}</strong></p>
 
           </Col>
           <Col md={4}/>

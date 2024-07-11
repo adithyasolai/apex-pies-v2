@@ -144,7 +144,7 @@ const MyPies = () => {
             <Col md={4}/>
             <Col md={4}>
               {/* Display fields chosen by user in User Form */}
-              <p className="h2">
+              <p className="display-6 fs-4">
                 Age: {age.current}
                 <br />
                 Risk: {risk.current}
@@ -229,7 +229,7 @@ const MyPies = () => {
             <Col md={4}/>
             <Col md={4}>
               {/* Display fields chosen by user in User Form */}
-              <p className="h2">
+              <p className="display-6 fs-4">
                 Age: {age.current}
                 <br />
                 Risk: {risk.current}
