@@ -108,7 +108,7 @@ const UserForm = () => {
             <p className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</p>
 
             <p className="display-6 fs-2 text-black">
-              Welcome to Apex Pies! An app for people that are looking to invest in companies, but don’t know where to start.
+              Welcome to Apex Pies! An app for people looking to invest in companies, but don’t know where to start.
             </p>
 
             <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
