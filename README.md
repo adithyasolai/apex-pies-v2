@@ -1,4 +1,11 @@
-## Useful Flows
+# Apex Pies
+
+An app for people looking to invest in companies, but don’t know where to start.
+
+Visit app at https://apex-pies.com/
+
+___
+# Dev Notes
 
 ### Starting JS Server Locally (Dev)
 
