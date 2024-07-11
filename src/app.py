@@ -17,6 +17,9 @@ import pprint
 
 import uuid
 
+import boto3
+import json
+
 '''
 HOW TO USE THIS SERVER SCRIPT:
 `pip install flask` and `pip install flask_cors` before running this server.
@@ -26,7 +29,15 @@ Run the `export FLASK_ENV=development` terminal command once before any subseque
 
 # Firebase setup
 # Fetch the service account key JSON file contents
-cred = credentials.Certificate('./apex-pies.json')
+client = boto3.client(service_name='secretsmanager', region_name="us-east-1")
+get_secret_value_response = client.get_secret_value(
+    SecretId="firebaseCreds"
+)
+creds_from_secret = get_secret_value_response['SecretString']
+
+cred_from_secret_asdict = json.loads(creds_from_secret)
+
+cred = credentials.Certificate(cred_from_secret_asdict)
 
 # Initialize the app with a service account, granting admin privileges
 firebase_admin.initialize_app(cred, {
