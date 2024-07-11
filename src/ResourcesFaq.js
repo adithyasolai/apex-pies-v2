@@ -1,9 +1,9 @@
-import { Button } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
 const ResourcesFaq = () => {
   return (
-    <div className="bg-primary vh-100 text-center navbar-padding-top-extra">
+    <Container fluid className="bg-primary vh-100 text-center navbar-padding-top-extra">
       <h1> Resources/FAQs</h1>
 
       <br />
@@ -24,7 +24,7 @@ const ResourcesFaq = () => {
         triggerOpenedClassName="collapsible"
       >
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-4 fs-2 text-black" style={{ width: "100%" }}>
+          <p className="display-6 fs-2 text-black" style={{ width: "100%" }}>
             Diversification is a technique that reduces risk by allocating
             investments among various financial instruments, industries and
             other categories. It aims to maximize return by investing in
@@ -50,7 +50,7 @@ const ResourcesFaq = () => {
         triggerOpenedClassName="collapsible"
       >
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-4 fs-2 text-black" style={{ width: "100%" }}>
+          <p className="display-6 fs-2 text-black" style={{ width: "100%" }}>
             A stock is considered risky when it does not have a lot of earnings
             history. This is important because it proves to investors that the
             company has a history of generating cash for the business. Another
@@ -77,7 +77,7 @@ const ResourcesFaq = () => {
         triggerOpenedClassName="collapsible"
       >
         <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-          <p className="display-4 fs-2 text-black" style={{ width: "100%" }}>
+          <p className="display-6 fs-2 text-black" style={{ width: "100%" }}>
             The Standard and Poor's 500, or simply the S&P 500, is a stock
             market index tracking the performance of 500 large companies listed
             on stock exchanges in the United States. It is one of the most
@@ -85,7 +85,7 @@ const ResourcesFaq = () => {
           </p>
         </div>
       </Collapsible>
-    </div>
+    </Container>
   );
 }
 
