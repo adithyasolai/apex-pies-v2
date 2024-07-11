@@ -18,8 +18,6 @@ import uuid from 'react-uuid'
 import apiEndpoints from "./api-endpoints.json";
 // import apiEndpoints from "./api-endpoints-dev.json";
 
-import "./App.css";
-
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
 const NUM_SECTORS = SECTORS.length;

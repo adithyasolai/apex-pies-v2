@@ -1,4 +1,3 @@
-import "./App.css";
 import "./styles.css";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import UserForm from "./UserForm";
@@ -17,7 +16,7 @@ import MyPies from "./MyPies";
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <StrictMode>
         <Router>
           <AuthProvider>
