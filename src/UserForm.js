@@ -167,7 +167,17 @@ const UserForm = () => {
             <p className="display-6 fs-3 text-black">{risk}</p>
 
             {/* Sector of Interest Hoverable Text */}
-            <p className="display-6 fs-2 text-secondary fw-bold">Sector of Interest</p>
+            <OverlayTrigger
+                placement={isXsScreen ? "bottom" : "right"}
+                overlay={
+                <Tooltip>
+                    {"The Pie will focus on companies from this sector."}
+                </Tooltip>
+                }
+                trigger={['focus', 'hover']}
+            >
+                <p className="display-6 fs-2 text-secondary fw-bold">Sector of Interest</p>
+            </OverlayTrigger>
 
             {/* Display currently-selected sector. */}
             <p className="display-6 fs-3 text-black"><strong>{sector}</strong></p>
