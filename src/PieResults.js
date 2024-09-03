@@ -219,7 +219,6 @@ const PieResults = () => {
               </Tooltip>
             }
             trigger={saveAllowed ? []: ['focus', 'hover']}
-            className="bg-primary"
           >
             <div style={{display: 'inline-block'}} className="bg-primary">
               <Button 

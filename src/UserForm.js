@@ -11,7 +11,8 @@ import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootstrap";
+import { Row, Col, Form, Button, Image, Container, Carousel, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { useMediaQuery } from 'react-responsive';
 
 import uuid from 'react-uuid'
 
@@ -30,6 +31,10 @@ const UserForm = () => {
   const [activeSectorImageIndex, setActiveSectorImageIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
+
+  // Determine if the current screen size is 'xs' or 'md'
+  
+  const isXsScreen = useMediaQuery({ maxWidth: 400 });
 
   // Domain that routes to ELB
   const makePieEndpoint = apiEndpoints["makePieEndpoint"];
@@ -111,7 +116,17 @@ const UserForm = () => {
               Welcome to Apex Pies! An app for people looking to invest in companies, but don’t know where to start.
             </p>
 
-            <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+            <OverlayTrigger
+                placement={isXsScreen ? "bottom" : "right"}
+                overlay={
+                <Tooltip>
+                    {"A higher age will yield a less risky Pie."}
+                </Tooltip>
+                }
+                trigger={['focus', 'hover']}
+            >
+                <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+            </OverlayTrigger>
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
             {/* Age Slider */}
@@ -128,7 +143,17 @@ const UserForm = () => {
             <p className="display-6 fs-3 text-black">{age + " years old"}</p>
 
             {/* Risk Tolerance Slider */}
-            <p className="display-6 fs-2 text-secondary fw-bold">Risk Tolerance</p>
+            <OverlayTrigger
+                placement={isXsScreen ? "bottom" : "right"}
+                overlay={
+                <Tooltip>
+                    {"A higher value will yield a riskier Pie."}
+                </Tooltip>
+                }
+                trigger={['focus', 'hover']}
+            >
+                <p className="display-6 fs-2 text-secondary fw-bold">Risk Tolerance</p>
+            </OverlayTrigger>
 
             <Form.Control
               onChange={(e) => setRisk(e.target.value)}
