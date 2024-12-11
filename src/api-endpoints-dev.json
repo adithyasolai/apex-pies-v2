@@ -1,0 +1,7 @@
+{
+  "makePieEndpoint": "http://127.0.0.1:5000/",
+  "fetchNumSavedEndpoint": "http://127.0.0.1:5000/fetchnumsaved",
+  "fetchPiesEndpoint": "http://127.0.0.1:5000/fetchpies",
+  "savePiesEndpoint": "http://127.0.0.1:5000/savepie",
+  "fetchSavedPieEndpoint": "http://127.0.0.1:5000/fetchsavedpie"
+}
