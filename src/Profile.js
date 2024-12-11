@@ -11,8 +11,6 @@ const Profile = () => {
   async function handleSignOut(e) {
     e.preventDefault();
 
-    console.log("Pressed.");
-
     setError("");
 
     // username/password sign-up is async b/c we are communicating with Firebase DB

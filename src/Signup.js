@@ -19,8 +19,6 @@ const Signup = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("Pressed.");
-
     if (passwordRef.current.value !== passwordConfirmRef.current.value) {
       console.log("Passwords do not match.");
       return setError("Passwords do not match.");

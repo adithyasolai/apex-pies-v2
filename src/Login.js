@@ -19,8 +19,6 @@ const Login = () => {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    console.log("Pressed.");
-
     // username/password sign-up is async b/c we are communicating with Firebase DB
     try {
       setError("");
