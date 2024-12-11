@@ -6,13 +6,15 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button, Image, Container, Carousel, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { useMediaQuery } from 'react-responsive';
+import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootstrap";
 
 import uuid from 'react-uuid'
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 import * as ApexUtils from "./ApexUtils"
+import { ApexIntro } from "./ApexIntro";
+import { ApexSlider } from "./ApexSlider";
+import { ApexHover } from "./ApexHover";
 
 const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
@@ -24,9 +26,6 @@ const UserForm = () => {
   const [activeSectorImageIndex, setActiveSectorImageIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-
-  // Determine if the current screen size is 'xs' or 'md'
-  const isXsScreen = useMediaQuery({ maxWidth: 400 });
 
   // Domain that routes to ELB
   const makePieEndpoint = apiEndpoints["makePieEndpoint"];
@@ -101,75 +100,45 @@ const UserForm = () => {
           {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
           <Col md={4}/>
           <Col md={4}>
-            {/* Title */}
-            <p className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</p>
-
-            <p className="display-6 fs-2 text-black">
-              Welcome to Apex Pies! An app for people looking to invest in companies, but don’t know where to start.
-            </p>
-
-            <OverlayTrigger
-                placement={isXsScreen ? "bottom" : "right"}
-                overlay={
-                <Tooltip>
-                    {"A higher age will yield a less risky Pie."}
-                </Tooltip>
-                }
-                trigger={['focus', 'hover']}
-            >
-                <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
-            </OverlayTrigger>
+            
+            <ApexIntro/>
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-            {/* Age Slider */}
-            <Form.Control
-              type="range"
-              min="18"
-              max="75"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
-              // need bg-primary here to make slider bg color match overall bg color
-              className="border-dark bg-primary"
+            <ApexHover
+                hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}
+            >
+                <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+            </ApexHover>
+
+            <ApexSlider 
+                input={age}
+                min={ApexUtils.USER_FORM_MIN_AGE}
+                max={ApexUtils.USER_FORM_MAX_AGE}
+                onChangeHandler={(e) => setAge(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{age + " years old"}</p>
 
-            {/* Risk Tolerance Slider */}
-            <OverlayTrigger
-                placement={isXsScreen ? "bottom" : "right"}
-                overlay={
-                <Tooltip>
-                    {"A higher value will yield a riskier Pie."}
-                </Tooltip>
-                }
-                trigger={['focus', 'hover']}
+            <ApexHover
+                hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}
             >
                 <p className="display-6 fs-2 text-secondary fw-bold">Risk Tolerance</p>
-            </OverlayTrigger>
+            </ApexHover>
 
-            <Form.Control
-              onChange={(e) => setRisk(e.target.value)}
-              type="range"
-              min="1"
-              max="10"
-              value={risk}
-              className="border-dark bg-primary"
+            <ApexSlider 
+                input={risk}
+                min={ApexUtils.USER_FORM_MIN_RISK}
+                max={ApexUtils.USER_FORM_MAX_RISK}
+                onChangeHandler={(e) => setRisk(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{risk}</p>
 
-            {/* Sector of Interest Hoverable Text */}
-            <OverlayTrigger
-                placement={isXsScreen ? "bottom" : "right"}
-                overlay={
-                <Tooltip>
-                    {"The Pie will focus on companies from this sector."}
-                </Tooltip>
-                }
-                trigger={['focus', 'hover']}
+            <ApexHover
+                hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}
             >
                 <p className="display-6 fs-2 text-secondary fw-bold">Sector of Interest</p>
-            </OverlayTrigger>
+            </ApexHover>
 
             {/* Display currently-selected sector. */}
             <p className="display-6 fs-3 text-black"><strong>{sector}</strong></p>
