@@ -39,3 +39,6 @@ ___
 
 ### Updating requirements.txt used by Docker when adding more dependencies for Flask backend
 - `pipreqs ./src/ --force`
+
+### Apply Prettier
+- `npm run format` (look at script definition in `package.json` file)

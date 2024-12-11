@@ -6,17 +6,27 @@ import { withRouter } from "react-router-dom";
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
-import { Row, Col, Form, Button, Image, Container, Carousel } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Form,
+  Button,
+  Image,
+  Container,
+  Carousel,
+} from "react-bootstrap";
 
-import uuid from 'react-uuid'
+import uuid from "react-uuid";
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
-import * as ApexUtils from "./ApexUtils"
+import * as ApexUtils from "./ApexUtils";
 import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
 
-const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = process.env.REACT_APP_DEV_MODE
+  ? apiEndpointsDev
+  : apiEndpointsProd;
 
 const UserForm = () => {
   const { currentUser } = useAuth();
@@ -44,7 +54,7 @@ const UserForm = () => {
 
     // in the case of a guest user, we will generate a temporary UUID for them
     // TODO: delete this UUID and its contents from the DB after the user's session is over
-    const uid = currentUser ? currentUser["uid"] : uuid()
+    const uid = currentUser ? currentUser["uid"] : uuid();
 
     // Send request to backend server to calculate a diversified Pie
     // for the user's selected inputs (age, risk tolerance, and sector).
@@ -60,23 +70,21 @@ const UserForm = () => {
         age: age,
         risk: risk,
         sector: sector,
-        is_guest: currentUser ? false : true
+        is_guest: currentUser ? false : true,
       }),
     });
 
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
     // the PieResults page has access to the user's selected inputs.
-    history.push("/pieresults",
-      {
-        uid: uid,
-        email: currentUser ? currentUser["email"] : null,
-        age: age,
-        risk: risk,
-        sector: sector,
-        cameFromUserForm: true
-      },
-    );
+    history.push("/pieresults", {
+      uid: uid,
+      email: currentUser ? currentUser["email"] : null,
+      age: age,
+      risk: risk,
+      sector: sector,
+      cameFromUserForm: true,
+    });
   }
 
   const handleSelect = (selectedIndex, e) => {
@@ -93,64 +101,64 @@ const UserForm = () => {
     // Investigate and fix this.
 
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
-
+    <Container
+      fluid
+      className="text-center bg-primary vh-100 navbar-padding-top-extra"
+    >
       <Form onSubmit={handleSubmit} className="bg-primary">
         <Row className="bg-primary">
           {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-          <Col md={4}/>
+          <Col md={4} />
           <Col md={4}>
-            
-            <ApexIntro/>
+            <ApexIntro />
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-            <ApexHover
-                hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}
-            >
-                <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
+              <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
             </ApexHover>
 
-            <ApexSlider 
-                input={age}
-                min={ApexUtils.USER_FORM_MIN_AGE}
-                max={ApexUtils.USER_FORM_MAX_AGE}
-                onChangeHandler={(e) => setAge(e.target.value)}
+            <ApexSlider
+              input={age}
+              min={ApexUtils.USER_FORM_MIN_AGE}
+              max={ApexUtils.USER_FORM_MAX_AGE}
+              onChangeHandler={(e) => setAge(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{age + " years old"}</p>
 
-            <ApexHover
-                hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}
-            >
-                <p className="display-6 fs-2 text-secondary fw-bold">Risk Tolerance</p>
+            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
+              <p className="display-6 fs-2 text-secondary fw-bold">
+                Risk Tolerance
+              </p>
             </ApexHover>
 
-            <ApexSlider 
-                input={risk}
-                min={ApexUtils.USER_FORM_MIN_RISK}
-                max={ApexUtils.USER_FORM_MAX_RISK}
-                onChangeHandler={(e) => setRisk(e.target.value)}
+            <ApexSlider
+              input={risk}
+              min={ApexUtils.USER_FORM_MIN_RISK}
+              max={ApexUtils.USER_FORM_MAX_RISK}
+              onChangeHandler={(e) => setRisk(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{risk}</p>
 
-            <ApexHover
-                hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}
-            >
-                <p className="display-6 fs-2 text-secondary fw-bold">Sector of Interest</p>
+            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
+              <p className="display-6 fs-2 text-secondary fw-bold">
+                Sector of Interest
+              </p>
             </ApexHover>
 
             {/* Display currently-selected sector. */}
-            <p className="display-6 fs-3 text-black"><strong>{sector}</strong></p>
-
+            <p className="display-6 fs-3 text-black">
+              <strong>{sector}</strong>
+            </p>
           </Col>
-          <Col md={4}/>
+          <Col md={4} />
         </Row>
 
         {/* Sector of Interest Selection */}
         <Row className="bg-primary">
           {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-          <Col/>
+          <Col />
           <Col xs={12} md={4}>
             <Carousel
               activeIndex={activeSectorImageIndex}
@@ -161,52 +169,52 @@ const UserForm = () => {
               fade={false} // use this to toggle slide vs fade animation while testing
               className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
             >
-              {Array.from(Array(ApexUtils.NUM_SECTORS), (x, i) => i).map((i) => {
-                const borderStyle = "5px solid #95bfd0ff";
-                return (
-                  // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-                  <Carousel.Item key={ApexUtils.SECTOR_IMAGES[i]}>
-                    <Container fluid>
-                      <Row>
-                        <Col/>
-                        <Col xs={12} md={6}>
-                          <Image
-                            src={ApexUtils.SECTOR_IMAGES[i]}
-                            alt="asdf"
-                            style={{ 
-                              border: borderStyle,
-                              borderRadius: "10%",
-                              // TODO: do with this CSS classes instead
-                              width: window.screen.width <= 400 ? "75%" : "90%",
-                            }}
-                            fluid
-                          />
-                        </Col>
-                        <Col/>
-                      </Row>
-                    </Container>
-                  </Carousel.Item>
-                );
-              })}    
+              {Array.from(Array(ApexUtils.NUM_SECTORS), (x, i) => i).map(
+                (i) => {
+                  const borderStyle = "5px solid #95bfd0ff";
+                  return (
+                    // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
+                    <Carousel.Item key={ApexUtils.SECTOR_IMAGES[i]}>
+                      <Container fluid>
+                        <Row>
+                          <Col />
+                          <Col xs={12} md={6}>
+                            <Image
+                              src={ApexUtils.SECTOR_IMAGES[i]}
+                              alt="asdf"
+                              style={{
+                                border: borderStyle,
+                                borderRadius: "10%",
+                                // TODO: do with this CSS classes instead
+                                width:
+                                  window.screen.width <= 400 ? "75%" : "90%",
+                              }}
+                              fluid
+                            />
+                          </Col>
+                          <Col />
+                        </Row>
+                      </Container>
+                    </Carousel.Item>
+                  );
+                }
+              )}
             </Carousel>
 
             {/* Container wrapper creates some space below button for visual appeal */}
             <Container fluid className="pb-2">
-              <Button 
-                type="Submit" 
-                variant="secondary" 
+              <Button
+                type="Submit"
+                variant="secondary"
                 size="lg"
                 disabled={loading ? true : false}
               >
                 Submit
               </Button>
             </Container>
-
           </Col>
-          <Col/>
+          <Col />
         </Row>
-
-
       </Form>
     </Container>
   );

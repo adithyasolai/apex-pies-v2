@@ -3,19 +3,18 @@ import Collapsible from "react-collapsible";
 
 const ResourcesFaq = () => {
   return (
-    <Container fluid className="bg-primary vh-100 text-center navbar-padding-top-extra">
+    <Container
+      fluid
+      className="bg-primary vh-100 text-center navbar-padding-top-extra"
+    >
       <Row className="bg-primary">
-        <Col/>
+        <Col />
         <Col xs={12} md={6}>
           <h1 className="pb-2"> Resources/FAQs</h1>
 
           <Collapsible
             trigger={
-              <Button 
-                type="Submit" 
-                variant="secondary" 
-                size="lg"
-              >
+              <Button type="Submit" variant="secondary" size="lg">
                 Why is diversification important?
               </Button>
             }
@@ -31,15 +30,11 @@ const ResourcesFaq = () => {
             </p>
           </Collapsible>
 
-          <br/>
+          <br />
 
           <Collapsible
             trigger={
-              <Button 
-                type="Submit" 
-                variant="secondary" 
-                size="lg"
-              >
+              <Button type="Submit" variant="secondary" size="lg">
                 What makes a stock risky?
               </Button>
             }
@@ -47,24 +42,21 @@ const ResourcesFaq = () => {
             triggerOpenedClassName="collapsible"
           >
             <p className="display-6 fs-5 pt-2">
-              A stock is considered risky when it does not have a lot of earnings
-              history. This is important because it proves to investors that the
-              company has a history of generating cash for the business. Another
-              aspect that makes a stock risky is the lack of time on the market.
-              If the stock has recently gone public, it will be more volatile due
-              to investors not knowing how the stock should be valued.
+              A stock is considered risky when it does not have a lot of
+              earnings history. This is important because it proves to investors
+              that the company has a history of generating cash for the
+              business. Another aspect that makes a stock risky is the lack of
+              time on the market. If the stock has recently gone public, it will
+              be more volatile due to investors not knowing how the stock should
+              be valued.
             </p>
           </Collapsible>
 
-          <br/>
+          <br />
 
           <Collapsible
             trigger={
-              <Button 
-                type="Submit" 
-                variant="secondary" 
-                size="lg"
-              >
+              <Button type="Submit" variant="secondary" size="lg">
                 What is the S&P 500?
               </Button>
             }
@@ -73,19 +65,16 @@ const ResourcesFaq = () => {
           >
             <p className="display-6 fs-5 pt-2">
               The Standard and Poor's 500, or simply the S&P 500, is a stock
-              market index tracking the performance of 500 large companies listed
-              on stock exchanges in the United States. It is one of the most
-              commonly followed equity indices.
+              market index tracking the performance of 500 large companies
+              listed on stock exchanges in the United States. It is one of the
+              most commonly followed equity indices.
             </p>
           </Collapsible>
-        
         </Col>
-        <Col/>
-
-
+        <Col />
       </Row>
     </Container>
   );
-}
+};
 
 export default ResourcesFaq;

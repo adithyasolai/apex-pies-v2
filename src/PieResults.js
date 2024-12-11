@@ -3,16 +3,18 @@ import { withRouter } from "react-router-dom";
 
 import { useAuth } from "./contexts/AuthContext";
 
-import Plot from 'react-plotly.js';
+import Plot from "react-plotly.js";
 import { Button, Col, Container, Row, Table } from "react-bootstrap";
-import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
-import Tooltip from 'react-bootstrap/Tooltip';
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
 import { useLocation } from "react-router-dom";
 
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 
-const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = process.env.REACT_APP_DEV_MODE
+  ? apiEndpointsDev
+  : apiEndpointsProd;
 
 const PieResults = () => {
   const { currentUser } = useAuth();
@@ -24,9 +26,9 @@ const PieResults = () => {
   const sector = useRef(null);
 
   const [loading, setLoading] = useState(true);
-  const [saveInProgress, setSaveInProgress] = useState(false)
-  const [saveAllowed, setSaveAllowed] = useState(Boolean(currentUser))
-  const [saveDone, setSaveDone] = useState(false)
+  const [saveInProgress, setSaveInProgress] = useState(false);
+  const [saveAllowed, setSaveAllowed] = useState(Boolean(currentUser));
+  const [saveDone, setSaveDone] = useState(false);
 
   // backend response data
   const pieId = useRef(null);
@@ -34,17 +36,17 @@ const PieResults = () => {
   const pieRows = useRef(null);
 
   // data calculated when backend data is received to make render logic faster
-  const numStocks = useRef(0)
-  const avgBeta = useRef(0)
-  const plotConfig = useRef(null)
+  const numStocks = useRef(0);
+  const avgBeta = useRef(0);
+  const plotConfig = useRef(null);
 
   // stock data table fields
   const tableHeadings = ["Sector", "Name", "Ticker", "%"];
-  const tableRows = useRef([])
+  const tableRows = useRef([]);
 
   // Domain that routes to ELB
-  const fetchPiesEndpoint = apiEndpoints["fetchPiesEndpoint"]
-  const savePiesEndpoint = apiEndpoints["savePiesEndpoint"]
+  const fetchPiesEndpoint = apiEndpoints["fetchPiesEndpoint"];
+  const savePiesEndpoint = apiEndpoints["savePiesEndpoint"];
 
   useEffect(() => {
     uid.current = location.state?.uid;
@@ -63,7 +65,7 @@ const PieResults = () => {
           },
           body: JSON.stringify({
             uid: uid.current,
-            is_guest: currentUser ? false : true
+            is_guest: currentUser ? false : true,
           }),
         });
 
@@ -71,11 +73,17 @@ const PieResults = () => {
         const json = await response.json();
 
         // Put all the results from the backend server into our State to be rendered.
-        pieId.current = json.pieId
-        pie.current = json.pie
-        pieRows.current = json.pieRows
-        numStocks.current = json.pie['Beta'].length // just using any of the lists to get the length
-        avgBeta.current = (Math.round(json.pie['Beta'].reduce((acc, current) => acc + current, 0) / numStocks.current * 100) / 100).toFixed(2)
+        pieId.current = json.pieId;
+        pie.current = json.pie;
+        pieRows.current = json.pieRows;
+        numStocks.current = json.pie["Beta"].length; // just using any of the lists to get the length
+        avgBeta.current = (
+          Math.round(
+            (json.pie["Beta"].reduce((acc, current) => acc + current, 0) /
+              numStocks.current) *
+              100
+          ) / 100
+        ).toFixed(2);
 
         // construct table row data
         tableRows.current = pieRows.current.map((dict) => {
@@ -85,49 +93,51 @@ const PieResults = () => {
         });
 
         // simplify pie chart with just sector slices only
-        var sector_data_dict = {}
-        pieRows.current.forEach(row => {
-          var currSector = row["Sector"]
-          var currPct = row["Percentage"]
-          var currColor = row["Color"]
+        var sector_data_dict = {};
+        pieRows.current.forEach((row) => {
+          var currSector = row["Sector"];
+          var currPct = row["Percentage"];
+          var currColor = row["Color"];
 
           if (currSector in sector_data_dict) {
-            sector_data_dict[currSector][0] += currPct
+            sector_data_dict[currSector][0] += currPct;
           } else {
-            sector_data_dict[currSector] = new Array(2)
-            sector_data_dict[currSector][0] = currPct
-            sector_data_dict[currSector][1] = currColor
+            sector_data_dict[currSector] = new Array(2);
+            sector_data_dict[currSector][0] = currPct;
+            sector_data_dict[currSector][1] = currColor;
           }
         });
-        
+
         // create exact ordering of Sector keys
-        var sector_list = Object.keys(sector_data_dict)
-        var colors = new Array(sector_list.length)
-        var percentages = new Array(sector_list.length)
+        var sector_list = Object.keys(sector_data_dict);
+        var colors = new Array(sector_list.length);
+        var percentages = new Array(sector_list.length);
 
         sector_list.forEach((sector, index) => {
-          percentages[index] = sector_data_dict[sector][0]
-          colors[index] = sector_data_dict[sector][1]
+          percentages[index] = sector_data_dict[sector][0];
+          colors[index] = sector_data_dict[sector][1];
         });
         // construct plot configs as soon as results from backend come
-        var data = [{
-          values: percentages,
-          labels: sector_list,
-          type: 'pie',
-          // customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]), 
-          // hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
-          marker: {
-            colors: colors
+        var data = [
+          {
+            values: percentages,
+            labels: sector_list,
+            type: "pie",
+            // customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
+            // hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
+            marker: {
+              colors: colors,
+            },
+            hoverinfo: "none",
           },
-          hoverinfo: 'none'
-        }]
+        ];
 
         // // construct plot configs as soon as results from backend come
         // var data = [{
         //   values: pie.current['Percentage'],
         //   labels: pie.current['Ticker'],
         //   type: 'pie',
-        //   customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]), 
+        //   customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
         //   hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
         //   marker: {
         //     colors: pie.current['Color']
@@ -135,19 +145,18 @@ const PieResults = () => {
         // }]
 
         var layout = {
-          paper_bgcolor: 'rgba(0,0,0,0)', 
-          plot_bgcolor: 'rgba(0,0,0,0)'
+          paper_bgcolor: "rgba(0,0,0,0)",
+          plot_bgcolor: "rgba(0,0,0,0)",
           // showlegend: false
-        }
+        };
 
         plotConfig.current = {
-          'data': data,
-          'layout': layout
-        }
+          data: data,
+          layout: layout,
+        };
 
         // Remove the loading screen so that the page can finally be rendered.
         setLoading(false);
-
       } catch (err) {
         console.log(err);
       }
@@ -157,7 +166,7 @@ const PieResults = () => {
   }, []);
 
   async function handleSaveToProfile(event) {
-    setSaveInProgress(true)
+    setSaveInProgress(true);
 
     event.preventDefault();
 
@@ -169,75 +178,76 @@ const PieResults = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        uid: uid.current
+        uid: uid.current,
       }),
     });
 
     // await new Promise((resolve) => setTimeout(resolve, 3000));
 
-    setSaveInProgress(false)
-    setSaveAllowed(false)
-    setSaveDone(true)
+    setSaveInProgress(false);
+    setSaveAllowed(false);
+    setSaveDone(true);
   }
 
   return (
-    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
+    <Container
+      fluid
+      className="text-center bg-primary vh-100 navbar-padding-top-extra"
+    >
       <Row className="bg-primary">
         {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-        <Col md={4}/>
-        <Col md={4}>
-
-        </Col>
-        <Col md={4}/>
+        <Col md={4} />
+        <Col md={4}></Col>
+        <Col md={4} />
       </Row>
 
-      {
-        loading ?
-        <p> loading ... </p> :
+      {loading ? (
+        <p> loading ... </p>
+      ) : (
         <Row className="bg-primary">
-          <Col className="bg-primary"/>
+          <Col className="bg-primary" />
           <Col xs={12} md={8}>
-          <Plot
-            data={plotConfig.current['data']}
-            layout={plotConfig.current['layout']}
-            useResizeHandler={true}
-            style={{width: '100%', height: '100%'}}
-          />
+            <Plot
+              data={plotConfig.current["data"]}
+              layout={plotConfig.current["layout"]}
+              useResizeHandler={true}
+              style={{ width: "100%", height: "100%" }}
+            />
           </Col>
-          <Col className="bg-primary"/>
+          <Col className="bg-primary" />
         </Row>
-      }
+      )}
 
       <Row className="bg-primary">
         {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-        <Col md={4}/>
+        <Col md={4} />
         <Col md={4}>
           <OverlayTrigger
             placement="right"
             overlay={
-              <Tooltip >
+              <Tooltip>
                 {/* This hover will only show if saveAllowed=false */}
                 {saveDone ? "Already saved!" : "Log In to save pies!"}
               </Tooltip>
             }
-            trigger={saveAllowed ? []: ['focus', 'hover']}
+            trigger={saveAllowed ? [] : ["focus", "hover"]}
           >
-            <div style={{display: 'inline-block'}} className="bg-primary">
-              <Button 
-                type="Submit" 
+            <div style={{ display: "inline-block" }} className="bg-primary">
+              <Button
+                type="Submit"
                 variant="secondary"
                 disabled={saveAllowed ? false : true}
                 onClick={handleSaveToProfile}
                 style={{
                   opacity: saveAllowed ? 1 : 0.5,
-                  cursor: saveAllowed ? 'pointer' : 'not-allowed',
+                  cursor: saveAllowed ? "pointer" : "not-allowed",
                 }}
-                >
+              >
                 Save To Profile
               </Button>
             </div>
           </OverlayTrigger>
-          
+
           <p className="bg-primary"> {saveInProgress ? "saving..." : ""} </p>
 
           {/* Display fields chosen by user in User Form */}
@@ -253,33 +263,33 @@ const PieResults = () => {
           {/* TODO: Make this hover-text */}
           {/* <p className="h3"> Overall Beta of Pie: {avgBeta.current} </p> */}
         </Col>
-        <Col md={4}/>
+        <Col md={4} />
       </Row>
 
       <Row className="bg-primary">
         {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-        <Col/>
+        <Col />
         <Col xs={12} md={6}>
           <Table striped bordered hover responsive>
-              <thead>
-                <tr>
-                  {tableHeadings.map((heading, index) => (
-                    <th key={index}>{heading}</th>
+            <thead>
+              <tr>
+                {tableHeadings.map((heading, index) => (
+                  <th key={index}>{heading}</th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {tableRows.current.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                  {Object.keys(row).map((key, colIndex) => (
+                    <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
                   ))}
                 </tr>
-              </thead>
-              <tbody>
-                {tableRows.current.map((row, rowIndex) => (
-                  <tr key={rowIndex}>
-                    {Object.keys(row).map((key, colIndex) => (
-                      <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                    ))}
-                  </tr>
-                ))}
-              </tbody>
-            </Table>
+              ))}
+            </tbody>
+          </Table>
         </Col>
-        <Col/>
+        <Col />
       </Row>
     </Container>
   );

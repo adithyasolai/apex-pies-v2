@@ -1,6 +1,14 @@
 import React, { useRef, useState } from "react";
 
-import { Card, Form, Button, Alert, Row, Col, Container } from "react-bootstrap";
+import {
+  Card,
+  Form,
+  Button,
+  Alert,
+  Row,
+  Col,
+  Container,
+} from "react-bootstrap";
 
 import { useAuth } from "./contexts/AuthContext";
 
@@ -42,8 +50,11 @@ const Signup = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top">
-      <Card style={{border: "none"}} className="bg-primary">
+    <Container
+      fluid
+      className="text-center bg-primary vh-100 navbar-padding-top"
+    >
+      <Card style={{ border: "none" }} className="bg-primary">
         <Card.Body>
           {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
           {currentUser &&
@@ -57,7 +68,12 @@ const Signup = () => {
               <Col md={4}>
                 <Form.Group id="email">
                   <Form.Label>Email</Form.Label>
-                  <Form.Control className="border-dark" type="email" ref={emailRef} required />
+                  <Form.Control
+                    className="border-dark"
+                    type="email"
+                    ref={emailRef}
+                    required
+                  />
                 </Form.Group>
               </Col>
               <Col md={4}></Col>
@@ -68,7 +84,12 @@ const Signup = () => {
               <Col md={4}>
                 <Form.Group id="password">
                   <Form.Label>Password</Form.Label>
-                  <Form.Control className="border-dark" type="password" ref={passwordRef} required />
+                  <Form.Control
+                    className="border-dark"
+                    type="password"
+                    ref={passwordRef}
+                    required
+                  />
                 </Form.Group>
               </Col>
               <Col md={4}></Col>
@@ -79,18 +100,28 @@ const Signup = () => {
               <Col md={4}>
                 <Form.Group id="password-confirm">
                   <Form.Label>Password Confirmation</Form.Label>
-                  <Form.Control className="border-dark" type="password" ref={passwordConfirmRef} required />
+                  <Form.Control
+                    className="border-dark"
+                    type="password"
+                    ref={passwordConfirmRef}
+                    required
+                  />
                 </Form.Group>
               </Col>
               <Col md={4}></Col>
             </Row>
 
-            <Button className="my-2" type="Submit" variant="secondary">Sign Up</Button>
+            <Button className="my-2" type="Submit" variant="secondary">
+              Sign Up
+            </Button>
           </Form>
         </Card.Body>
       </Card>
       <div className="my-2">
-        Already have an account? <Link to="/login" className="text-secondary">Log In.</Link>
+        Already have an account?{" "}
+        <Link to="/login" className="text-secondary">
+          Log In.
+        </Link>
       </div>
     </Container>
   );

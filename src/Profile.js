@@ -26,19 +26,21 @@ const Profile = () => {
 
   return (
     // TODO: need a bit more top margin because it still looks too close
-    <Container fluid className="text-center bg-primary vh-100 navbar-padding-top">
-
+    <Container
+      fluid
+      className="text-center bg-primary vh-100 navbar-padding-top"
+    >
       {/* 
         because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
         Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
       */}
-      <Card className="bg-primary" style={{border: "none"}}>
+      <Card className="bg-primary" style={{ border: "none" }}>
         <Card.Body>
           {currentUser && <h3>{currentUser["email"]}</h3>}
           {error && <Alert variant="danger">{error}</Alert>}
         </Card.Body>
       </Card>
-      
+
       <div className="bg-primary">
         <Button variant="secondary" onClick={handleSignOut}>
           Sign Out
@@ -46,6 +48,6 @@ const Profile = () => {
       </div>
     </Container>
   );
-}
+};
 
 export default Profile;

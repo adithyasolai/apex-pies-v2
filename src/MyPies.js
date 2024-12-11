@@ -6,14 +6,16 @@ import PiePlot from "./PiePlot";
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 
-const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = process.env.REACT_APP_DEV_MODE
+  ? apiEndpointsDev
+  : apiEndpointsProd;
 
 const MyPies = () => {
   const { currentUser } = useAuth();
 
-  const uid = useRef(currentUser["uid"])
-  const [numSaved, setNumSaved] = useState(null)
-  const numSavedRef = useRef(null)
+  const uid = useRef(currentUser["uid"]);
+  const [numSaved, setNumSaved] = useState(null);
+  const numSavedRef = useRef(null);
 
   const age = useRef(null);
   const risk = useRef(null);
@@ -30,8 +32,8 @@ const MyPies = () => {
   const [tableRows, setTableRows] = useState([]);
 
   // Domain that routes to ELB
-  const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"]
-  const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"]
+  const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"];
+  const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"];
 
   async function fetchPieData() {
     try {
@@ -52,10 +54,9 @@ const MyPies = () => {
 
       // Put all the results from the backend server into our State to be rendered.
       // TODO: figure out better logic than a flat 4 limit
-      setNumSaved( numSavedResponse )
+      setNumSaved(numSavedResponse);
 
-      numSavedRef.current = numSavedResponse
-
+      numSavedRef.current = numSavedResponse;
     } catch (err) {
       console.log(err);
     }
@@ -63,7 +64,6 @@ const MyPies = () => {
 
   async function fetchSavedPieData() {
     try {
-
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
       const response = await fetch(fetchSavedPieEndpoint, {
@@ -73,7 +73,7 @@ const MyPies = () => {
         },
         body: JSON.stringify({
           uid: uid.current,
-          pieNum: (numSavedRef.current - activePie).toString()
+          pieNum: (numSavedRef.current - activePie).toString(),
         }),
       });
 
@@ -81,19 +81,20 @@ const MyPies = () => {
       const json = await response.json();
 
       // Put all the results from the backend server into our State to be rendered.
-      pie.current = json.pie
-      pieRows.current = json.pieRows
+      pie.current = json.pie;
+      pieRows.current = json.pieRows;
       age.current = json.age;
       risk.current = json.risk;
       sector.current = json.primarySector;
 
       // construct table row data
-      setTableRows(pieRows.current.map((dict) => {
-        const { Sector, Name, Ticker, Percentage } = dict; // Destructure desired fields
-        const percentageString = `${Percentage}%`; // Concatenate '%'
-        return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
-      }));
-
+      setTableRows(
+        pieRows.current.map((dict) => {
+          const { Sector, Name, Ticker, Percentage } = dict; // Destructure desired fields
+          const percentageString = `${Percentage}%`; // Concatenate '%'
+          return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
+        })
+      );
     } catch (err) {
       console.log(err);
     }
@@ -115,9 +116,12 @@ const MyPies = () => {
 
   return (
     <>
-    {/* TODO: Refactor this to avoid duplicate code. */}
+      {/* TODO: Refactor this to avoid duplicate code. */}
       {numSaved === null ? (
-        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
+        <Container
+          fluid
+          className="text-center bg-primary vh-100 navbar-padding-top-extra"
+        >
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
               loading...
@@ -125,7 +129,10 @@ const MyPies = () => {
           </div>
         </Container>
       ) : numSaved === 0 ? (
-        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
+        <Container
+          fluid
+          className="text-center bg-primary vh-100 navbar-padding-top-extra"
+        >
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
               No pies to display.
@@ -133,18 +140,21 @@ const MyPies = () => {
           </div>
         </Container>
       ) : numSaved === 1 ? (
-        <Container fluid className="text-center bg-primary vh-100 navbar-padding-top-extra">
+        <Container
+          fluid
+          className="text-center bg-primary vh-100 navbar-padding-top-extra"
+        >
           <Row>
-              <Col/>
-              <Col xs={12} md={6}>
-                <PiePlot pieNum={numSaved.toString()} active={true}/>
-              </Col>
-              <Col/>
+            <Col />
+            <Col xs={12} md={6}>
+              <PiePlot pieNum={numSaved.toString()} active={true} />
+            </Col>
+            <Col />
           </Row>
 
           <Row className="bg-primary text-center">
             {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col md={4}/>
+            <Col md={4} />
             <Col md={4}>
               {/* Display fields chosen by user in User Form */}
               <p className="display-6 fs-4">
@@ -155,41 +165,41 @@ const MyPies = () => {
                 Sector: {sector.current}
               </p>
             </Col>
-            <Col md={4}/>
+            <Col md={4} />
           </Row>
 
           <Row className="bg-primary">
             {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col/>
+            <Col />
             <Col xs={12} md={6}>
               <Table striped bordered hover responsive>
-                  <thead>
-                    <tr>
-                      {tableHeadings.map((heading, index) => (
-                        <th key={index}>{heading}</th>
+                <thead>
+                  <tr>
+                    {tableHeadings.map((heading, index) => (
+                      <th key={index}>{heading}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableRows.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {Object.keys(row).map((key, colIndex) => (
+                        <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
                       ))}
                     </tr>
-                  </thead>
-                  <tbody>
-                    {tableRows.map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Object.keys(row).map((key, colIndex) => (
-                          <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                  ))}
+                </tbody>
+              </Table>
             </Col>
-            <Col/>
+            <Col />
           </Row>
         </Container>
       ) : (
         <Container fluid className="bg-primary vh-100 navbar-padding-top">
           <Row>
-              <Col/>
-              <Col xs={12} md={6}>
-              <Carousel 
+            <Col />
+            <Col xs={12} md={6}>
+              <Carousel
                 activeIndex={activePie}
                 onSelect={handleSelect}
                 data-bs-theme="dark" // makes left/arrows black
@@ -197,39 +207,40 @@ const MyPies = () => {
                 controls={true} // making left/right arrows show up
                 fade={false} // use this to toggle slide vs fade animation while testing
               >
-                {
-                  Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map((i) => {
+                {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map(
+                  (i) => {
                     return (
                       <Carousel.Item key={i}>
                         <Container fluid>
                           <Row>
-                            <Col/>
+                            <Col />
                             <Col xs={12} md={8}>
                               {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
                               {/* It works because the PieNums in the backend start at 1, not 0. */}
-                              <PiePlot pieNum={(numSaved-i).toString()} active={activePie === i} />
+                              <PiePlot
+                                pieNum={(numSaved - i).toString()}
+                                active={activePie === i}
+                              />
                             </Col>
-                            <Col/>
+                            <Col />
                           </Row>
                         </Container>
                       </Carousel.Item>
                     );
-                  })
-                }
+                  }
+                )}
               </Carousel>
-              </Col>
-              <Col/>
+            </Col>
+            <Col />
           </Row>
 
           <Row className="bg-primary text-center">
-            <p>
-              {activePie+1}
-            </p>
+            <p>{activePie + 1}</p>
           </Row>
 
           <Row className="bg-primary text-center">
             {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col md={4}/>
+            <Col md={4} />
             <Col md={4}>
               {/* Display fields chosen by user in User Form */}
               <p className="display-6 fs-4">
@@ -240,39 +251,38 @@ const MyPies = () => {
                 Sector: {sector.current}
               </p>
             </Col>
-            <Col md={4}/>
+            <Col md={4} />
           </Row>
 
           <Row className="bg-primary">
             {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col/>
+            <Col />
             <Col xs={12} md={6}>
               <Table striped bordered hover responsive>
-                  <thead>
-                    <tr>
-                      {tableHeadings.map((heading, index) => (
-                        <th key={index}>{heading}</th>
+                <thead>
+                  <tr>
+                    {tableHeadings.map((heading, index) => (
+                      <th key={index}>{heading}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {tableRows.map((row, rowIndex) => (
+                    <tr key={rowIndex}>
+                      {Object.keys(row).map((key, colIndex) => (
+                        <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
                       ))}
                     </tr>
-                  </thead>
-                  <tbody>
-                    {tableRows.map((row, rowIndex) => (
-                      <tr key={rowIndex}>
-                        {Object.keys(row).map((key, colIndex) => (
-                          <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                        ))}
-                      </tr>
-                    ))}
-                  </tbody>
-                </Table>
+                  ))}
+                </tbody>
+              </Table>
             </Col>
-            <Col/>
+            <Col />
           </Row>
-
         </Container>
       )}
     </>
-  )
-}
+  );
+};
 
 export default MyPies;

@@ -1,5 +1,10 @@
 import "./styles.css";
-import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import UserForm from "./UserForm";
 import PieResults from "./PieResults";
 import Login from "./Login";
@@ -7,7 +12,7 @@ import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
 import PrivateRoute from "./PrivateRoute";
 import PublicOnlyRoute from "./PublicOnlyRoute";
-import FormRouteOnly from "./FormRouteOnly"
+import FormRouteOnly from "./FormRouteOnly";
 import Profile from "./Profile";
 import ResourcesFaq from "./ResourcesFaq";
 import Signup from "./Signup";
@@ -20,8 +25,7 @@ function App() {
       <StrictMode>
         <Router>
           <AuthProvider>
-
-            <ApexNavBar/>
+            <ApexNavBar />
 
             <Switch>
               {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
@@ -60,7 +64,6 @@ function App() {
                 <Redirect to="/" />
               </Route>
             </Switch>
-
           </AuthProvider>
         </Router>
       </StrictMode>
