@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef} from 'react';
 import { useAuth } from "./contexts/AuthContext";
-
-import apiEndpoints from "./api-endpoints.json";
-// import apiEndpoints from "./api-endpoints-dev.json";
-
 import Plot from 'react-plotly.js';
+
+import apiEndpointsProd from "./api-endpoints.json";
+import apiEndpointsDev from "./api-endpoints-dev.json";
+import * as ApexUtils from "./ApexUtils"
+
+const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
 
 const PiePlot = (props) => {
   const { currentUser } = useAuth();

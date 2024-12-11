@@ -9,8 +9,11 @@ import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
 import Tooltip from 'react-bootstrap/Tooltip';
 import { useLocation } from "react-router-dom";
 
-import apiEndpoints from "./api-endpoints.json";
-// import apiEndpoints from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./api-endpoints.json";
+import apiEndpointsDev from "./api-endpoints-dev.json";
+import * as ApexUtils from "./ApexUtils"
+
+const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
 
 const PieResults = () => {
   const { currentUser } = useAuth();

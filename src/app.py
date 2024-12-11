@@ -5,7 +5,6 @@ from flask import request
 
 import pandas as pd
 import random
-import requests
 
 import firebase_admin
 from firebase_admin import credentials

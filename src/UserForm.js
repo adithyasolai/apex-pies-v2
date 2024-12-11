@@ -16,8 +16,11 @@ import { useMediaQuery } from 'react-responsive';
 
 import uuid from 'react-uuid'
 
-import apiEndpoints from "./api-endpoints.json";
-// import apiEndpoints from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./api-endpoints.json";
+import apiEndpointsDev from "./api-endpoints-dev.json";
+import * as ApexUtils from "./ApexUtils"
+
+const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
 
 const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
 const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];

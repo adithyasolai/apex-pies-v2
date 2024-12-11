@@ -3,8 +3,11 @@ import { useAuth } from "./contexts/AuthContext";
 import { Carousel, Col, Container, Row, Table } from "react-bootstrap";
 import PiePlot from "./PiePlot";
 
-import apiEndpoints from "./api-endpoints.json";
-// import apiEndpoints from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./api-endpoints.json";
+import apiEndpointsDev from "./api-endpoints-dev.json";
+import * as ApexUtils from "./ApexUtils"
+
+const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
 
 const MyPies = () => {
   const { currentUser } = useAuth();
