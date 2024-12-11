@@ -3,11 +3,6 @@ import React from "react";
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { withRouter } from "react-router-dom";
 
-import banking_logo from "./resources/sector_icons/banking-sector.jpeg";
-import energy_logo from "./resources/sector_icons/energy-sector.jpeg";
-import health_logo from "./resources/sector_icons/health-sector.jpeg";
-import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
-
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -15,28 +10,22 @@ import { Row, Col, Form, Button, Image, Container, Carousel, OverlayTrigger, Too
 import { useMediaQuery } from 'react-responsive';
 
 import uuid from 'react-uuid'
-
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 import * as ApexUtils from "./ApexUtils"
 
-const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
-
-const SECTORS = ["Technology", "Health Care", "Energy ", "Banking"];
-const SECTOR_IMAGES = [tech_logo, health_logo, energy_logo, banking_logo];
-const NUM_SECTORS = SECTORS.length;
+const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
 const UserForm = () => {
   const { currentUser } = useAuth();
   const [age, setAge] = useState(18);
   const [risk, setRisk] = useState(1);
-  const [sector, setSector] = useState("Technology");
+  const [sector, setSector] = useState(ApexUtils.DEFAULT_USER_FORM_SECTOR);
   const [activeSectorImageIndex, setActiveSectorImageIndex] = useState(0);
   const [loading, setLoading] = useState(false);
   const history = useHistory();
 
   // Determine if the current screen size is 'xs' or 'md'
-  
   const isXsScreen = useMediaQuery({ maxWidth: 400 });
 
   // Domain that routes to ELB
@@ -93,7 +82,7 @@ const UserForm = () => {
 
   const handleSelect = (selectedIndex, e) => {
     setActiveSectorImageIndex(selectedIndex % 4);
-    setSector(SECTORS[selectedIndex % 4]);
+    setSector(ApexUtils.SECTORS[selectedIndex % 4]);
   };
 
   return (
@@ -203,17 +192,17 @@ const UserForm = () => {
               fade={false} // use this to toggle slide vs fade animation while testing
               className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
             >
-              {Array.from(Array(NUM_SECTORS), (x, i) => i).map((i) => {
+              {Array.from(Array(ApexUtils.NUM_SECTORS), (x, i) => i).map((i) => {
                 const borderStyle = "5px solid #95bfd0ff";
                 return (
                   // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-                  <Carousel.Item key={SECTOR_IMAGES[i]}>
+                  <Carousel.Item key={ApexUtils.SECTOR_IMAGES[i]}>
                     <Container fluid>
                       <Row>
                         <Col/>
                         <Col xs={12} md={6}>
                           <Image
-                            src={SECTOR_IMAGES[i]}
+                            src={ApexUtils.SECTOR_IMAGES[i]}
                             alt="asdf"
                             style={{ 
                               border: borderStyle,

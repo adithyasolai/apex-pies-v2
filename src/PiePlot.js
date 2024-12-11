@@ -6,7 +6,7 @@ import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 import * as ApexUtils from "./ApexUtils"
 
-const apiEndpoints = ApexUtils.dev_mode ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
 const PiePlot = (props) => {
   const { currentUser } = useAuth();
