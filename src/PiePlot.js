@@ -4,9 +4,8 @@ import Plot from 'react-plotly.js';
 
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
-import * as ApexUtils from "./ApexUtils"
 
-const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
 const PiePlot = (props) => {
   const { currentUser } = useAuth();

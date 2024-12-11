@@ -16,7 +16,9 @@ import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
 
-const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+console.log(process.env)
+
+const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
 const UserForm = () => {
   const { currentUser } = useAuth();

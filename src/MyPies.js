@@ -5,9 +5,8 @@ import PiePlot from "./PiePlot";
 
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
-import * as ApexUtils from "./ApexUtils"
 
-const apiEndpoints = ApexUtils.DEV_MODE ? apiEndpointsDev : apiEndpointsProd
+const apiEndpoints = process.env.REACT_APP_DEV_MODE ? apiEndpointsDev : apiEndpointsProd
 
 const MyPies = () => {
   const { currentUser } = useAuth();
