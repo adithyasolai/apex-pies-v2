@@ -2,7 +2,6 @@ import React from "react";
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { withRouter } from "react-router-dom";
-
 import { useAuth } from "./contexts/AuthContext";
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
@@ -11,9 +10,7 @@ import {
   Col,
   Form,
   Button,
-  Image,
   Container,
-  Carousel,
 } from "react-bootstrap";
 
 import uuid from "react-uuid";
@@ -23,6 +20,7 @@ import * as ApexUtils from "./ApexUtils";
 import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
+import { ApexCarousel } from "./ApexCarousel";
 
 const apiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
@@ -147,7 +145,6 @@ const UserForm = () => {
               </p>
             </ApexHover>
 
-            {/* Display currently-selected sector. */}
             <p className="display-6 fs-3 text-black">
               <strong>{sector}</strong>
             </p>
@@ -160,46 +157,11 @@ const UserForm = () => {
           {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
           <Col />
           <Col xs={12} md={4}>
-            <Carousel
+            <ApexCarousel
               activeIndex={activeSectorImageIndex}
               onSelect={handleSelect}
-              data-bs-theme="dark"
-              interval={null} // disables auto-play of carousel
-              controls={true} // making left/right arrows show up
-              fade={false} // use this to toggle slide vs fade animation while testing
-              className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
-            >
-              {Array.from(Array(ApexUtils.NUM_SECTORS), (x, i) => i).map(
-                (i) => {
-                  const borderStyle = "5px solid #95bfd0ff";
-                  return (
-                    // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-                    <Carousel.Item key={ApexUtils.SECTOR_IMAGES[i]}>
-                      <Container fluid>
-                        <Row>
-                          <Col />
-                          <Col xs={12} md={6}>
-                            <Image
-                              src={ApexUtils.SECTOR_IMAGES[i]}
-                              alt="asdf"
-                              style={{
-                                border: borderStyle,
-                                borderRadius: "10%",
-                                // TODO: do with this CSS classes instead
-                                width:
-                                  window.screen.width <= 400 ? "75%" : "90%",
-                              }}
-                              fluid
-                            />
-                          </Col>
-                          <Col />
-                        </Row>
-                      </Container>
-                    </Carousel.Item>
-                  );
-                }
-              )}
-            </Carousel>
+              imageArray={ApexUtils.SECTOR_IMAGES}
+            />
 
             {/* Container wrapper creates some space below button for visual appeal */}
             <Container fluid className="pb-2">
