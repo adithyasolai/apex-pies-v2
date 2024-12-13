@@ -12,19 +12,18 @@ export const ApexCarousel = ({activeIndex, onSelect, imageArray}) => {
       className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
     
     >
-      {/* TODO: Find a less verbose way to write this map statement. */}
-      {Array.from(Array(imageArray.length), (_, i) => i).map(
-        (i) => {
+      {imageArray.map(
+        (img, i) => {
           const borderStyle = "5px solid #95bfd0ff";
           return (
             // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-            <Carousel.Item key={imageArray[i]}>
+            <Carousel.Item key={i}>
               <Container fluid>
                 <Row>
                   <Col />
                   <Col xs={12} md={6}>
                     <Image
-                      src={imageArray[i]}
+                      src={img}
                       alt="asdf"
                       style={{
                         border: borderStyle,
