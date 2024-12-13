@@ -11,6 +11,7 @@ export const SECTOR_IMAGES = [
   energy_logo,
   banking_logo,
 ];
+export const SECTOR_IMAGE_BORDER_STYLE = "5px solid #95bfd0ff";
 export const DEFAULT_USER_FORM_SECTOR = "Technology";
 export const USER_FORM_MIN_AGE = 18;
 export const USER_FORM_MAX_AGE = 75;
