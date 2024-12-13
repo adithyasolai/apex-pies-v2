@@ -2,9 +2,6 @@ import React from "react";
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import { withRouter } from "react-router-dom";
-import { useAuth } from "./contexts/AuthContext";
-import { useState } from "react";
-import { useHistory } from "react-router-dom";
 import {
   Row,
   Col,
@@ -13,82 +10,15 @@ import {
   Container,
 } from "react-bootstrap";
 
-import uuid from "react-uuid";
-import apiEndpointsProd from "./api-endpoints.json";
-import apiEndpointsDev from "./api-endpoints-dev.json";
 import * as ApexUtils from "./ApexUtils";
 import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
 import { ApexCarousel } from "./ApexCarousel";
-
-const apiEndpoints = process.env.REACT_APP_DEV_MODE
-  ? apiEndpointsDev
-  : apiEndpointsProd;
+import { useApexUserForm } from "./useApexUserForm";
 
 const UserForm = () => {
-  const { currentUser } = useAuth();
-  const [age, setAge] = useState(18);
-  const [risk, setRisk] = useState(1);
-  const [sector, setSector] = useState(ApexUtils.DEFAULT_USER_FORM_SECTOR);
-  const [activeSectorImageIndex, setActiveSectorImageIndex] = useState(0);
-  const [loading, setLoading] = useState(false);
-  const history = useHistory();
-
-  // Domain that routes to ELB
-  const makePieEndpoint = apiEndpoints["makePieEndpoint"];
-
-  // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
-  // A loading screen should show in the front-end immediately after the Submit button is clicked.
-  // The loading screen should stay until the backend server confirms that the new Pie has been
-  // calculated and stored in the Firebase DB.
-  // Once the backend server gives this confirmation, we will serve the PieResults page, which
-  // will show another loading screen until the Plotly chart is fetched from the backend.
-  async function handleSubmit(event) {
-    // Show "Creating Your Pie ..." screen while waiting for Pie to be published to DB
-    setLoading(true);
-
-    event.preventDefault();
-
-    // in the case of a guest user, we will generate a temporary UUID for them
-    // TODO: delete this UUID and its contents from the DB after the user's session is over
-    const uid = currentUser ? currentUser["uid"] : uuid();
-
-    // Send request to backend server to calculate a diversified Pie
-    // for the user's selected inputs (age, risk tolerance, and sector).
-    // Wait for the request to finish.
-    await fetch(makePieEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: uid,
-        email: currentUser ? currentUser["email"] : null,
-        age: age,
-        risk: risk,
-        sector: sector,
-        is_guest: currentUser ? false : true,
-      }),
-    });
-
-    // Move to the PieResults page after confirming that backend server finished making Pie.
-    // Also sends the current state as props to the PieResults page so that
-    // the PieResults page has access to the user's selected inputs.
-    history.push("/pieresults", {
-      uid: uid,
-      email: currentUser ? currentUser["email"] : null,
-      age: age,
-      risk: risk,
-      sector: sector,
-      cameFromUserForm: true,
-    });
-  }
-
-  const handleSelect = (selectedIndex, e) => {
-    setActiveSectorImageIndex(selectedIndex % 4);
-    setSector(ApexUtils.SECTORS[selectedIndex % 4]);
-  };
+  const { formState, formStateSetters, handleSubmit, handleSelect } = useApexUserForm();
 
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount
@@ -116,13 +46,13 @@ const UserForm = () => {
             </ApexHover>
 
             <ApexSlider
-              input={age}
+              input={formState.age}
               min={ApexUtils.USER_FORM_MIN_AGE}
               max={ApexUtils.USER_FORM_MAX_AGE}
-              onChangeHandler={(e) => setAge(e.target.value)}
+              onChangeHandler={(e) => formStateSetters.setAge(e.target.value)}
             />
 
-            <p className="display-6 fs-3 text-black">{age + " years old"}</p>
+            <p className="display-6 fs-3 text-black">{formState.age + " years old"}</p>
 
             <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">
@@ -131,13 +61,13 @@ const UserForm = () => {
             </ApexHover>
 
             <ApexSlider
-              input={risk}
+              input={formState.risk}
               min={ApexUtils.USER_FORM_MIN_RISK}
               max={ApexUtils.USER_FORM_MAX_RISK}
-              onChangeHandler={(e) => setRisk(e.target.value)}
+              onChangeHandler={(e) => formStateSetters.setRisk(e.target.value)}
             />
 
-            <p className="display-6 fs-3 text-black">{risk}</p>
+            <p className="display-6 fs-3 text-black">{formState.risk}</p>
 
             <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">
@@ -146,7 +76,7 @@ const UserForm = () => {
             </ApexHover>
 
             <p className="display-6 fs-3 text-black">
-              <strong>{sector}</strong>
+              <strong>{formState.sector}</strong>
             </p>
           </Col>
           <Col md={4} />
@@ -158,7 +88,7 @@ const UserForm = () => {
           <Col />
           <Col xs={12} md={4}>
             <ApexCarousel
-              activeIndex={activeSectorImageIndex}
+              activeIndex={formState.activeSectorImageIndex}
               onSelect={handleSelect}
               imageArray={ApexUtils.SECTOR_IMAGES}
             />
@@ -169,7 +99,7 @@ const UserForm = () => {
                 type="Submit"
                 variant="secondary"
                 size="lg"
-                disabled={loading ? true : false}
+                disabled={formState.loading ? true : false}
               >
                 Submit
               </Button>
