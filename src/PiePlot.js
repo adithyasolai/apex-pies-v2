@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import Plot from "react-plotly.js";
 
@@ -55,7 +55,7 @@ const PiePlot = (props) => {
     },
   };
 
-  async function fetchPieData() {
+  const fetchPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -143,7 +143,7 @@ const PiePlot = (props) => {
     } catch (err) {
       console.log(err);
     }
-  }
+  }, [fetchSavedPieEndpoint])
 
   useEffect(() => {
     if (!props.active) {
@@ -151,7 +151,7 @@ const PiePlot = (props) => {
     }
 
     fetchPieData();
-  }, [props.active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
+  }, [fetchPieData, props.active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
 
   if (loading) {
     return <h2 className="text-center pb-5">loading ...</h2>;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Carousel, Col, Container, Row, Table } from "react-bootstrap";
 import PiePlot from "./PiePlot";
@@ -35,7 +35,7 @@ const MyPies = () => {
   const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"];
   const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"];
 
-  async function fetchPieData() {
+  const fetchPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -60,9 +60,9 @@ const MyPies = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  }, [fetchNumSavedEndpoint])
 
-  async function fetchSavedPieData() {
+  const fetchSavedPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -98,17 +98,17 @@ const MyPies = () => {
     } catch (err) {
       console.log(err);
     }
-  }
+  }, [activePie, fetchSavedPieEndpoint])
 
   useEffect(() => {
     fetchPieData();
-  }, []);
+  }, [fetchPieData]);
 
   useEffect(() => {
     if (numSaved !== null) {
       fetchSavedPieData();
     }
-  }, [numSaved, activePie]);
+  }, [numSaved, activePie, fetchSavedPieData]);
 
   const handleSelect = (selectedIndex, e) => {
     setActivePie(selectedIndex);

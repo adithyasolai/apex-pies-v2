@@ -19,7 +19,7 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   const emailRef = useRef();
   const passwordRef = useRef();
-  const { login, currentUser } = useAuth();
+  const { login } = useAuth();
   // default is "" so that we don't have an error by default
   const [error, setError] = useState("");
   const history = useHistory();
