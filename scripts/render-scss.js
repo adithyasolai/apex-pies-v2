@@ -25,7 +25,7 @@ module.exports = function renderSCSS() {
         sh.mkdir('-p', destPathDirname);
     }
 
-    postcss([ autoprefixer ]).process(results.css, {from: 'styles.css', to: 'styles.css'}).then(result => {
+    postcss([ autoprefixer ]).process(results.css, {from: 'styles.css', to: 'styles.css'}).then((/** @type {{ warnings: () => any[]; css: { toString: () => any; }; }} */ result) => {
         result.warnings().forEach(warn => {
             console.warn(warn.toString())
         })
