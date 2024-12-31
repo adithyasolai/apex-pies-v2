@@ -1,6 +1,4 @@
 import React from "react";
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
 import { withRouter } from "react-router-dom";
 import {
   Row,
@@ -17,8 +15,26 @@ import { ApexHover } from "./ApexHover";
 import { ApexCarousel } from "./ApexCarousel";
 import { useApexUserForm } from "./useApexUserForm";
 
-const UserForm = () => {
-  const { formState, formStateSetters, handleSubmit, handleSelect } = useApexUserForm();
+interface FormState {
+  age: number;
+  risk: number;
+  sector: string;
+  activeSectorImageIndex: number;
+  loading: boolean;
+}
+
+interface FormStateSetters {
+  setAge: React.Dispatch<React.SetStateAction<number>>;
+  setRisk: React.Dispatch<React.SetStateAction<number>>;
+}
+
+const UserForm: React.FC = () => {
+  const { formState, formStateSetters, handleSubmit, handleSelect }: { 
+    formState: FormState;
+    formStateSetters: FormStateSetters;
+    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
+    handleSelect: (selectedIndex: number, event: React.FormEvent<HTMLFormElement>) => void;
+  } = useApexUserForm();
 
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount
@@ -41,20 +57,20 @@ const UserForm = () => {
             <ApexIntro />
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT as string}>
               <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
             </ApexHover>
 
             <ApexSlider
               input={formState.age}
-              min={ApexUtils.USER_FORM_MIN_AGE}
-              max={ApexUtils.USER_FORM_MAX_AGE}
-              onChangeHandler={(e) => formStateSetters.setAge(e.target.value)}
+              min={ApexUtils.USER_FORM_MIN_AGE as number}
+              max={ApexUtils.USER_FORM_MAX_AGE as number}
+              onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setAge(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.age + " years old"}</p>
 
-            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT as string}>
               <p className="display-6 fs-2 text-secondary fw-bold">
                 Risk Tolerance
               </p>
@@ -62,14 +78,14 @@ const UserForm = () => {
 
             <ApexSlider
               input={formState.risk}
-              min={ApexUtils.USER_FORM_MIN_RISK}
-              max={ApexUtils.USER_FORM_MAX_RISK}
-              onChangeHandler={(e) => formStateSetters.setRisk(e.target.value)}
+              min={ApexUtils.USER_FORM_MIN_RISK as number}
+              max={ApexUtils.USER_FORM_MAX_RISK as number}
+              onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setRisk(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.risk}</p>
 
-            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT as string}>
               <p className="display-6 fs-2 text-secondary fw-bold">
                 Sector of Interest
               </p>
@@ -96,7 +112,7 @@ const UserForm = () => {
             {/* Container wrapper creates some space below button for visual appeal */}
             <Container fluid className="pb-2">
               <Button
-                type="Submit"
+                type="submit"
                 variant="secondary"
                 size="lg"
                 disabled={formState.loading ? true : false}
