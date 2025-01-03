@@ -13,20 +13,7 @@ import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
 import { ApexCarousel } from "./ApexCarousel";
-import { useApexUserForm } from "./useApexUserForm";
-
-interface FormState {
-  age: number;
-  risk: number;
-  sector: string;
-  activeSectorImageIndex: number;
-  loading: boolean;
-}
-
-interface FormStateSetters {
-  setAge: React.Dispatch<React.SetStateAction<number>>;
-  setRisk: React.Dispatch<React.SetStateAction<number>>;
-}
+import { FormState, FormStateSetters, useApexUserForm } from "./useApexUserForm";
 
 const UserForm: React.FC = () => {
   const { formState, formStateSetters, handleSubmit, handleSelect }: { 

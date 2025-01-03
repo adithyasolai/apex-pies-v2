@@ -6,19 +6,24 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 import uuid from "react-uuid";
+import { ApexApiEndpoints } from "./apexInterfaces";
 
 interface User {
   uid: string;
   email: string | null;
 }
 
-// TODO: Make this interface global and used across all files that fetch API Endpoints after checking env
-interface ApexApiEndpoints {
-  makePieEndpoint: string;
-  fetchNumSavedEndpoint: string;
-  fetchPiesEndpoint: string;
-  savePiesEndpoint: string;
-  fetchSavedPieEndpoint: string
+export interface FormState {
+  age: number;
+  risk: number;
+  sector: string;
+  activeSectorImageIndex: number;
+  loading: boolean;
+}
+
+export interface FormStateSetters {
+  setAge: React.Dispatch<React.SetStateAction<number>>;
+  setRisk: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
@@ -90,8 +95,8 @@ export const useApexUserForm = () => {
   };
 
   return {
-    formState: {age, risk, sector, activeSectorImageIndex, loading},
-    formStateSetters: {setAge, setRisk},
+    formState: {age, risk, sector, activeSectorImageIndex, loading} as FormState,
+    formStateSetters: {setAge, setRisk} as FormStateSetters,
     handleSubmit,
     handleSelect
   }
