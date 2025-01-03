@@ -1,6 +1,6 @@
 import { Col, Container, Image, Row } from "react-bootstrap";
 
-import * as ApexUtils from "./ApexUtils";
+import * as ApexUtils from "./apexUtils";
 
 export const ApexSectorDisplay = ({image}) => {
 

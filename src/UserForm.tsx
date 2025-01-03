@@ -8,7 +8,7 @@ import {
   Container,
 } from "react-bootstrap";
 
-import * as ApexUtils from "./ApexUtils";
+import * as ApexUtils from "./apexUtils";
 import { ApexIntro } from "./ApexIntro";
 import { ApexSlider } from "./ApexSlider";
 import { ApexHover } from "./ApexHover";
@@ -44,20 +44,20 @@ const UserForm: React.FC = () => {
             <ApexIntro />
 
             {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT as string}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
             </ApexHover>
 
             <ApexSlider
               input={formState.age}
-              min={ApexUtils.USER_FORM_MIN_AGE as number}
-              max={ApexUtils.USER_FORM_MAX_AGE as number}
+              min={ApexUtils.USER_FORM_MIN_AGE}
+              max={ApexUtils.USER_FORM_MAX_AGE}
               onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setAge(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.age + " years old"}</p>
 
-            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT as string}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">
                 Risk Tolerance
               </p>
@@ -65,14 +65,14 @@ const UserForm: React.FC = () => {
 
             <ApexSlider
               input={formState.risk}
-              min={ApexUtils.USER_FORM_MIN_RISK as number}
-              max={ApexUtils.USER_FORM_MAX_RISK as number}
+              min={ApexUtils.USER_FORM_MIN_RISK}
+              max={ApexUtils.USER_FORM_MAX_RISK}
               onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setRisk(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.risk}</p>
 
-            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT as string}>
+            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">
                 Sector of Interest
               </p>

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import * as ApexUtils from "./ApexUtils";
+import * as ApexUtils from "./apexUtils";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import apiEndpointsProd from "./api-endpoints.json";
