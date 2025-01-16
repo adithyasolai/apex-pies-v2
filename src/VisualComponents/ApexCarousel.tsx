@@ -1,7 +1,14 @@
+import React, { JSX } from 'react';
 import { Carousel } from "react-bootstrap";
 import { ApexSectorDisplay } from "./ApexSectorDisplay";
 
-export const ApexCarousel = ({activeIndex, onSelect, imageArray}) => {
+interface ApexCarouselProps { 
+  activeIndex: number;
+  onSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
+  imageArray: string[]
+}
+
+export const ApexCarousel: React.FC<ApexCarouselProps> = ({activeIndex, onSelect, imageArray}): JSX.Element => {
   return (
     <Carousel
       activeIndex={activeIndex}
@@ -13,7 +20,7 @@ export const ApexCarousel = ({activeIndex, onSelect, imageArray}) => {
       className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
     >
       {imageArray.map(
-        (img, i) => {
+        (img: string, i: number) => {
           return (
             // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
             <Carousel.Item key={i}>

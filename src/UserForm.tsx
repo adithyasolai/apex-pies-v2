@@ -9,10 +9,10 @@ import {
 } from "react-bootstrap";
 
 import * as ApexUtils from "./apexUtils";
-import { ApexIntro } from "./ApexIntro";
-import { ApexSlider } from "./ApexSlider";
-import { ApexHover } from "./ApexHover";
-import { ApexCarousel } from "./ApexCarousel";
+import { ApexIntro } from "./VisualComponents/ApexIntro";
+import { ApexSlider } from "./VisualComponents/ApexSlider";
+import { ApexHover } from "./VisualComponents/ApexHover";
+import { ApexCarousel } from "./VisualComponents/ApexCarousel";
 import { FormState, FormStateSetters, useApexUserForm } from "./useApexUserForm";
 
 const UserForm: React.FC = () => {
@@ -20,7 +20,7 @@ const UserForm: React.FC = () => {
     formState: FormState;
     formStateSetters: FormStateSetters;
     handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    handleSelect: (selectedIndex: number, event: React.FormEvent<HTMLFormElement>) => void;
+    handleSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
   } = useApexUserForm();
 
   return (

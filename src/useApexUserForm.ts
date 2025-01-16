@@ -89,7 +89,7 @@ export const useApexUserForm = () => {
     });
   }
 
-  const handleSelect = (selectedIndex, e) => {
+  const handleSelect = (selectedIndex: number, event: Record<string, unknown> | null) => {
     setActiveSectorImageIndex(selectedIndex % 4);
     setSector(ApexUtils.SECTORS[selectedIndex % 4]);
   };
