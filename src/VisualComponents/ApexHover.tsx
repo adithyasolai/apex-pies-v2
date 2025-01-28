@@ -8,7 +8,10 @@ interface ApexHoverProps {
   children: React.ReactElement;
 }
 
-export const ApexHover: React.FC<ApexHoverProps> = ({ hoverText, children }): JSX.Element => {
+export const ApexHover: React.FC<ApexHoverProps> = ({
+  hoverText,
+  children,
+}): JSX.Element => {
   // Determine if the current screen size is 'xs' or 'md'
   // TODO: Consider doing this globally somewhere instead of each time this component is used/rendered.
   const isXsScreen: boolean = useMediaQuery({ maxWidth: 400 });

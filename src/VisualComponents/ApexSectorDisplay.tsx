@@ -3,10 +3,12 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 import React, { JSX } from "react";
 
 interface ApexSectorDisplayProps {
-  image: string
+  image: string;
 }
 
-export const ApexSectorDisplay: React.FC<ApexSectorDisplayProps> = ({ image }): JSX.Element => {
+export const ApexSectorDisplay: React.FC<ApexSectorDisplayProps> = ({
+  image,
+}): JSX.Element => {
   // TODO: do with this CSS classes instead
   const imageWidth: string = window.screen.width <= 400 ? "75%" : "90%";
   const imageBorderRadius: string = "10%";
