@@ -5,7 +5,7 @@ import { ApexSectorDisplay } from "./ApexSectorDisplay";
 interface ApexCarouselProps {
   activeIndex: number;
   onSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
-  imageArray: string[];
+  imageArray: readonly string[];
 }
 
 export const ApexCarousel: React.FC<ApexCarouselProps> = ({
@@ -23,13 +23,11 @@ export const ApexCarousel: React.FC<ApexCarouselProps> = ({
       fade={false} // use this to toggle slide vs fade animation while testing
       className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
     >
-      {imageArray.map((img: string, i: number) => {
-        return (
-          <Carousel.Item key={i}>
-            <ApexSectorDisplay image={img} />
-          </Carousel.Item>
-        );
-      })}
+      {imageArray.map((img: string, index: number) => (
+        <Carousel.Item key={index}>
+          <ApexSectorDisplay image={img} />
+        </Carousel.Item>
+      ))}
     </Carousel>
   );
 };
