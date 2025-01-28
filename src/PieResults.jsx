@@ -163,7 +163,14 @@ const PieResults = () => {
     }
 
     fetchPieData();
-  }, [currentUser, fetchPiesEndpoint, location.state?.age, location.state?.risk, location.state?.sector, location.state?.uid]);
+  }, [
+    currentUser,
+    fetchPiesEndpoint,
+    location.state?.age,
+    location.state?.risk,
+    location.state?.sector,
+    location.state?.uid,
+  ]);
 
   async function handleSaveToProfile(event) {
     setSaveInProgress(true);

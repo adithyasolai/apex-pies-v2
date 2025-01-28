@@ -2,8 +2,7 @@ import { Col, Container, Image, Row } from "react-bootstrap";
 
 import * as ApexUtils from "../apexUtils";
 
-export const ApexSectorDisplay = ({image}) => {
-
+export const ApexSectorDisplay = ({ image }) => {
   return (
     <Container fluid>
       <Row>
@@ -16,8 +15,7 @@ export const ApexSectorDisplay = ({image}) => {
               border: ApexUtils.SECTOR_IMAGE_BORDER_STYLE,
               borderRadius: "10%",
               // TODO: do with this CSS classes instead
-              width:
-                window.screen.width <= 400 ? "75%" : "90%",
+              width: window.screen.width <= 400 ? "75%" : "90%",
             }}
             fluid
           />
@@ -25,5 +23,5 @@ export const ApexSectorDisplay = ({image}) => {
         <Col />
       </Row>
     </Container>
-  )
+  );
 };

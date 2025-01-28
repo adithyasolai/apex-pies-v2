@@ -143,7 +143,7 @@ const PiePlot = (props) => {
     } catch (err) {
       console.log(err);
     }
-  }, [fetchSavedPieEndpoint])
+  }, [fetchSavedPieEndpoint]);
 
   useEffect(() => {
     if (!props.active) {

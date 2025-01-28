@@ -4,7 +4,12 @@ import health_logo from "./resources/sector_icons/health-sector.jpeg";
 import tech_logo from "./resources/sector_icons/tech-sector.jpeg";
 
 // UserForm constants
-export const SECTORS: string[] = ["Technology", "Health Care", "Energy ", "Banking"];
+export const SECTORS: string[] = [
+  "Technology",
+  "Health Care",
+  "Energy ",
+  "Banking",
+];
 export const SECTOR_IMAGES: string[] = [
   tech_logo,
   health_logo,

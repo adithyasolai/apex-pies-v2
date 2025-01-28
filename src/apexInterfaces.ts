@@ -3,5 +3,5 @@ export interface ApexApiEndpoints {
   fetchNumSavedEndpoint: string;
   fetchPiesEndpoint: string;
   savePiesEndpoint: string;
-  fetchSavedPieEndpoint: string
+  fetchSavedPieEndpoint: string;
 }

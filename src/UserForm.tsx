@@ -1,26 +1,32 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import {
-  Row,
-  Col,
-  Form,
-  Button,
-  Container,
-} from "react-bootstrap";
+import { Row, Col, Form, Button, Container } from "react-bootstrap";
 
 import * as ApexUtils from "./apexUtils";
 import { ApexIntro } from "./VisualComponents/ApexIntro";
 import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
 import { ApexCarousel } from "./VisualComponents/ApexCarousel";
-import { FormState, FormStateSetters, useApexUserForm } from "./useApexUserForm";
+import {
+  FormState,
+  FormStateSetters,
+  useApexUserForm,
+} from "./useApexUserForm";
 
 const UserForm: React.FC = () => {
-  const { formState, formStateSetters, handleSubmit, handleSelect }: { 
+  const {
+    formState,
+    formStateSetters,
+    handleSubmit,
+    handleSelect,
+  }: {
     formState: FormState;
     formStateSetters: FormStateSetters;
     handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    handleSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
+    handleSelect: (
+      eventKey: number,
+      event: Record<string, unknown> | null
+    ) => void;
   } = useApexUserForm();
 
   return (
@@ -52,10 +58,14 @@ const UserForm: React.FC = () => {
               input={formState.age}
               min={ApexUtils.USER_FORM_MIN_AGE}
               max={ApexUtils.USER_FORM_MAX_AGE}
-              onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setAge(e.target.value)}
+              onChangeHandler={(e: {
+                target: { value: React.SetStateAction<number> };
+              }) => formStateSetters.setAge(e.target.value)}
             />
 
-            <p className="display-6 fs-3 text-black">{formState.age + " years old"}</p>
+            <p className="display-6 fs-3 text-black">
+              {formState.age + " years old"}
+            </p>
 
             <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
               <p className="display-6 fs-2 text-secondary fw-bold">
@@ -67,7 +77,9 @@ const UserForm: React.FC = () => {
               input={formState.risk}
               min={ApexUtils.USER_FORM_MIN_RISK}
               max={ApexUtils.USER_FORM_MAX_RISK}
-              onChangeHandler={(e: { target: { value: React.SetStateAction<number>; }; }) => formStateSetters.setRisk(e.target.value)}
+              onChangeHandler={(e: {
+                target: { value: React.SetStateAction<number> };
+              }) => formStateSetters.setRisk(e.target.value)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.risk}</p>

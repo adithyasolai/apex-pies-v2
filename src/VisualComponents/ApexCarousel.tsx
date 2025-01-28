@@ -1,14 +1,18 @@
-import React, { JSX } from 'react';
+import React, { JSX } from "react";
 import { Carousel } from "react-bootstrap";
 import { ApexSectorDisplay } from "./ApexSectorDisplay";
 
-interface ApexCarouselProps { 
+interface ApexCarouselProps {
   activeIndex: number;
   onSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
-  imageArray: string[]
+  imageArray: string[];
 }
 
-export const ApexCarousel: React.FC<ApexCarouselProps> = ({activeIndex, onSelect, imageArray}): JSX.Element => {
+export const ApexCarousel: React.FC<ApexCarouselProps> = ({
+  activeIndex,
+  onSelect,
+  imageArray,
+}): JSX.Element => {
   return (
     <Carousel
       activeIndex={activeIndex}
@@ -19,19 +23,13 @@ export const ApexCarousel: React.FC<ApexCarouselProps> = ({activeIndex, onSelect
       fade={false} // use this to toggle slide vs fade animation while testing
       className="pb-5" // used to make the # of slides slits below the Carousel visible and not hidden behind the Image.
     >
-      {imageArray.map(
-        (img: string, i: number) => {
-          return (
-            // TODO: Attempt to add back sector hovertext from ./resources/text, using the simple React Bootstrap tools
-            <Carousel.Item key={i}>
-              <ApexSectorDisplay
-                image={img}
-              />
-            </Carousel.Item>
-          );
-        }
-      )}
+      {imageArray.map((img: string, i: number) => {
+        return (
+          <Carousel.Item key={i}>
+            <ApexSectorDisplay image={img} />
+          </Carousel.Item>
+        );
+      })}
     </Carousel>
-
   );
 };

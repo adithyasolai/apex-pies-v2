@@ -60,7 +60,7 @@ const MyPies = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [fetchNumSavedEndpoint])
+  }, [fetchNumSavedEndpoint]);
 
   const fetchSavedPieData = useCallback(async () => {
     try {
@@ -98,7 +98,7 @@ const MyPies = () => {
     } catch (err) {
       console.log(err);
     }
-  }, [activePie, fetchSavedPieEndpoint])
+  }, [activePie, fetchSavedPieEndpoint]);
 
   useEffect(() => {
     fetchPieData();
