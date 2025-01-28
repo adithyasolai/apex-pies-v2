@@ -5,7 +5,7 @@ import { ApexSectorDisplay } from "./ApexSectorDisplay";
 interface ApexCarouselProps {
   activeIndex: number;
   onSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
-  imageArray: readonly string[];
+  readonly imageArray: string[];
 }
 
 export const ApexCarousel: React.FC<ApexCarouselProps> = ({
