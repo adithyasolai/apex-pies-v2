@@ -2,8 +2,8 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import Plot from "react-plotly.js";
 
-import apiEndpointsProd from "./api-endpoints.json";
-import apiEndpointsDev from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./resources/api-endpoints.json";
+import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 
 const apiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev

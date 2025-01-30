@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import * as ApexUtils from "./apexUtils";
 
-import apiEndpointsProd from "./api-endpoints.json";
-import apiEndpointsDev from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./resources/api-endpoints.json";
+import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import uuid from "react-uuid";
 import { ApexApiEndpoints } from "./apexInterfaces";
 import { useNavigate } from "react-router-dom";

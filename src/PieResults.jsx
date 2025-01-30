@@ -8,8 +8,8 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { useLocation } from "react-router-dom";
 
-import apiEndpointsProd from "./api-endpoints.json";
-import apiEndpointsDev from "./api-endpoints-dev.json";
+import apiEndpointsProd from "./resources/api-endpoints.json";
+import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 
 const apiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
