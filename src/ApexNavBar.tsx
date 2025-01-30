@@ -3,7 +3,7 @@ import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import arrows from "./resources/ArrowsNoBckgd.png";
 import { useAuth } from "./contexts/AuthContext";
 
-const ApexNavBar = () => {
+const ApexNavBar: React.FC = () => {
   const { currentUser } = useAuth();
 
   return (
@@ -13,8 +13,6 @@ const ApexNavBar = () => {
     >
       <Container className="container px-5">
         <Button variant="link" href="/" style={{ padding: 0 }}>
-          {" "}
-          {/* Added Button and styles */}
           <Image
             src={arrows}
             style={{
@@ -23,7 +21,6 @@ const ApexNavBar = () => {
               paddingBottom: "5px",
               marginRight: "3px",
             }}
-            href="/"
           />
         </Button>
 
