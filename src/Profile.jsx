@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { Card, Button, Alert, Container } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { currentUser, signout } = useAuth();
   const [error, setError] = useState("");
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleSignOut(e) {
     e.preventDefault();
@@ -17,7 +17,7 @@ const Profile = () => {
     try {
       await signout();
       // re-direct to log-in after sign-out
-      history.push("/login");
+      navigate("/login");
     } catch (err) {
       console.log(err);
       setError("Failed to sign out.");

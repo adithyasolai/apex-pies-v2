@@ -12,7 +12,7 @@ import {
 
 import { useAuth } from "./contexts/AuthContext";
 
-import { Link, useHistory } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const emailRef = useRef();
@@ -23,7 +23,7 @@ const Signup = () => {
   const [error, setError] = useState("");
   // eslint-disable-next-line no-unused-vars
   const [loading, setLoading] = useState(false); // just keeping for future if needed.
-  const history = useHistory();
+  const navigate = useNavigate();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -39,7 +39,7 @@ const Signup = () => {
       setLoading(true);
       await signup(emailRef.current.value, passwordRef.current.value);
       // re-direct to user profile after signin up
-      history.push("/profile");
+      navigate("/profile");
     } catch (e) {
       // TODO: cast error as a FirebaseError object and parse error message cleanly without revealing
       // that a Firebase database is being used under the hood.

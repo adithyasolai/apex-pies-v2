@@ -1,5 +1,4 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { Row, Col, Form, Button, Container } from "react-bootstrap";
 
 import * as ApexUtils from "./apexUtils";
@@ -120,6 +119,4 @@ const UserForm: React.FC = () => {
   );
 };
 
-const UserFormWithRouter = withRouter(UserForm);
-
-export default UserFormWithRouter;
+export default UserForm;

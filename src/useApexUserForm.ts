@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import * as ApexUtils from "./apexUtils";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 import apiEndpointsProd from "./api-endpoints.json";
 import apiEndpointsDev from "./api-endpoints-dev.json";
 import uuid from "react-uuid";
 import { ApexApiEndpoints } from "./apexInterfaces";
+import { useNavigate } from "react-router-dom";
 
 interface User {
   uid: string;
@@ -40,7 +40,7 @@ export const useApexUserForm = () => {
   const [activeSectorImageIndex, setActiveSectorImageIndex] =
     useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
-  const history = useHistory();
+  const navigate = useNavigate();
 
   // Domain that routes to ELB
   const makePieEndpoint: string = apiEndpoints["makePieEndpoint"];
@@ -82,14 +82,14 @@ export const useApexUserForm = () => {
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
     // the PieResults page has access to the user's selected inputs.
-    history.push("/pieresults", {
+    navigate("/pieresults", {state: {
       uid: uid,
       email: currentUser ? currentUser["email"] : null,
       age: age,
       risk: risk,
       sector: sector,
       cameFromUserForm: true,
-    });
+    }});
   }
 
   const handleSelect = (selectedIndex: number) => {

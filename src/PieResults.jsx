@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { withRouter } from "react-router-dom";
 
 import { useAuth } from "./contexts/AuthContext";
 
@@ -302,4 +301,4 @@ const PieResults = () => {
   );
 };
 
-export default withRouter(PieResults);
+export default PieResults;

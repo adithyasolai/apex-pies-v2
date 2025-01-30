@@ -1,9 +1,9 @@
 import "./styles.css";
 import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
+  createBrowserRouter,
+  Outlet,
+  Navigate,
+  RouterProvider,
 } from "react-router-dom";
 import UserForm from "./UserForm";
 import PieResults from "./PieResults";
@@ -21,52 +21,56 @@ import MyPies from "./MyPies";
 import React from "react";
 
 const App: React.FC = () => {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (
+        <AuthProvider>
+          <ApexNavBar />
+          <Outlet />
+        </AuthProvider>
+      ),
+      children: [
+        {
+          index: true,
+          element: <UserForm/>
+        },
+        {
+          path: "pieresults",
+          element: <FormRouteOnly><PieResults/></FormRouteOnly>
+        },
+        {
+          path: "login",
+          element: <PublicOnlyRoute><Login/></PublicOnlyRoute>
+        },
+        {
+          path: "signup",
+          element: <Signup/>
+        },
+        {
+          path: "mypies",
+          element: <PrivateRoute><MyPies/></PrivateRoute>
+        },
+        {
+          path: "profile",
+          element: <PrivateRoute><Profile/></PrivateRoute>
+        },
+        {
+          path: "resourcesfaq",
+          element: <ResourcesFaq/>
+        },
+        {
+          path: "*",
+          element: <Navigate to="/" replace />
+        }
+      ]
+    }
+  ])
+
   return (
     <React.Fragment>
       <StrictMode>
-        <Router>
-          <AuthProvider>
-            <ApexNavBar />
-
-            <Switch>
-              {/* User can't access UserForm until they have logged in. This re-directs them to Login if signed out. */}
-              <Route exact path="/">
-                <UserForm />
-              </Route>
-
-              <FormRouteOnly path="/pieresults">
-                <PieResults />
-              </FormRouteOnly>
-
-              <PublicOnlyRoute path="/login">
-                <Login />
-              </PublicOnlyRoute>
-
-              <Route path="/signup">
-                <Signup />
-              </Route>
-
-              {/* Must be signed-in to access mypies page */}
-              <PrivateRoute path="/mypies">
-                <MyPies />
-              </PrivateRoute>
-
-              {/* User can't access Profile info until they have logged in. This re-directs them to Login if signed out. */}
-              <PrivateRoute path="/profile">
-                <Profile />
-              </PrivateRoute>
-
-              <Route path="/resourcesfaq">
-                <ResourcesFaq />
-              </Route>
-
-              {/* route everything else to UserForm homepage as well */}
-              <Route path="/">
-                <Redirect to="/" />
-              </Route>
-            </Switch>
-          </AuthProvider>
-        </Router>
+        <RouterProvider router={router} />
       </StrictMode>
     </React.Fragment>
   );
