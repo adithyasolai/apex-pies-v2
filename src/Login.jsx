@@ -30,7 +30,7 @@ const Login = () => {
       setError("");
       await login(emailRef.current.value, passwordRef.current.value);
       // re-direct to main page after logging in
-      navigate("/")
+      navigate("/");
     } catch (e) {
       console.log(e);
       setError("Failed to log in to " + emailRef.current.value);

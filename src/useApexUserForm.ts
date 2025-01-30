@@ -82,14 +82,16 @@ export const useApexUserForm = () => {
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
     // the PieResults page has access to the user's selected inputs.
-    navigate("/pieresults", {state: {
-      uid: uid,
-      email: currentUser ? currentUser["email"] : null,
-      age: age,
-      risk: risk,
-      sector: sector,
-      cameFromUserForm: true,
-    }});
+    navigate("/pieresults", {
+      state: {
+        uid: uid,
+        email: currentUser ? currentUser["email"] : null,
+        age: age,
+        risk: risk,
+        sector: sector,
+        cameFromUserForm: true,
+      },
+    });
   }
 
   const handleSelect = (selectedIndex: number) => {

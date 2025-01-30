@@ -33,39 +33,55 @@ const App: React.FC = () => {
       children: [
         {
           index: true,
-          element: <UserForm/>
+          element: <UserForm />,
         },
         {
           path: "pieresults",
-          element: <FormRouteOnly><PieResults/></FormRouteOnly>
+          element: (
+            <FormRouteOnly>
+              <PieResults />
+            </FormRouteOnly>
+          ),
         },
         {
           path: "login",
-          element: <PublicOnlyRoute><Login/></PublicOnlyRoute>
+          element: (
+            <PublicOnlyRoute>
+              <Login />
+            </PublicOnlyRoute>
+          ),
         },
         {
           path: "signup",
-          element: <Signup/>
+          element: <Signup />,
         },
         {
           path: "mypies",
-          element: <PrivateRoute><MyPies/></PrivateRoute>
+          element: (
+            <PrivateRoute>
+              <MyPies />
+            </PrivateRoute>
+          ),
         },
         {
           path: "profile",
-          element: <PrivateRoute><Profile/></PrivateRoute>
+          element: (
+            <PrivateRoute>
+              <Profile />
+            </PrivateRoute>
+          ),
         },
         {
           path: "resourcesfaq",
-          element: <ResourcesFaq/>
+          element: <ResourcesFaq />,
         },
         {
           path: "*",
-          element: <Navigate to="/" replace />
-        }
-      ]
-    }
-  ])
+          element: <Navigate to="/" replace />,
+        },
+      ],
+    },
+  ]);
 
   return (
     <React.Fragment>
