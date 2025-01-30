@@ -2,14 +2,14 @@ import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
-import faqPairsJson from "./resources/faqPairs.json"
+import faqPairsJson from "./resources/faqPairs.json";
 
 interface FaqPair {
-  question: string,
-  answer: string
+  question: string;
+  answer: string;
 }
 
-const FaqItem: React.FC<FaqPair> = ({question, answer}) => (
+const FaqItem: React.FC<FaqPair> = ({ question, answer }) => (
   <Collapsible
     trigger={
       <Button type="submit" variant="secondary" size="lg">
@@ -19,15 +19,13 @@ const FaqItem: React.FC<FaqPair> = ({question, answer}) => (
     triggerClassName="collapsible"
     triggerOpenedClassName="collapsible"
   >
-    <p className="display-6 fs-5 pt-2">
-      {answer}
-    </p>
+    <p className="display-6 fs-5 pt-2">{answer}</p>
   </Collapsible>
 );
 
 const ResourcesFaq: React.FC = () => {
   // import question & answer text from JSON file.
-  const faqPairs: FaqPair[] = faqPairsJson['FAQ Pairs']
+  const faqPairs: FaqPair[] = faqPairsJson["FAQ Pairs"];
 
   return (
     <Container
@@ -41,7 +39,7 @@ const ResourcesFaq: React.FC = () => {
 
           {faqPairs.map((faqPair: FaqPair, index: number) => (
             <React.Fragment key={index}>
-              <FaqItem {...faqPair}/>
+              <FaqItem {...faqPair} />
               {index < faqPairs.length - 1 && <br />}
             </React.Fragment>
           ))}
