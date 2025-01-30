@@ -7,8 +7,7 @@ import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
 import { ApexCarousel } from "./VisualComponents/ApexCarousel";
 import {
-  FormState,
-  FormStateSetters,
+  ApexUserFormState,
   useApexUserForm,
 } from "./useApexUserForm";
 
@@ -18,12 +17,7 @@ const UserForm: React.FC = () => {
     formStateSetters,
     handleSubmit,
     handleSelect,
-  }: {
-    formState: FormState;
-    formStateSetters: FormStateSetters;
-    handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    handleSelect: (selectedIndex: number) => void;
-  } = useApexUserForm();
+  }: ApexUserFormState = useApexUserForm();
 
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount

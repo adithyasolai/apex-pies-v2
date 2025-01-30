@@ -26,11 +26,18 @@ export interface FormStateSetters {
   setRisk: React.Dispatch<React.SetStateAction<number>>;
 }
 
+export interface ApexUserFormState {
+  formState: FormState;
+  formStateSetters: FormStateSetters;
+  handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
+  handleSelect: (selectedIndex: number) => void;
+}
+
 const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
   : apiEndpointsProd;
 
-export const useApexUserForm = () => {
+export const useApexUserForm = (): ApexUserFormState => {
   const { currentUser } = useAuth() as { currentUser: User | null };
   const [age, setAge] = useState<number>(18);
   const [risk, setRisk] = useState<number>(1);
