@@ -58,9 +58,7 @@ const UserForm: React.FC = () => {
               input={formState.age}
               min={ApexUtils.USER_FORM_MIN_AGE}
               max={ApexUtils.USER_FORM_MAX_AGE}
-              onChangeHandler={(e: {
-                target: { value: React.SetStateAction<number> };
-              }) => formStateSetters.setAge(e.target.value)}
+              onChangeHandler={(e) => formStateSetters.setAge(e)}
             />
 
             <p className="display-6 fs-3 text-black">
@@ -77,9 +75,7 @@ const UserForm: React.FC = () => {
               input={formState.risk}
               min={ApexUtils.USER_FORM_MIN_RISK}
               max={ApexUtils.USER_FORM_MAX_RISK}
-              onChangeHandler={(e: {
-                target: { value: React.SetStateAction<number> };
-              }) => formStateSetters.setRisk(e.target.value)}
+              onChangeHandler={(e) => formStateSetters.setRisk(e)}
             />
 
             <p className="display-6 fs-3 text-black">{formState.risk}</p>
