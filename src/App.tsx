@@ -18,10 +18,11 @@ import ResourcesFaq from "./ResourcesFaq";
 import Signup from "./Signup";
 import ApexNavBar from "./ApexNavBar";
 import MyPies from "./MyPies";
+import React from "react";
 
-function App() {
+const App: React.FC = () => {
   return (
-    <div>
+    <React.Fragment>
       <StrictMode>
         <Router>
           <AuthProvider>
@@ -67,8 +68,8 @@ function App() {
           </AuthProvider>
         </Router>
       </StrictMode>
-    </div>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
