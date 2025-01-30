@@ -2,10 +2,18 @@ import React from "react";
 import { Redirect, useLocation } from "react-router-dom";
 import { Route } from "react-router-dom";
 
+interface FormRouteProps {
+  children: React.ReactElement
+}
+
+interface LocationState {
+  cameFromUserForm?: boolean;
+}
+
 // Makes sure that the page can only be accessed if the user was redirected from the UserForm.
-export default function FormRouteOnly({ children, ...rest }) {
-  const location = useLocation();
-  const cameFromUserForm = location.state?.cameFromUserForm;
+const FormRouteOnly: React.FC<FormRouteProps> = ({ children, ...rest }) => {
+  const location = useLocation<LocationState>();
+  const cameFromUserForm: boolean = location.state?.cameFromUserForm ?? false;
 
   return (
     <Route
@@ -16,3 +24,5 @@ export default function FormRouteOnly({ children, ...rest }) {
     />
   );
 }
+
+export default FormRouteOnly;
