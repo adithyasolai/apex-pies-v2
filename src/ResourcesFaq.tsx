@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
@@ -25,7 +25,7 @@ const FaqItem: React.FC<FaqPair> = ({question, answer}) => (
   </Collapsible>
 );
 
-const ResourcesFaq: React.FC = (): JSX.Element => {
+const ResourcesFaq: React.FC = () => {
   // import question & answer text from JSON file.
   const faqPairs: FaqPair[] = faqPairsJson['FAQ Pairs']
 

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, ChangeEventHandler, JSX } from "react";
+import React, { ChangeEvent, ChangeEventHandler } from "react";
 
 import { Form } from "react-bootstrap";
 
@@ -14,7 +14,7 @@ export const ApexSlider: React.FC<ApexSliderProps> = ({
   min,
   max,
   onChangeHandler,
-}): JSX.Element => {
+}) => {
   // Cast given simple state setter to the `ChangeEventHandler` function type expected by Bootstrap Form.
   const handleChange: ChangeEventHandler = (
     e: ChangeEvent<HTMLInputElement>

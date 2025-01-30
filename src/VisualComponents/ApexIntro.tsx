@@ -1,6 +1,6 @@
-import React, { JSX } from "react";
+import React from "react";
 
-export const ApexIntro: React.FC = (): JSX.Element => {
+export const ApexIntro: React.FC = () => {
   return (
     <>
       <p className="h2 fs-1 text-black pb-4">Apex Portfolio Maker</p>

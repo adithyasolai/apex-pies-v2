@@ -1,4 +1,4 @@
-import React, { JSX } from "react";
+import React from "react";
 import { Carousel } from "react-bootstrap";
 import { ApexSectorDisplay } from "./ApexSectorDisplay";
 
@@ -12,7 +12,7 @@ export const ApexCarousel: React.FC<ApexCarouselProps> = ({
   activeIndex,
   onSelect,
   imageArray,
-}): JSX.Element => {
+}) => {
   return (
     <Carousel
       activeIndex={activeIndex}
