@@ -51,7 +51,7 @@ export const useApexUserForm = () => {
   // calculated and stored in the Firebase DB.
   // Once the backend server gives this confirmation, we will serve the PieResults page, which
   // will show another loading screen until the Plotly chart is fetched from the backend.
-  async function handleSubmit(event: { preventDefault: () => void }) {
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     // Show "Creating Your Pie ..." screen while waiting for Pie to be published to DB
     setLoading(true);
 
@@ -94,7 +94,6 @@ export const useApexUserForm = () => {
 
   const handleSelect = (
     selectedIndex: number,
-    event: Record<string, unknown> | null
   ) => {
     setActiveSectorImageIndex(selectedIndex % 4);
     setSector(ApexUtils.SECTORS[selectedIndex % 4]);

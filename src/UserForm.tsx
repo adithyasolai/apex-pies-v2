@@ -23,10 +23,7 @@ const UserForm: React.FC = () => {
     formState: FormState;
     formStateSetters: FormStateSetters;
     handleSubmit: (event: React.FormEvent<HTMLFormElement>) => void;
-    handleSelect: (
-      eventKey: number,
-      event: Record<string, unknown> | null
-    ) => void;
+    handleSelect: (selectedIndex: number) => void;
   } = useApexUserForm();
 
   return (

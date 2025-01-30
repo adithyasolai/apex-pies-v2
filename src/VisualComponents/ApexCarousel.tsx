@@ -4,7 +4,7 @@ import { ApexSectorDisplay } from "./ApexSectorDisplay";
 
 interface ApexCarouselProps {
   activeIndex: number;
-  onSelect: (eventKey: number, event: Record<string, unknown> | null) => void;
+  onSelect: (selectedIndex: number) => void;
   readonly imageArray: string[];
 }
 
