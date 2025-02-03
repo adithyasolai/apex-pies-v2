@@ -1,28 +1,13 @@
-import React, { useState } from "react";
-import { useAuth } from "./contexts/AuthContext";
+import React from "react";
 import { Card, Button, Alert, Container } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { ApexProfileLogicalFields, useApexProfile } from "./useApexProfile";
 
-const Profile = () => {
-  const { currentUser, signout } = useAuth();
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  async function handleSignOut(e) {
-    e.preventDefault();
-
-    setError("");
-
-    // username/password sign-up is async b/c we are communicating with Firebase DB
-    try {
-      await signout();
-      // re-direct to log-in after sign-out
-      navigate("/login");
-    } catch (err) {
-      console.log(err);
-      setError("Failed to sign out.");
-    }
-  }
+const Profile: React.FC = () => {
+  const {
+    currentUser,
+    error,
+    handleSignOut
+  }: ApexProfileLogicalFields = useApexProfile();
 
   return (
     // TODO: need a bit more top margin because it still looks too close
