@@ -10,7 +10,7 @@ export interface ApexProfileLogicalFields {
   handleSignOut: MouseEventHandler<HTMLButtonElement>;
 }
 
-export const useApexProfile = () => {
+export const useApexProfile = (): ApexProfileLogicalFields => {
   // TODO: Set types for auth custom hook values like `currentUser` and `signout`
   // after migrating AuthContext.js to TypeScript.
   const { currentUser, signout } = useAuth();

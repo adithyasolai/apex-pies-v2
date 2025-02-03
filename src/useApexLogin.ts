@@ -10,7 +10,7 @@ export interface ApexLoginLogicalFields {
   handleSubmit: FormEventHandler<HTMLFormElement>;
 }
 
-export const useApexLogin = () => {
+export const useApexLogin = (): ApexLoginLogicalFields => {
   const emailRef: React.RefObject<HTMLInputElement | null> =
     useRef<HTMLInputElement>(null);
   const passwordRef: React.RefObject<HTMLInputElement | null> =
@@ -28,7 +28,7 @@ export const useApexLogin = () => {
     e.preventDefault();
 
     if (!emailRef.current || !passwordRef.current) {
-      setError("Email of password input is missing.");
+      setError("Email or password input is missing.");
       return;
     }
 
