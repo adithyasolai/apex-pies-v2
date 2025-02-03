@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React from "react";
 
 import {
   Card,
@@ -10,32 +10,17 @@ import {
   Container,
 } from "react-bootstrap";
 
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
-import { useAuth } from "./contexts/AuthContext";
+import { ApexLoginLogicalFields, useApexLogin } from "./useApexLogin";
 
 const Login = () => {
-  const emailRef = useRef();
-  const passwordRef = useRef();
-  const { login } = useAuth();
-  // default is "" so that we don't have an error by default
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-
-    // username/password sign-up is async b/c we are communicating with Firebase DB
-    try {
-      setError("");
-      await login(emailRef.current.value, passwordRef.current.value);
-      // re-direct to main page after logging in
-      navigate("/");
-    } catch (e) {
-      console.log(e);
-      setError("Failed to log in to " + emailRef.current.value);
-    }
-  }
+  const {
+    emailRef,
+    passwordRef,
+    error,
+    handleSubmit
+  }: ApexLoginLogicalFields = useApexLogin();
 
   return (
     <Container fluid className="text-center vh-100 bg-primary">
@@ -87,7 +72,7 @@ const Login = () => {
             <Row className="mt-4">
               <Col md={4}></Col>
               <Col md={4}>
-                <Button className="w-100" type="Submit" variant="secondary">
+                <Button className="w-100" type="submit" variant="secondary">
                   Log In
                 </Button>
               </Col>
@@ -101,6 +86,7 @@ const Login = () => {
 
       <div className="mt-3">
         Need an account?{" "}
+
         <Link to="/signup" className="text-secondary">
           Sign Up.
         </Link>

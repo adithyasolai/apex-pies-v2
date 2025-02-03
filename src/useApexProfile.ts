@@ -1,6 +1,6 @@
 import { MouseEventHandler, useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 import { User } from "firebase/auth";
 
 // TODO: Give this a better name
@@ -14,8 +14,8 @@ export const useApexProfile = () => {
   // TODO: Set types for auth custom hook values like `currentUser` and `signout`
   // after migrating AuthContext.js to TypeScript.
   const { currentUser, signout } = useAuth();
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const [error, setError] = useState<string>("");
+  const navigate: NavigateFunction = useNavigate();
 
   const handleSignOut: MouseEventHandler<HTMLButtonElement> = async (e) => {
     e.preventDefault();
