@@ -26,7 +26,8 @@ export interface FormStateSetters {
   setRisk: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export interface ApexUserFormState {
+// TODO: Give this a better name
+export interface ApexUserFormLogicalFields {
   formState: FormState;
   formStateSetters: FormStateSetters;
   handleSubmit: (event: React.FormEvent<HTMLFormElement>) => Promise<void>;
@@ -37,7 +38,7 @@ const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
   : apiEndpointsProd;
 
-export const useApexUserForm = (): ApexUserFormState => {
+export const useApexUserForm = (): ApexUserFormLogicalFields => {
   const { currentUser } = useAuth() as { currentUser: User | null };
   const [age, setAge] = useState<number>(18);
   const [risk, setRisk] = useState<number>(1);

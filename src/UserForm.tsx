@@ -7,7 +7,7 @@ import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
 import { ApexCarousel } from "./VisualComponents/ApexCarousel";
 import {
-  ApexUserFormState,
+  ApexUserFormLogicalFields,
   useApexUserForm,
 } from "./useApexUserForm";
 
@@ -17,7 +17,7 @@ const UserForm: React.FC = () => {
     formStateSetters,
     handleSubmit,
     handleSelect,
-  }: ApexUserFormState = useApexUserForm();
+  }: ApexUserFormLogicalFields = useApexUserForm();
 
   return (
     // TODO: A better way to do top-margin instead of an explicit px amount
