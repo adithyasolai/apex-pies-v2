@@ -13,9 +13,12 @@ export interface ApexSignupLogicalFields {
 }
 
 export const useApexSignup = (): ApexSignupLogicalFields => {
-  const emailRef: React.RefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
-  const passwordRef: React.RefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
-  const passwordConfirmRef: React.RefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
+  const emailRef: React.RefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
+  const passwordRef: React.RefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
+  const passwordConfirmRef: React.RefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
 
   // default is "" so that we don't have an error by default
   const [error, setError] = useState<string>("");
@@ -29,10 +32,14 @@ export const useApexSignup = (): ApexSignupLogicalFields => {
 
   const navigate: NavigateFunction = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
 
-    if (!emailRef.current || !passwordRef.current || !passwordConfirmRef.current) {
+    if (
+      !emailRef.current ||
+      !passwordRef.current ||
+      !passwordConfirmRef.current
+    ) {
       setError("Email or password input is missing.");
       return;
     }
@@ -56,7 +63,7 @@ export const useApexSignup = (): ApexSignupLogicalFields => {
     }
 
     setLoading(false);
-  }
+  };
 
   return {
     emailRef,
@@ -64,7 +71,6 @@ export const useApexSignup = (): ApexSignupLogicalFields => {
     passwordConfirmRef,
     currentUser,
     error,
-    handleSubmit
-  }
-
-}
+    handleSubmit,
+  };
+};

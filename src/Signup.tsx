@@ -1,12 +1,6 @@
 import React from "react";
 
-import {
-  Card,
-  Form,
-  Button,
-  Alert,
-  Container,
-} from "react-bootstrap";
+import { Card, Form, Button, Alert, Container } from "react-bootstrap";
 
 import { Link } from "react-router-dom";
 import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
@@ -19,7 +13,7 @@ const Signup = () => {
     passwordConfirmRef,
     currentUser,
     error,
-    handleSubmit
+    handleSubmit,
   }: ApexSignupLogicalFields = useApexSignup();
 
   return (
