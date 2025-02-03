@@ -14,6 +14,20 @@ import { Link } from "react-router-dom";
 
 import { ApexLoginLogicalFields, useApexLogin } from "./useApexLogin";
 
+interface CenteredDivProps {
+  children: React.ReactNode
+}
+
+const CenteredDiv: React.FC<CenteredDivProps> = ({children}) => (
+  <Row>
+    <Col md={4}></Col>
+    <Col md={4}>
+      {children}
+    </Col>
+    <Col md={4}></Col>
+  </Row>
+);
+
 const Login = () => {
   const {
     emailRef,
@@ -35,54 +49,43 @@ const Login = () => {
         <Card.Body>
           {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
           {error && <Alert variant="danger">{error}</Alert>}
+
           <Form onSubmit={handleSubmit}>
-            {/* TODO: Figure out a better way to write this Row/Col stuff in a re-usable way */}
-            <Row>
-              <Col md={4}></Col>
-              <Col md={4}>
-                <Form.Group id="email">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    className="border-dark"
-                    type="email"
-                    ref={emailRef}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={4}></Col>
-            </Row>
+            {/* TODO: Look into how to take email and password without multiple Form Groups,
+            which is forcing this to use multiple CenteredDivs. */}
 
-            <Row className="mt-4">
-              <Col md={4}></Col>
-              <Col md={4}>
-                <Form.Group id="password">
-                  <Form.Label>Password</Form.Label>
-                  <Form.Control
-                    className="border-dark"
-                    type="password"
-                    ref={passwordRef}
-                    required
-                  />
-                </Form.Group>
-              </Col>
-              <Col md={4}></Col>
-            </Row>
+            <CenteredDiv>
+              <Form.Group id="email">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                  className="border-dark"
+                  type="email"
+                  ref={emailRef}
+                  required
+                />
+              </Form.Group>
+            </CenteredDiv>
 
-            <Row className="mt-4">
-              <Col md={4}></Col>
-              <Col md={4}>
-                <Button className="w-100" type="submit" variant="secondary">
-                  Log In
-                </Button>
-              </Col>
-              <Col md={4}></Col>
-            </Row>
+            <CenteredDiv>
+              <Form.Group id="password" className="mt-4">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  className="border-dark"
+                  type="password"
+                  ref={passwordRef}
+                  required
+                />
+              </Form.Group>
+            </CenteredDiv>
+
+            <CenteredDiv>
+              <Button className="w-100 mt-4" type="submit" variant="secondary">
+                Log In
+              </Button>
+            </CenteredDiv>
           </Form>
         </Card.Body>
       </Card>
-
-      {/* TODO: Figure out how to remove black horizontal line btwn Form above and Div */}
 
       <div className="mt-3">
         Need an account?{" "}
