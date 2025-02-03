@@ -6,10 +6,7 @@ import { ApexIntro } from "./VisualComponents/ApexIntro";
 import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
 import { ApexCarousel } from "./VisualComponents/ApexCarousel";
-import {
-  ApexUserFormLogicalFields,
-  useApexUserForm,
-} from "./useApexUserForm";
+import { ApexUserFormLogicalFields, useApexUserForm } from "./useApexUserForm";
 
 const UserForm: React.FC = () => {
   const {

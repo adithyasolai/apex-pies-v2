@@ -3,11 +3,8 @@ import { Card, Button, Alert, Container } from "react-bootstrap";
 import { ApexProfileLogicalFields, useApexProfile } from "./useApexProfile";
 
 const Profile: React.FC = () => {
-  const {
-    currentUser,
-    error,
-    handleSignOut
-  }: ApexProfileLogicalFields = useApexProfile();
+  const { currentUser, error, handleSignOut }: ApexProfileLogicalFields =
+    useApexProfile();
 
   return (
     // TODO: need a bit more top margin because it still looks too close

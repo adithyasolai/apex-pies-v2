@@ -31,11 +31,11 @@ export const useApexProfile = () => {
       console.log(err);
       setError("Failed to sign out.");
     }
-  }
+  };
 
   return {
     currentUser,
     error,
-    handleSignOut
+    handleSignOut,
   };
-}
+};
