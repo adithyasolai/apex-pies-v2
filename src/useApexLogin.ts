@@ -7,12 +7,14 @@ export interface ApexLoginLogicalFields {
   emailRef: React.RefObject<HTMLInputElement | null>;
   passwordRef: React.RefObject<HTMLInputElement | null>;
   error: string;
-  handleSubmit: FormEventHandler<HTMLFormElement>
+  handleSubmit: FormEventHandler<HTMLFormElement>;
 }
 
 export const useApexLogin = () => {
-  const emailRef: React.RefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
-  const passwordRef: React.RefObject<HTMLInputElement | null> = useRef<HTMLInputElement>(null);
+  const emailRef: React.RefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
+  const passwordRef: React.RefObject<HTMLInputElement | null> =
+    useRef<HTMLInputElement>(null);
 
   // TODO: Set types for auth custom hook values like `login`
   // after migrating AuthContext.js to TypeScript.
@@ -40,12 +42,12 @@ export const useApexLogin = () => {
       console.log(e);
       setError("Failed to log in to " + emailRef.current.value);
     }
-  }
+  };
 
   return {
     emailRef,
     passwordRef,
     error,
-    handleSubmit
-  }
-}
+    handleSubmit,
+  };
+};

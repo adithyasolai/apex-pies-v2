@@ -15,26 +15,20 @@ import { Link } from "react-router-dom";
 import { ApexLoginLogicalFields, useApexLogin } from "./useApexLogin";
 
 interface CenteredDivProps {
-  children: React.ReactNode
+  children: React.ReactNode;
 }
 
-const CenteredDiv: React.FC<CenteredDivProps> = ({children}) => (
+const CenteredDiv: React.FC<CenteredDivProps> = ({ children }) => (
   <Row>
     <Col md={4}></Col>
-    <Col md={4}>
-      {children}
-    </Col>
+    <Col md={4}>{children}</Col>
     <Col md={4}></Col>
   </Row>
 );
 
 const Login = () => {
-  const {
-    emailRef,
-    passwordRef,
-    error,
-    handleSubmit
-  }: ApexLoginLogicalFields = useApexLogin();
+  const { emailRef, passwordRef, error, handleSubmit }: ApexLoginLogicalFields =
+    useApexLogin();
 
   return (
     <Container fluid className="text-center vh-100 bg-primary">
@@ -89,7 +83,6 @@ const Login = () => {
 
       <div className="mt-3">
         Need an account?{" "}
-
         <Link to="/signup" className="text-secondary">
           Sign Up.
         </Link>
