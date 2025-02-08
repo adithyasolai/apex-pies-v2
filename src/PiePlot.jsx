@@ -159,22 +159,17 @@ const PiePlot = (props) => {
 
   return (
     <>
-      {props.active ? (
-        <Plot
-          data={plotConfig.current["data"]}
-          layout={plotConfig.current["layout"]}
-          useResizeHandler={true}
-          style={{ width: "100%", height: "100%" }}
-        />
-      ) : (
-        // TODO: make this look better
-        <Plot
-          data={dummyPlotConfig["data"]}
-          layout={dummyPlotConfig["layout"]}
-          useResizeHandler={true}
-          style={{ width: "100%", height: "100%", opacity: "10%" }}
-        />
-      )}
+      <Plot
+        data={props.active ? plotConfig.current["data"] : dummyPlotConfig["data"]}
+        layout={props.active ? plotConfig.current["layout"] : dummyPlotConfig["layout"]}
+        useResizeHandler={true}
+        style={{
+          width: "100%",
+          height: "100%",
+          ...(props.active ? {} : { opacity: "10%" })
+        }}
+      
+      />
     </>
   );
 };
