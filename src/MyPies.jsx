@@ -117,25 +117,14 @@ const MyPies = () => {
   return (
     <>
       {/* TODO: Refactor this to avoid duplicate code. */}
-      {numSaved === null ? (
+      {(numSaved === null || numSaved === 0)? (
         <Container
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
         >
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
-              loading...
-            </p>
-          </div>
-        </Container>
-      ) : numSaved === 0 ? (
-        <Container
-          fluid
-          className="text-center bg-primary vh-100 navbar-padding-top-extra"
-        >
-          <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-            <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
-              No pies to display.
+              {numSaved === null  ? "loading..." : "No pies to display."}
             </p>
           </div>
         </Container>
