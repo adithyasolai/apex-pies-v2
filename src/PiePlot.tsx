@@ -36,15 +36,12 @@ const dummyPlotConfig = {
 
 export interface ApexPiePlotDisplayProps {
   pieNum: number;
-  active: boolean
+  active: boolean;
 }
 
-const PiePlot = ({pieNum, active}: ApexPiePlotDisplayProps) => {
-  const {
-    fetchPieData,
-    plotConfig,
-    loading
-  }: ApexPiePlotLogicalFields = useApexPiePlot({pieNum});
+const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
+  const { fetchPieData, plotConfig, loading }: ApexPiePlotLogicalFields =
+    useApexPiePlot({ pieNum });
 
   useEffect(() => {
     if (!active) {
@@ -66,9 +63,8 @@ const PiePlot = ({pieNum, active}: ApexPiePlotDisplayProps) => {
       style={{
         width: "100%",
         height: "100%",
-        ...(active ? {} : { opacity: "10%" })
+        ...(active ? {} : { opacity: "10%" }),
       }}
-    
     />
   );
 };

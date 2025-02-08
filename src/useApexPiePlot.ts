@@ -1,4 +1,3 @@
-
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import { useAuth } from "./contexts/AuthContext";
@@ -7,8 +6,8 @@ import { ApexApiEndpoints } from "./apexInterfaces";
 
 // TODO: Make more custom types for the format of the `data` map and `layout` map.
 export interface PlotConfig {
-  data: any,
-  layout: any
+  data: any;
+  layout: any;
 }
 
 export interface ApexPiePlotLogicalFields {
@@ -22,10 +21,12 @@ const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
   : apiEndpointsProd;
 
 export interface ApexPiePlotLogicProps {
-  pieNum: number
+  pieNum: number;
 }
 
-export const useApexPiePlot = ({pieNum}: ApexPiePlotLogicProps):ApexPiePlotLogicalFields => {
+export const useApexPiePlot = ({
+  pieNum,
+}: ApexPiePlotLogicProps): ApexPiePlotLogicalFields => {
   const { currentUser } = useAuth();
   const uid = useRef<string>(currentUser["uid"]);
   const pieNumRef: RefObject<number> = useRef(pieNum);
@@ -35,7 +36,7 @@ export const useApexPiePlot = ({pieNum}: ApexPiePlotLogicProps):ApexPiePlotLogic
   const pie = useRef(null);
   const pieRows = useRef<Array<any>>([]);
 
-  const plotConfig = useRef<PlotConfig>({data: null, layout: null});
+  const plotConfig = useRef<PlotConfig>({ data: null, layout: null });
 
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -130,6 +131,6 @@ export const useApexPiePlot = ({pieNum}: ApexPiePlotLogicProps):ApexPiePlotLogic
   return {
     fetchPieData,
     plotConfig,
-    loading
-  }
-}
+    loading,
+  };
+};
