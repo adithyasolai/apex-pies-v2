@@ -1,59 +1,43 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-import { useAuth } from "./contexts/AuthContext";
-import Plot from "react-plotly.js";
 
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
+import { useAuth } from "./contexts/AuthContext";
+import { RefObject, useCallback, useRef, useState } from "react";
+import { ApexApiEndpoints } from "./apexInterfaces";
 
-const apiEndpoints = process.env.REACT_APP_DEV_MODE
+// TODO: Make more custom types for the format of the `data` map and `layout` map.
+export interface PlotConfig {
+  data: any,
+  layout: any
+}
+
+export interface ApexPiePlotLogicalFields {
+  fetchPieData: () => void;
+  plotConfig: RefObject<PlotConfig>;
+  loading: boolean;
+}
+
+const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
   : apiEndpointsProd;
 
-const PiePlot = (props) => {
-  const { currentUser } = useAuth();
-  const uid = useRef(currentUser["uid"]);
-  const pieNum = useRef(props.pieNum);
+export interface ApexPiePlotLogicProps {
+  pieNum: number
+}
 
-  const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"];
+export const useApexPiePlot = ({pieNum}: ApexPiePlotLogicProps):ApexPiePlotLogicalFields => {
+  const { currentUser } = useAuth();
+  const uid = useRef<string>(currentUser["uid"]);
+  const pieNumRef: RefObject<number> = useRef(pieNum);
+
+  const fetchSavedPieEndpoint: string = apiEndpoints["fetchSavedPieEndpoint"];
 
   const pie = useRef(null);
-  const pieRows = useRef(null);
+  const pieRows = useRef<Array<any>>([]);
 
-  const plotConfig = useRef(null);
+  const plotConfig = useRef<PlotConfig>({data: null, layout: null});
 
-  const [loading, setLoading] = useState(true);
-
-  // const dummyPlotConfig = {
-  //   'data': [{
-  //     values: [5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5],
-  //     type: 'pie',
-  //     marker: {
-  //       colors: new Array(20).fill("#ADD8E6")
-  //     }
-  //   }],
-  //   'layout': {
-  //     paper_bgcolor: 'rgba(0,0,0,0)',
-  //     plot_bgcolor: 'rgba(0,0,0,0)',
-  //     showlegend: false
-  //   }
-  // }
-
-  const dummyPlotConfig = {
-    data: [
-      {
-        values: [25, 25, 25, 25],
-        labels: ["Banking", "Energy", "Health Care", "Technology"],
-        type: "pie",
-        marker: {
-          colors: new Array(4).fill("#ADD8E6"),
-        },
-      },
-    ],
-    layout: {
-      paper_bgcolor: "rgba(0,0,0,0)",
-      plot_bgcolor: "rgba(0,0,0,0)",
-    },
-  };
+  const [loading, setLoading] = useState<boolean>(true);
 
   const fetchPieData = useCallback(async () => {
     try {
@@ -66,14 +50,12 @@ const PiePlot = (props) => {
         },
         body: JSON.stringify({
           uid: uid.current,
-          pieNum: pieNum.current,
+          pieNum: pieNumRef.current,
         }),
       });
 
-      // need to also wait for data to arrive
+      // extract plot data from backend
       const json = await response.json();
-
-      // Put all the results from the backend server into our State to be rendered.
       pie.current = json.pie;
       pieRows.current = json.pieRows;
 
@@ -145,33 +127,9 @@ const PiePlot = (props) => {
     }
   }, [fetchSavedPieEndpoint]);
 
-  useEffect(() => {
-    if (!props.active) {
-      return;
-    }
-
-    fetchPieData();
-  }, [fetchPieData, props.active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
-
-  if (loading) {
-    return <h2 className="text-center pb-5">loading ...</h2>;
+  return {
+    fetchPieData,
+    plotConfig,
+    loading
   }
-
-  return (
-    <>
-      <Plot
-        data={props.active ? plotConfig.current["data"] : dummyPlotConfig["data"]}
-        layout={props.active ? plotConfig.current["layout"] : dummyPlotConfig["layout"]}
-        useResizeHandler={true}
-        style={{
-          width: "100%",
-          height: "100%",
-          ...(props.active ? {} : { opacity: "10%" })
-        }}
-      
-      />
-    </>
-  );
-};
-
-export default PiePlot;
+}
