@@ -46,11 +46,11 @@ export const useApexPiePlot = ({
       pieRows.current = json.pieRows;
 
       // simplify pie chart with just sector slices only
-      var sector_data_dict = {};
+      let sector_data_dict = {};
       pieRows.current.forEach((row) => {
-        var currSector = row["Sector"];
-        var currPct = row["Percentage"];
-        var currColor = row["Color"];
+        let currSector = row["Sector"];
+        let currPct = row["Percentage"];
+        let currColor = row["Color"];
 
         if (currSector in sector_data_dict) {
           sector_data_dict[currSector][0] += currPct;
@@ -62,9 +62,9 @@ export const useApexPiePlot = ({
       });
 
       // create exact ordering of Sector keys
-      var sector_list = Object.keys(sector_data_dict);
-      var colors = new Array(sector_list.length);
-      var percentages = new Array(sector_list.length);
+      let sector_list = Object.keys(sector_data_dict);
+      let colors = new Array(sector_list.length);
+      let percentages = new Array(sector_list.length);
 
       sector_list.forEach((sector, index) => {
         percentages[index] = sector_data_dict[sector][0];
@@ -72,7 +72,7 @@ export const useApexPiePlot = ({
       });
 
       // construct plot configs
-      var data = [
+      let data = [
         {
           values: percentages,
           labels: sector_list,
@@ -86,7 +86,7 @@ export const useApexPiePlot = ({
         },
       ];
 
-      var layout = {
+      let layout = {
         paper_bgcolor: "rgba(0,0,0,0)",
         plot_bgcolor: "rgba(0,0,0,0)",
         showlegend: true,
