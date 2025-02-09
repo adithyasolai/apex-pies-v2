@@ -38,10 +38,6 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const [saveAllowed, setSaveAllowed] = useState(Boolean(currentUser));
   const [saveDone, setSaveDone] = useState(false);
 
-  // backend response data
-  const pie = useRef(null);
-  const pieRows = useRef<Array<any>>([]);
-
   // data calculated when backend data is received to make render logic faster
   const plotConfig = useRef<any>({});
 
@@ -57,11 +53,10 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
         uid: uid.current,
         isGuest: currentUser ? false : true,
       });
-      pie.current = json.pie;
-      pieRows.current = json.pieRows;
+      var pieRows = json.pieRows;
 
       // construct table row data
-      tableRows.current = pieRows.current.map((dict) => {
+      tableRows.current = pieRows.map((dict) => {
         const { Sector, Name, Ticker, Percentage } = dict; // Destructure desired fields
         const percentageString = `${Percentage}%`; // Concatenate '%'
         return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
@@ -69,7 +64,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
 
       // simplify pie chart with just sector slices only
       var sector_data_dict = {};
-      pieRows.current.forEach((row) => {
+      pieRows.forEach((row) => {
         var currSector = row["Sector"];
         var currPct = row["Percentage"];
         var currColor = row["Color"];
@@ -99,7 +94,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
           values: percentages,
           labels: sector_list,
           type: "pie",
-          // customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
+          // customdata: pieRows.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
           // hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
           marker: {
             colors: colors,
