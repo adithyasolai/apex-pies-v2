@@ -85,7 +85,8 @@ export const useApexPiePlot = ({
         percentages[index] = sector_data_dict[sector][0];
         colors[index] = sector_data_dict[sector][1];
       });
-      // construct plot configs as soon as results from backend come
+
+      // construct plot configs
       var data = [
         {
           values: percentages,

@@ -45,13 +45,10 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const [saveDone, setSaveDone] = useState(false);
 
   // backend response data
-  const pieId = useRef(null);
   const pie = useRef(null);
   const pieRows = useRef<Array<any>>([]);
 
   // data calculated when backend data is received to make render logic faster
-  const numStocks = useRef(0);
-  const avgBeta = useRef<string>("");
   const plotConfig = useRef<any>({});
 
   // stock data table fields
@@ -76,21 +73,10 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
         }),
       });
 
-      // need to also wait for data to arrive
+      // need to wait for data to arrive
       const json = await response.json();
-
-      // Put all the results from the backend server into our State to be rendered.
-      pieId.current = json.pieId;
       pie.current = json.pie;
       pieRows.current = json.pieRows;
-      numStocks.current = json.pie["Beta"].length; // just using any of the lists to get the length
-      avgBeta.current = (
-        Math.round(
-          (json.pie["Beta"].reduce((acc, current) => acc + current, 0) /
-            numStocks.current) *
-            100
-        ) / 100
-      ).toFixed(2);
 
       // construct table row data
       tableRows.current = pieRows.current.map((dict) => {
@@ -124,7 +110,8 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
         percentages[index] = sector_data_dict[sector][0];
         colors[index] = sector_data_dict[sector][1];
       });
-      // construct plot configs as soon as results from backend come
+
+      // construct plot configs
       var data = [
         {
           values: percentages,
