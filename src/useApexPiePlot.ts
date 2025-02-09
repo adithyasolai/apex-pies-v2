@@ -85,16 +85,6 @@ export const useApexPiePlot = ({
           hoverinfo: "none",
         },
       ];
-      // var data = [{
-      //   values: pie.current['Percentage'],
-      //   labels: pie.current['Ticker'],
-      //   type: 'pie',
-      //   customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
-      //   hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
-      //   marker: {
-      //     colors: pie.current['Color']
-      //   }
-      // }]
 
       var layout = {
         paper_bgcolor: "rgba(0,0,0,0)",
