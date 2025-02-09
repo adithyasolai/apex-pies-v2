@@ -5,7 +5,7 @@ import { useAuth } from "./contexts/AuthContext";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface ApexMyPiesLogicalFields {
-  numSaved: number | null;
+  numSaved: number | null; // needs to be optionally null bc render logic changes if null
   activePie: number;
   age: number;
   risk: number;
@@ -45,7 +45,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"];
   const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"];
 
-  const fetchPieData = useCallback(async () => {
+  const fetchNumSavedPies = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -59,7 +59,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
         }),
       });
 
-      // need to also wait for data to arrive
+      // need to wait for data to arrive
       const numSavedResponse = await response.json();
 
       // Put all the results from the backend server into our State to be rendered.
@@ -72,6 +72,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     }
   }, [fetchNumSavedEndpoint]);
 
+  // Fetch pie data for the current active pie that must be displayed.
   const fetchSavedPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
@@ -87,7 +88,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
         }),
       });
 
-      // need to also wait for data to arrive
+      // need to wait for data to arrive
       const json = await response.json();
 
       // Put all the results from the backend server into our State to be rendered.
@@ -99,8 +100,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
 
       // construct table row data
       setTableRows(
-        pieRows.current.map((dict) => {
-          const { Sector, Name, Ticker, Percentage } = dict; // Destructure desired fields
+        pieRows.current.map(({ Sector, Name, Ticker, Percentage }) => {
           const percentageString = `${Percentage}%`; // Concatenate '%'
           return { Sector, Name, Ticker, percentageString }; // Create a new object with selected fields
         })
@@ -110,6 +110,9 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     }
   }, [activePie, fetchSavedPieEndpoint]);
 
+  // When the carousel left/right controls are pressed, update the
+  // active pie, which will trigger `fetchSavedPieData()` effect
+  // to get the new active Pie's data.
   const handleSelect = (selectedIndex, e) => {
     setActivePie(selectedIndex);
   };
@@ -119,9 +122,11 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   // TS linter/compiler forces us to put the function itself as a dep,
   // which forces us to wrap it in a callback above.
   useEffect(() => {
-    fetchPieData();
-  }, [fetchPieData]);
+    fetchNumSavedPies();
+  }, [fetchNumSavedPies]);
 
+  // whenever the total number of saved Pies or the current active pie changes,
+  // we want to fetch the current active Pie's data.
   useEffect(() => {
     if (numSaved !== null) {
       fetchSavedPieData();
