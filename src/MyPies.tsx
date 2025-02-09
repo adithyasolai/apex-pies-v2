@@ -20,27 +20,25 @@ const ApexPiesCarousel: React.FC<ApexPiesCarouselProps> = ({numSaved, activePie,
       data-bs-theme="dark" // makes left/arrows black
       interval={null} // disables auto-play of carousel
       controls={true} // making left/right arrows show up
-      fade={false} // use this to toggle slide vs fade animation while testing
-      indicators={false}
+      fade={false} // use this to toggle slide vs fade animation
+      indicators={false} // remove black slide indicators at the bottom
     >
       {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map(
         (i) => {
           return (
             <Carousel.Item key={i}>
-              <Container fluid>
-                <Row>
-                  <Col />
-                  <Col xs={12} md={8}>
-                    {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
-                    {/* It works because the PieNums in the backend start at 1, not 0. */}
-                    <PiePlot
-                      pieNum={numSaved - i}
-                      active={activePie === i}
-                    />
-                  </Col>
-                  <Col />
-                </Row>
-              </Container>
+              <Row>
+                <Col />
+                <Col xs={12} md={10}>
+                  {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
+                  {/* It works because the PieNums in the backend start at 1, not 0. */}
+                  <PiePlot
+                    pieNum={numSaved - i}
+                    active={activePie === i}
+                  />
+                </Col>
+                <Col />
+              </Row>
             </Carousel.Item>
           );
         }
