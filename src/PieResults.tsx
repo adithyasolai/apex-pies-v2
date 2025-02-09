@@ -77,10 +77,6 @@ export const PieResults = () => {
           <br />
           Sector: {sector}
         </p>
-
-        {/* Beta */}
-        {/* TODO: Make this hover-text */}
-        {/* <p className="h3"> Overall Beta of Pie: {avgBeta.current} </p> */}
       </CenteredDiv>
 
       <ApexPieTable tableRows={tableRows} />
