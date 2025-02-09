@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useAuth } from "./contexts/AuthContext";
 import { useLocation } from "react-router-dom";
-
-import apiEndpointsProd from "./resources/api-endpoints.json";
-import apiEndpointsDev from "./resources/api-endpoints-dev.json";
+import { fetchCurrentPie, saveCurrentPie } from "./apexClient";
 
 export interface ApexPieResultsLogicalFields {
   age: number;
@@ -24,10 +22,6 @@ interface PieResultsLocationState {
   risk?: number;
   sector?: string;
 }
-
-const apiEndpoints = process.env.REACT_APP_DEV_MODE
-  ? apiEndpointsDev
-  : apiEndpointsProd;
 
 export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const { currentUser } = useAuth();
@@ -54,29 +48,12 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   // stock data table fields
   const tableRows = useRef<Array<any>>([]);
 
-  // Domain that routes to ELB
-  const fetchPiesEndpoint = apiEndpoints["fetchPiesEndpoint"];
-  const savePiesEndpoint = apiEndpoints["savePiesEndpoint"];
-
   // makes a request to backend to create new Pie and retrieves
   // the Pie data to render it.
   const fetchPieData = useCallback(async () => {
     try {
-      // Send request to backend server to fetch the Pie & Plotly information
-      // for the current userId. Wait for the request to give a response.
-      const response = await fetch(fetchPiesEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uid: uid.current,
-          is_guest: currentUser ? false : true,
-        }),
-      });
-
-      // need to wait for data to arrive
-      const json = await response.json();
+      // fetch current Pie data (that was already constructed after user submitted UserForm)
+      const json = await fetchCurrentPie({uid: uid.current, isGuest: (currentUser ? false : true)})
       pie.current = json.pie;
       pieRows.current = json.pieRows;
 
@@ -163,7 +140,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     } catch (err) {
       console.log(err);
     }
-  }, [currentUser, fetchPiesEndpoint])
+  }, [currentUser])
 
   useEffect(() => {
     uid.current = locationState?.uid!;
@@ -172,24 +149,15 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     sector.current = locationState?.sector!;
 
     fetchPieData();
-  }, [currentUser, fetchPieData, fetchPiesEndpoint, locationState?.age, locationState?.risk, locationState?.sector, locationState?.uid]);
+  }, [currentUser, fetchPieData, locationState?.age, locationState?.risk, locationState?.sector, locationState?.uid]);
 
   const handleSaveToProfile = async (event) => {
     setSaveInProgress(true);
 
     event.preventDefault();
 
-    // Send request to backend server to save this Pie so that it can be retrieved
-    // in the Profile page. Wait for the request to finish.
-    await fetch(savePiesEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: uid.current,
-      }),
-    });
+    // save current Pie to the user's account
+    await saveCurrentPie({uid: uid.current});
 
     // await new Promise((resolve) => setTimeout(resolve, 3000));
 

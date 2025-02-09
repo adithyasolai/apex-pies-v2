@@ -15,8 +15,7 @@ interface genericApexCallInput {
   inputParams: any
 }
 
-// Send request to backend server using given endpoint and input params,
-// and return the response.
+// Send request to backend server using given endpoint and input params, and return the response.
 export const genericApexCall = async({endpoint, httpMethodType, inputParams}: genericApexCallInput): Promise<any> => {
   const response = await fetch(endpoint, {
     method: httpMethodType,
@@ -46,4 +45,23 @@ export interface fetchNumSavedPiesInput {
 }
 export const fetchNumSavedPies = async ({uid}: fetchNumSavedPiesInput): Promise<any> => {
   return await genericApexCall({endpoint: fetchNumSavedEndpoint, httpMethodType: "POST", inputParams: {uid: uid}})
+}
+
+// Fetch current Pie (that has already been computed) for the given user
+const fetchCurrentPieEndpoint = apiEndpoints["fetchPiesEndpoint"];
+export interface fetchCurrentPieInput {
+  uid: string;
+  isGuest: boolean;
+}
+export const fetchCurrentPie = async ({uid, isGuest}: fetchCurrentPieInput): Promise<any> => {
+  return await genericApexCall({endpoint: fetchCurrentPieEndpoint, httpMethodType: "POST", inputParams: {uid: uid, is_guest: isGuest}})
+}
+
+// Save current Pie to given user's account
+const saveCurrentPieEndpoint = apiEndpoints["savePiesEndpoint"];
+export interface saveCurrentPieInput {
+  uid: string;
+}
+export const saveCurrentPie = async ({uid}: saveCurrentPieInput): Promise<any> => {
+  return await genericApexCall({endpoint: saveCurrentPieEndpoint, httpMethodType: "POST", inputParams: {uid: uid}})
 }
