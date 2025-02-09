@@ -3,13 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { useAuth } from "./contexts/AuthContext";
 
 import Plot from "react-plotly.js";
-import { Button, Col, Container, Row, Table } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { useLocation } from "react-router-dom";
 
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
+import { ApexPieTable } from "./VisualComponents/ApexPieTable";
 
 const apiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
@@ -40,7 +41,6 @@ const PieResults = () => {
   const plotConfig = useRef(null);
 
   // stock data table fields
-  const tableHeadings = ["Sector", "Name", "Ticker", "%"];
   const tableRows = useRef([]);
 
   // Domain that routes to ELB
@@ -272,31 +272,7 @@ const PieResults = () => {
         <Col md={4} />
       </Row>
 
-      <Row className="bg-primary">
-        {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-        <Col />
-        <Col xs={12} md={6}>
-          <Table striped bordered hover responsive>
-            <thead>
-              <tr>
-                {tableHeadings.map((heading, index) => (
-                  <th key={index}>{heading}</th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {tableRows.current.map((row, rowIndex) => (
-                <tr key={rowIndex}>
-                  {Object.keys(row).map((key, colIndex) => (
-                    <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Col>
-        <Col />
-      </Row>
+      <ApexPieTable tableRows={tableRows.current}/>
     </Container>
   );
 };

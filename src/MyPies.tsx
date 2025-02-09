@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
-import { Carousel, Col, Container, Row, Table } from "react-bootstrap";
+import { Carousel, Col, Container, Row } from "react-bootstrap";
 import PiePlot from "./PiePlot";
 import { ApexMyPiesLogicalFields, useApexMyPies } from "./useApexMyPies";
+import { ApexPieTable } from "./VisualComponents/ApexPieTable";
+import { ApexPieInputDisplay } from "./VisualComponents/ApexPieInputDisplay";
 
 const MyPies = () => {
   const {
@@ -15,8 +17,6 @@ const MyPies = () => {
     fetchSavedPieData,
     handleSelect
   }: ApexMyPiesLogicalFields = useApexMyPies();
-
-  const tableHeadings = ["Sector", "Name", "Ticker", "%"];
 
   useEffect(() => {
     fetchPieData();
@@ -55,47 +55,8 @@ const MyPies = () => {
             <Col />
           </Row>
 
-          <Row className="bg-primary text-center">
-            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col md={4} />
-            <Col md={4}>
-              {/* Display fields chosen by user in User Form */}
-              <p className="display-6 fs-4">
-                Age: {age}
-                <br />
-                Risk: {risk}
-                <br />
-                Sector: {sector}
-              </p>
-            </Col>
-            <Col md={4} />
-          </Row>
-
-          <Row className="bg-primary">
-            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col />
-            <Col xs={12} md={6}>
-              <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                    {tableHeadings.map((heading, index) => (
-                      <th key={index}>{heading}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableRows.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                      {Object.keys(row).map((key, colIndex) => (
-                        <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Col>
-            <Col />
-          </Row>
+          <ApexPieInputDisplay age={age} risk={risk} sector={sector}/>
+          <ApexPieTable tableRows={tableRows}/>
         </Container>
       ) : (
         <Container fluid className="bg-primary vh-100 navbar-padding-top">
@@ -141,47 +102,8 @@ const MyPies = () => {
             <p>{activePie + 1}</p>
           </Row>
 
-          <Row className="bg-primary text-center">
-            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col md={4} />
-            <Col md={4}>
-              {/* Display fields chosen by user in User Form */}
-              <p className="display-6 fs-4">
-                Age: {age}
-                <br />
-                Risk: {risk}
-                <br />
-                Sector: {sector}
-              </p>
-            </Col>
-            <Col md={4} />
-          </Row>
-
-          <Row className="bg-primary">
-            {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-            <Col />
-            <Col xs={12} md={6}>
-              <Table striped bordered hover responsive>
-                <thead>
-                  <tr>
-                    {tableHeadings.map((heading, index) => (
-                      <th key={index}>{heading}</th>
-                    ))}
-                  </tr>
-                </thead>
-                <tbody>
-                  {tableRows.map((row, rowIndex) => (
-                    <tr key={rowIndex}>
-                      {Object.keys(row).map((key, colIndex) => (
-                        <td key={`${rowIndex}-${colIndex}`}>{row[key]}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Col>
-            <Col />
-          </Row>
+          <ApexPieInputDisplay age={age} risk={risk} sector={sector}/>
+          <ApexPieTable tableRows={tableRows}/>
         </Container>
       )}
     </React.Fragment>

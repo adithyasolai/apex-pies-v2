@@ -23,7 +23,10 @@ const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
 export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   const { currentUser } = useAuth();
 
-  const uid = useRef(currentUser["uid"]);
+  const uid = useRef<string>(currentUser["uid"]);
+
+  // this must start at `null` because we conditionally render the MyPies
+  // page differently specifically when this is `null`.
   const [numSaved, setNumSaved] = useState<number | null>(null);
   const numSavedRef = useRef<number>(0);
 
