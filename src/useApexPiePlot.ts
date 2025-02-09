@@ -51,7 +51,7 @@ export const useApexPiePlot = ({
         },
         body: JSON.stringify({
           uid: uid.current,
-          pieNum: pieNumRef.current,
+          pieNum: pieNumRef.current.toString(),
         }),
       });
 
