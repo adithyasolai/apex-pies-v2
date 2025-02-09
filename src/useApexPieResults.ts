@@ -58,6 +58,8 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const fetchPiesEndpoint = apiEndpoints["fetchPiesEndpoint"];
   const savePiesEndpoint = apiEndpoints["savePiesEndpoint"];
 
+  // makes a request to backend to create new Pie and retrieves
+  // the Pie data to render it.
   const fetchPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information

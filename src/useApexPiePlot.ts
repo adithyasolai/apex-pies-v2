@@ -40,7 +40,8 @@ export const useApexPiePlot = ({
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  const fetchPieData = useCallback(async () => {
+  // retrieves Pie data from a previously-saved Pie
+  const fetchSavedPieData = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -144,8 +145,8 @@ export const useApexPiePlot = ({
       return;
     }
 
-    fetchPieData();
-  }, [fetchPieData, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
+    fetchSavedPieData();
+  }, [fetchSavedPieData, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
 
   return {
     plotConfig,

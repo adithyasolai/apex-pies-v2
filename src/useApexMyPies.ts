@@ -72,8 +72,9 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     }
   }, [fetchNumSavedEndpoint]);
 
-  // Fetch pie data for the current active pie that must be displayed.
-  const fetchSavedPieData = useCallback(async () => {
+  // Fetch pie data for the current active pie,
+  // and then constructs table row data needed for render
+  const fetchSavedPieDataToMakeTable = useCallback(async () => {
     try {
       // Send request to backend server to fetch the Pie & Plotly information
       // for the current userId. Wait for the request to give a response.
@@ -129,9 +130,9 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   // we want to fetch the current active Pie's data.
   useEffect(() => {
     if (numSaved !== null) {
-      fetchSavedPieData();
+      fetchSavedPieDataToMakeTable();
     }
-  }, [numSaved, activePie, fetchSavedPieData]);
+  }, [numSaved, activePie, fetchSavedPieDataToMakeTable]);
 
   return {
     numSaved,
