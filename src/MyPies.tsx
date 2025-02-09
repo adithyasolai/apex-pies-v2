@@ -21,6 +21,7 @@ const ApexPiesCarousel: React.FC<ApexPiesCarouselProps> = ({numSaved, activePie,
       interval={null} // disables auto-play of carousel
       controls={true} // making left/right arrows show up
       fade={false} // use this to toggle slide vs fade animation while testing
+      indicators={false}
     >
       {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map(
         (i) => {

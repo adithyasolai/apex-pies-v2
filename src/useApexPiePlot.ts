@@ -113,7 +113,14 @@ export const useApexPiePlot = ({
       var layout = {
         paper_bgcolor: "rgba(0,0,0,0)",
         plot_bgcolor: "rgba(0,0,0,0)",
-        // showlegend: false
+        showlegend: true,
+        legend: {
+          x: 0.5,
+          y: -0.1,
+          xanchor: "center",
+          yanchor: "top",
+          orientation: "h"
+        }
       };
 
       plotConfig.current = {

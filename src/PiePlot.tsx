@@ -31,7 +31,15 @@ const dummyPlotConfig = {
   layout: {
     paper_bgcolor: "rgba(0,0,0,0)",
     plot_bgcolor: "rgba(0,0,0,0)",
-  },
+    showlegend: true,
+    legend: {
+      x: 0.5,
+      y: -0.1,
+      xanchor: "center",
+      yanchor: "top",
+      orientation: "h"
+    }
+  }
 };
 
 export interface ApexPiePlotDisplayProps {
