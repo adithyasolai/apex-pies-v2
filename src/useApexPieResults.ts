@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import { useLocation } from "react-router-dom";
 import { fetchCurrentPie, saveCurrentPie } from "./apexClient";
@@ -53,7 +53,10 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const fetchPieData = useCallback(async () => {
     try {
       // fetch current Pie data (that was already constructed after user submitted UserForm)
-      const json = await fetchCurrentPie({uid: uid.current, isGuest: (currentUser ? false : true)})
+      const json = await fetchCurrentPie({
+        uid: uid.current,
+        isGuest: currentUser ? false : true,
+      });
       pie.current = json.pie;
       pieRows.current = json.pieRows;
 
@@ -126,8 +129,8 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
           y: -0.1,
           xanchor: "center",
           yanchor: "top",
-          orientation: "h"
-        }
+          orientation: "h",
+        },
       };
 
       plotConfig.current = {
@@ -140,7 +143,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     } catch (err) {
       console.log(err);
     }
-  }, [currentUser])
+  }, [currentUser]);
 
   useEffect(() => {
     uid.current = locationState?.uid!;
@@ -149,7 +152,14 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     sector.current = locationState?.sector!;
 
     fetchPieData();
-  }, [currentUser, fetchPieData, locationState?.age, locationState?.risk, locationState?.sector, locationState?.uid]);
+  }, [
+    currentUser,
+    fetchPieData,
+    locationState?.age,
+    locationState?.risk,
+    locationState?.sector,
+    locationState?.uid,
+  ]);
 
   const handleSaveToProfile = async (event) => {
     setSaveInProgress(true);
@@ -157,14 +167,14 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     event.preventDefault();
 
     // save current Pie to the user's account
-    await saveCurrentPie({uid: uid.current});
+    await saveCurrentPie({ uid: uid.current });
 
     // await new Promise((resolve) => setTimeout(resolve, 3000));
 
     setSaveInProgress(false);
     setSaveAllowed(false);
     setSaveDone(true);
-  }
+  };
 
   return {
     age: age.current,
@@ -176,6 +186,6 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     saveDone,
     plotConfig: plotConfig.current,
     tableRows: tableRows.current,
-    handleSaveToProfile
-  }
-}
+    handleSaveToProfile,
+  };
+};

@@ -19,7 +19,8 @@ export interface ApexPiePlotLogicProps {
 }
 
 export const useApexPiePlot = ({
-  pieNum, active
+  pieNum,
+  active,
 }: ApexPiePlotLogicProps): ApexPiePlotLogicalFields => {
   const { currentUser } = useAuth();
   const uid = useRef<string>(currentUser["uid"]);
@@ -37,7 +38,10 @@ export const useApexPiePlot = ({
   const constructPlotConfigs = useCallback(async () => {
     try {
       // fetch saved pie data from backend
-      const json = await fetchSavedPieData({uid: uid.current, pieNum: pieNumRef.current});
+      const json = await fetchSavedPieData({
+        uid: uid.current,
+        pieNum: pieNumRef.current,
+      });
       pie.current = json.pie;
       pieRows.current = json.pieRows;
 
@@ -101,8 +105,8 @@ export const useApexPiePlot = ({
           y: -0.1,
           xanchor: "center",
           yanchor: "top",
-          orientation: "h"
-        }
+          orientation: "h",
+        },
       };
 
       plotConfig.current = {
@@ -118,7 +122,7 @@ export const useApexPiePlot = ({
   }, []);
 
   // Putting the fetchPieData() function as a dependency here is what
-  // makes TS compiler/linter force us to wrap that function in a 
+  // makes TS compiler/linter force us to wrap that function in a
   // useCallback() above.
   useEffect(() => {
     if (!active) {

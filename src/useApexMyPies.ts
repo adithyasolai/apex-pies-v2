@@ -39,7 +39,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   // and store this in the component state for other logic
   const storeNumSavedPies = useCallback(async () => {
     try {
-      const numSavedResponse = await fetchNumSavedPies({uid: uid.current})
+      const numSavedResponse = await fetchNumSavedPies({ uid: uid.current });
 
       setNumSaved(numSavedResponse);
       numSavedRef.current = numSavedResponse;
@@ -54,7 +54,10 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   const constructTableConfig = useCallback(async () => {
     try {
       // fetch pie data from backend
-      const json = await fetchSavedPieData({uid: uid.current, pieNum: (numSavedRef.current - activePie)})
+      const json = await fetchSavedPieData({
+        uid: uid.current,
+        pieNum: numSavedRef.current - activePie,
+      });
 
       // Put all the results from the backend server into our State to be rendered.
       pie.current = json.pie;
@@ -105,6 +108,6 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     risk: risk.current,
     sector: sector.current,
     tableRows,
-    handleSelect
+    handleSelect,
   };
 };

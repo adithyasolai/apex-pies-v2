@@ -4,11 +4,14 @@ import { Col, Row } from "react-bootstrap";
 interface CenteredDivProps {
   rowClassName?: string;
   leftColClassName?: string;
-  rightColClassName?: string
+  rightColClassName?: string;
   children: React.ReactNode;
 }
 
-export const CenteredDiv: React.FC<CenteredDivProps> = ({ rowClassName, children }) => (
+export const CenteredDiv: React.FC<CenteredDivProps> = ({
+  rowClassName,
+  children,
+}) => (
   <Row className={rowClassName || ""}>
     <Col md={4}></Col>
     <Col md={4}>{children}</Col>
@@ -17,10 +20,17 @@ export const CenteredDiv: React.FC<CenteredDivProps> = ({ rowClassName, children
 );
 
 // Responsive to end user's screen size
-export const CenteredDivResponsive: React.FC<CenteredDivProps> = ({ rowClassName, leftColClassName, rightColClassName, children }) => (
+export const CenteredDivResponsive: React.FC<CenteredDivProps> = ({
+  rowClassName,
+  leftColClassName,
+  rightColClassName,
+  children,
+}) => (
   <Row className={rowClassName || ""}>
-    <Col className={leftColClassName || ""}/>
-    <Col xs={12} md={6}>{children}</Col>
-    <Col className={rightColClassName || ""}/>
+    <Col className={leftColClassName || ""} />
+    <Col xs={12} md={6}>
+      {children}
+    </Col>
+    <Col className={rightColClassName || ""} />
   </Row>
 );

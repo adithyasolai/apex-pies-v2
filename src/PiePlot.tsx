@@ -37,9 +37,9 @@ const dummyPlotConfig = {
       y: -0.1,
       xanchor: "center",
       yanchor: "top",
-      orientation: "h"
-    }
-  }
+      orientation: "h",
+    },
+  },
 };
 
 export interface ApexPiePlotDisplayProps {
@@ -48,8 +48,10 @@ export interface ApexPiePlotDisplayProps {
 }
 
 export const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
-  const { plotConfig, loading }: ApexPiePlotLogicalFields =
-    useApexPiePlot({ pieNum, active });
+  const { plotConfig, loading }: ApexPiePlotLogicalFields = useApexPiePlot({
+    pieNum,
+    active,
+  });
 
   if (loading) {
     return <h2 className="text-center pb-5">loading ...</h2>;

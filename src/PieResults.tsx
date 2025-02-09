@@ -5,8 +5,14 @@ import { Button, Container } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
-import { ApexPieResultsLogicalFields, useApexPieResults } from "./useApexPieResults";
-import { CenteredDiv, CenteredDivResponsive } from "./VisualComponents/ApexCenteredDiv";
+import {
+  ApexPieResultsLogicalFields,
+  useApexPieResults,
+} from "./useApexPieResults";
+import {
+  CenteredDiv,
+  CenteredDivResponsive,
+} from "./VisualComponents/ApexCenteredDiv";
 
 export const PieResults = () => {
   const {
@@ -19,7 +25,7 @@ export const PieResults = () => {
     saveDone,
     plotConfig,
     tableRows,
-    handleSaveToProfile
+    handleSaveToProfile,
   }: ApexPieResultsLogicalFields = useApexPieResults();
 
   return (
@@ -30,7 +36,11 @@ export const PieResults = () => {
       {loading ? (
         <p> loading ... </p>
       ) : (
-        <CenteredDivResponsive rowClassName="bg-primary" leftColClassName="bg-primary" rightColClassName="bg-primary">
+        <CenteredDivResponsive
+          rowClassName="bg-primary"
+          leftColClassName="bg-primary"
+          rightColClassName="bg-primary"
+        >
           <Plot
             data={plotConfig["data"]}
             layout={plotConfig["layout"]}
