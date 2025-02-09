@@ -1,8 +1,6 @@
-import { ApexApiEndpoints } from "./apexInterfaces";
-import apiEndpointsProd from "./resources/api-endpoints.json";
-import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import { useAuth } from "./contexts/AuthContext";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { fetchNumSavedPies, fetchSavedPieData } from "./apexClient";
 
 export interface ApexMyPiesLogicalFields {
   numSaved: number | null; // needs to be optionally null bc render logic changes if null
@@ -13,10 +11,6 @@ export interface ApexMyPiesLogicalFields {
   tableRows: Array<any>;
   handleSelect: (selectedIndex: number, e: any) => void;
 }
-
-const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
-  ? apiEndpointsDev
-  : apiEndpointsProd;
 
 export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   const { currentUser } = useAuth();
@@ -41,56 +35,26 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   // stock data table fields
   const [tableRows, setTableRows] = useState<Array<any>>([]);
 
-  // Domain that routes to ELB
-  const fetchNumSavedEndpoint = apiEndpoints["fetchNumSavedEndpoint"];
-  const fetchSavedPieEndpoint = apiEndpoints["fetchSavedPieEndpoint"];
-
-  const fetchNumSavedPies = useCallback(async () => {
+  // fetch # of pies saved to user's account from backend,
+  // and store this in the component state for other logic
+  const storeNumSavedPies = useCallback(async () => {
     try {
-      // Send request to backend server to fetch the Pie & Plotly information
-      // for the current userId. Wait for the request to give a response.
-      const response = await fetch(fetchNumSavedEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uid: uid.current,
-        }),
-      });
+      const numSavedResponse = await fetchNumSavedPies({uid: uid.current})
 
-      // need to wait for data to arrive
-      const numSavedResponse = await response.json();
-
-      // Put all the results from the backend server into our State to be rendered.
-      // TODO: figure out better logic than a flat 4 limit
       setNumSaved(numSavedResponse);
-
       numSavedRef.current = numSavedResponse;
     } catch (err) {
       console.log(err);
     }
-  }, [fetchNumSavedEndpoint]);
+  }, []);
 
   // Fetch pie data for the current active pie,
-  // and then constructs table row data needed for render
-  const fetchSavedPieDataToMakeTable = useCallback(async () => {
+  // and then constructs table row data needed for render.
+  // TODO: rename this to also explain that the component state is updated too.
+  const constructTableConfig = useCallback(async () => {
     try {
-      // Send request to backend server to fetch the Pie & Plotly information
-      // for the current userId. Wait for the request to give a response.
-      const response = await fetch(fetchSavedPieEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uid: uid.current,
-          pieNum: (numSavedRef.current - activePie).toString(),
-        }),
-      });
-
-      // need to wait for data to arrive
-      const json = await response.json();
+      // fetch pie data from backend
+      const json = await fetchSavedPieData({uid: uid.current, pieNum: (numSavedRef.current - activePie)})
 
       // Put all the results from the backend server into our State to be rendered.
       pie.current = json.pie;
@@ -109,7 +73,7 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     } catch (err) {
       console.log(err);
     }
-  }, [activePie, fetchSavedPieEndpoint]);
+  }, [activePie]);
 
   // When the carousel left/right controls are pressed, update the
   // active pie, which will trigger `fetchSavedPieData()` effect
@@ -123,16 +87,16 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
   // TS linter/compiler forces us to put the function itself as a dep,
   // which forces us to wrap it in a callback above.
   useEffect(() => {
-    fetchNumSavedPies();
-  }, [fetchNumSavedPies]);
+    storeNumSavedPies();
+  }, [storeNumSavedPies]);
 
   // whenever the total number of saved Pies or the current active pie changes,
   // we want to fetch the current active Pie's data.
   useEffect(() => {
     if (numSaved !== null) {
-      fetchSavedPieDataToMakeTable();
+      constructTableConfig();
     }
-  }, [numSaved, activePie, fetchSavedPieDataToMakeTable]);
+  }, [numSaved, activePie, constructTableConfig]);
 
   return {
     numSaved,

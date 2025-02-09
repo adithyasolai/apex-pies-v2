@@ -1,8 +1,6 @@
-import apiEndpointsProd from "./resources/api-endpoints.json";
-import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import { useAuth } from "./contexts/AuthContext";
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
-import { ApexApiEndpoints } from "./apexInterfaces";
+import { fetchSavedPieData } from "./apexClient";
 
 // TODO: Make more custom types for the format of the `data` map and `layout` map.
 export interface PlotConfig {
@@ -14,10 +12,6 @@ export interface ApexPiePlotLogicalFields {
   plotConfig: RefObject<PlotConfig>;
   loading: boolean;
 }
-
-const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
-  ? apiEndpointsDev
-  : apiEndpointsProd;
 
 export interface ApexPiePlotLogicProps {
   pieNum: number;
@@ -31,8 +25,6 @@ export const useApexPiePlot = ({
   const uid = useRef<string>(currentUser["uid"]);
   const pieNumRef: RefObject<number> = useRef(pieNum);
 
-  const fetchSavedPieEndpoint: string = apiEndpoints["fetchSavedPieEndpoint"];
-
   const pie = useRef(null);
   const pieRows = useRef<Array<any>>([]);
 
@@ -40,24 +32,12 @@ export const useApexPiePlot = ({
 
   const [loading, setLoading] = useState<boolean>(true);
 
-  // retrieves Pie data from a previously-saved Pie
-  const fetchSavedPieData = useCallback(async () => {
+  // retrieves Pie data from a previously-saved Pie, and then
+  // constructs config values needed to render the Pie via Plotly
+  const constructPlotConfigs = useCallback(async () => {
     try {
-      // Send request to backend server to fetch the Pie & Plotly information
-      // for the current userId. Wait for the request to give a response.
-      const response = await fetch(fetchSavedPieEndpoint, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uid: uid.current,
-          pieNum: pieNumRef.current.toString(),
-        }),
-      });
-
-      // extract plot data from backend
-      const json = await response.json();
+      // fetch saved pie data from backend
+      const json = await fetchSavedPieData({uid: uid.current, pieNum: pieNumRef.current});
       pie.current = json.pie;
       pieRows.current = json.pieRows;
 
@@ -135,7 +115,7 @@ export const useApexPiePlot = ({
     } catch (err) {
       console.log(err);
     }
-  }, [fetchSavedPieEndpoint]);
+  }, []);
 
   // Putting the fetchPieData() function as a dependency here is what
   // makes TS compiler/linter force us to wrap that function in a 
@@ -145,8 +125,8 @@ export const useApexPiePlot = ({
       return;
     }
 
-    fetchSavedPieData();
-  }, [fetchSavedPieData, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
+    constructPlotConfigs();
+  }, [constructPlotConfigs, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
 
   return {
     plotConfig,
