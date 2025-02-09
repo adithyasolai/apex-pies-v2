@@ -125,6 +125,6 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     tableRows,
     fetchPieData,
     fetchSavedPieData,
-    handleSelect
-  }
-}
+    handleSelect,
+  };
+};

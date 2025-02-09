@@ -272,7 +272,7 @@ const PieResults = () => {
         <Col md={4} />
       </Row>
 
-      <ApexPieTable tableRows={tableRows.current}/>
+      <ApexPieTable tableRows={tableRows.current} />
     </Container>
   );
 };

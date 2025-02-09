@@ -15,7 +15,7 @@ const MyPies = () => {
     tableRows,
     fetchPieData,
     fetchSavedPieData,
-    handleSelect
+    handleSelect,
   }: ApexMyPiesLogicalFields = useApexMyPies();
 
   useEffect(() => {
@@ -30,14 +30,14 @@ const MyPies = () => {
 
   return (
     <React.Fragment>
-      {(numSaved === null || numSaved === 0) ? (
+      {numSaved === null || numSaved === 0 ? (
         <Container
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
         >
           <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
             <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
-              {numSaved === null  ? "loading..." : "No pies to display."}
+              {numSaved === null ? "loading..." : "No pies to display."}
             </p>
           </div>
         </Container>
@@ -49,8 +49,7 @@ const MyPies = () => {
           <Row>
             <Col />
             <Col xs={12} md={6}>
-              {
-                numSaved === 1 ? (
+              {numSaved === 1 ? (
                 <PiePlot pieNum={numSaved} active={true} />
               ) : (
                 <Carousel
@@ -72,7 +71,7 @@ const MyPies = () => {
                                 {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
                                 {/* It works because the PieNums in the backend start at 1, not 0. */}
                                 <PiePlot
-                                  pieNum={(numSaved - i)}
+                                  pieNum={numSaved - i}
                                   active={activePie === i}
                                 />
                               </Col>
@@ -84,8 +83,7 @@ const MyPies = () => {
                     }
                   )}
                 </Carousel>
-              )
-              }
+              )}
             </Col>
             <Col />
           </Row>
@@ -96,8 +94,8 @@ const MyPies = () => {
             </Row>
           )}
 
-          <ApexPieInputDisplay age={age} risk={risk} sector={sector}/>
-          <ApexPieTable tableRows={tableRows}/>
+          <ApexPieInputDisplay age={age} risk={risk} sector={sector} />
+          <ApexPieTable tableRows={tableRows} />
         </Container>
       )}
     </React.Fragment>

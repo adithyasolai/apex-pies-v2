@@ -7,8 +7,7 @@ export interface ApexPieTableProps {
 
 const tableHeadings = ["Sector", "Name", "Ticker", "%"];
 
-export const ApexPieTable: React.FC<ApexPieTableProps> = ({tableRows}) => {
-
+export const ApexPieTable: React.FC<ApexPieTableProps> = ({ tableRows }) => {
   return (
     <Row className="bg-primary">
       {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
@@ -35,6 +34,5 @@ export const ApexPieTable: React.FC<ApexPieTableProps> = ({tableRows}) => {
       </Col>
       <Col />
     </Row>
-  )
-
-}
+  );
+};
