@@ -26,9 +26,6 @@ export const useApexPiePlot = ({
   const uid = useRef<string>(currentUser["uid"]);
   const pieNumRef: RefObject<number> = useRef(pieNum);
 
-  const pie = useRef(null);
-  const pieRows = useRef<Array<any>>([]);
-
   const plotConfig = useRef<PlotConfig>({ data: null, layout: null });
 
   const [loading, setLoading] = useState<boolean>(true);
@@ -42,12 +39,11 @@ export const useApexPiePlot = ({
         uid: uid.current,
         pieNum: pieNumRef.current,
       });
-      pie.current = json.pie;
-      pieRows.current = json.pieRows;
+      let pieRows = json.pieRows;
 
       // simplify pie chart with just sector slices only
       let sector_data_dict = {};
-      pieRows.current.forEach((row) => {
+      pieRows.forEach((row) => {
         let currSector = row["Sector"];
         let currPct = row["Percentage"];
         let currColor = row["Color"];
@@ -77,7 +73,7 @@ export const useApexPiePlot = ({
           values: percentages,
           labels: sector_list,
           type: "pie",
-          // customdata: pieRows.current.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
+          // customdata: pieRows.map((dict) => [dict['Name'], dict['Sector'], dict['Market Cap'], dict['Beta']]),
           // hovertemplate: 'Ticker: %{label} <br> Name: %{customdata[0][0]} <br> Sector: %{customdata[0][1]} <br> Market Cap: $%{customdata[0][2]} M <br> Beta: %{customdata[0][3]}<extra></extra>',
           marker: {
             colors: colors,
