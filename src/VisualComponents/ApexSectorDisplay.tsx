@@ -1,6 +1,7 @@
-import { Col, Container, Image, Row } from "react-bootstrap";
+import { Container, Image } from "react-bootstrap";
 
 import React from "react";
+import { CenteredDivResponsive } from "./ApexCenteredDiv";
 
 interface ApexSectorDisplayProps {
   image: string;
@@ -16,22 +17,18 @@ export const ApexSectorDisplay: React.FC<ApexSectorDisplayProps> = ({
 
   return (
     <Container fluid>
-      <Row>
-        <Col />
-        <Col xs={12} md={6}>
-          <Image
-            src={image}
-            alt="Sector Image"
-            style={{
-              border: imageBorderStyle,
-              borderRadius: imageBorderRadius,
-              width: imageWidth,
-            }}
-            fluid
-          />
-        </Col>
-        <Col />
-      </Row>
+      <CenteredDivResponsive>
+        <Image
+          src={image}
+          alt="Sector Image"
+          style={{
+            border: imageBorderStyle,
+            borderRadius: imageBorderRadius,
+            width: imageWidth,
+          }}
+          fluid
+        />
+      </CenteredDivResponsive>
     </Container>
   );
 };

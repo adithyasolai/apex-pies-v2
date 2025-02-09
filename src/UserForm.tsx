@@ -7,6 +7,7 @@ import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
 import { ApexUserFormLogicalFields, useApexUserForm } from "./useApexUserForm";
 import { ApexSectorCarousel } from "./VisualComponents/ApexSectorCarousel";
+import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
 
 export const UserForm: React.FC = () => {
   const {
@@ -30,55 +31,50 @@ export const UserForm: React.FC = () => {
       className="text-center bg-primary vh-100 navbar-padding-top-extra"
     >
       <Form onSubmit={handleSubmit} className="bg-primary">
-        <Row className="bg-primary">
-          {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-          <Col md={4} />
-          <Col md={4}>
-            <ApexIntro />
+        <CenteredDiv rowClassName="bg-primary">
+          <ApexIntro />
 
-            {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
-            <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
-              <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
-            </ApexHover>
+          {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
+          <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
+            <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+          </ApexHover>
 
-            <ApexSlider
-              input={formState.age}
-              min={ApexUtils.USER_FORM_MIN_AGE}
-              max={ApexUtils.USER_FORM_MAX_AGE}
-              onChangeHandler={(e) => formStateSetters.setAge(e)}
-            />
+          <ApexSlider
+            input={formState.age}
+            min={ApexUtils.USER_FORM_MIN_AGE}
+            max={ApexUtils.USER_FORM_MAX_AGE}
+            onChangeHandler={(e) => formStateSetters.setAge(e)}
+          />
 
-            <p className="display-6 fs-3 text-black">
-              {formState.age + " years old"}
+          <p className="display-6 fs-3 text-black">
+            {formState.age + " years old"}
+          </p>
+
+          <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
+            <p className="display-6 fs-2 text-secondary fw-bold">
+              Risk Tolerance
             </p>
+          </ApexHover>
 
-            <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
-              <p className="display-6 fs-2 text-secondary fw-bold">
-                Risk Tolerance
-              </p>
-            </ApexHover>
+          <ApexSlider
+            input={formState.risk}
+            min={ApexUtils.USER_FORM_MIN_RISK}
+            max={ApexUtils.USER_FORM_MAX_RISK}
+            onChangeHandler={(e) => formStateSetters.setRisk(e)}
+          />
 
-            <ApexSlider
-              input={formState.risk}
-              min={ApexUtils.USER_FORM_MIN_RISK}
-              max={ApexUtils.USER_FORM_MAX_RISK}
-              onChangeHandler={(e) => formStateSetters.setRisk(e)}
-            />
+          <p className="display-6 fs-3 text-black">{formState.risk}</p>
 
-            <p className="display-6 fs-3 text-black">{formState.risk}</p>
-
-            <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
-              <p className="display-6 fs-2 text-secondary fw-bold">
-                Sector of Interest
-              </p>
-            </ApexHover>
-
-            <p className="display-6 fs-3 text-black">
-              <strong>{formState.sector}</strong>
+          <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
+            <p className="display-6 fs-2 text-secondary fw-bold">
+              Sector of Interest
             </p>
-          </Col>
-          <Col md={4} />
-        </Row>
+          </ApexHover>
+
+          <p className="display-6 fs-3 text-black">
+            <strong>{formState.sector}</strong>
+          </p>
+        </CenteredDiv>
 
         {/* Sector of Interest Selection */}
         <Row className="bg-primary">

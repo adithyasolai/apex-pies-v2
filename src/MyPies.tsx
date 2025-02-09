@@ -4,6 +4,7 @@ import { PiePlot } from "./PiePlot"
 import { ApexMyPiesLogicalFields, useApexMyPies } from "./useApexMyPies";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
 import { ApexPieInputDisplay } from "./VisualComponents/ApexPieInputDisplay";
+import { CenteredDivResponsive } from "./VisualComponents/ApexCenteredDiv";
 
 interface ApexPiesCarouselProps {
   numSaved: number;
@@ -88,17 +89,13 @@ export const MyPies = () => {
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
         >
-          <Row>
-            <Col />
-            <Col xs={12} md={6}>
-              {numSaved === 1 ? (
-                <PiePlot pieNum={numSaved} active={true} />
-              ) : (
-                <ApexPiesCarousel numSaved={numSaved} activePie={activePie} handleSelect={handleSelect} />
-              )}
-            </Col>
-            <Col />
-          </Row>
+          <CenteredDivResponsive>
+            {numSaved === 1 ? (
+              <PiePlot pieNum={numSaved} active={true} />
+            ) : (
+              <ApexPiesCarousel numSaved={numSaved} activePie={activePie} handleSelect={handleSelect} />
+            )}
+          </CenteredDivResponsive>
 
           {numSaved > 1 && (
             <Row className="bg-primary text-center">

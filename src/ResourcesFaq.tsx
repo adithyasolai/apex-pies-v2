@@ -1,8 +1,9 @@
 import React from "react";
-import { Button, Col, Container, Row } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import Collapsible from "react-collapsible";
 
 import faqPairsJson from "./resources/faqPairs.json";
+import { CenteredDivResponsive } from "./VisualComponents/ApexCenteredDiv";
 
 interface FaqPair {
   question: string;
@@ -32,20 +33,16 @@ export const ResourcesFaq: React.FC = () => {
       fluid
       className="bg-primary vh-100 text-center navbar-padding-top-extra"
     >
-      <Row className="bg-primary">
-        <Col />
-        <Col xs={12} md={6}>
-          <h1 className="pb-2"> Resources/FAQs</h1>
+      <CenteredDivResponsive rowClassName="bg-primary">
+        <h1 className="pb-2"> Resources/FAQs</h1>
 
-          {faqPairs.map((faqPair: FaqPair, index: number) => (
-            <React.Fragment key={index}>
-              <FaqItem {...faqPair} />
-              {index < faqPairs.length - 1 && <br />}
-            </React.Fragment>
-          ))}
-        </Col>
-        <Col />
-      </Row>
+        {faqPairs.map((faqPair: FaqPair, index: number) => (
+          <React.Fragment key={index}>
+            <FaqItem {...faqPair} />
+            {index < faqPairs.length - 1 && <br />}
+          </React.Fragment>
+        ))}
+      </CenteredDivResponsive>
     </Container>
   );
 };
