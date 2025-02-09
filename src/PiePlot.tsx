@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Plot from "react-plotly.js";
 import { ApexPiePlotLogicalFields, useApexPiePlot } from "./useApexPiePlot";
 
@@ -40,16 +40,8 @@ export interface ApexPiePlotDisplayProps {
 }
 
 export const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
-  const { fetchPieData, plotConfig, loading }: ApexPiePlotLogicalFields =
-    useApexPiePlot({ pieNum });
-
-  useEffect(() => {
-    if (!active) {
-      return;
-    }
-
-    fetchPieData();
-  }, [fetchPieData, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
+  const { plotConfig, loading }: ApexPiePlotLogicalFields =
+    useApexPiePlot({ pieNum, active });
 
   if (loading) {
     return <h2 className="text-center pb-5">loading ...</h2>;

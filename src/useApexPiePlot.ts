@@ -1,7 +1,7 @@
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import { useAuth } from "./contexts/AuthContext";
-import { RefObject, useCallback, useRef, useState } from "react";
+import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { ApexApiEndpoints } from "./apexInterfaces";
 
 // TODO: Make more custom types for the format of the `data` map and `layout` map.
@@ -11,7 +11,6 @@ export interface PlotConfig {
 }
 
 export interface ApexPiePlotLogicalFields {
-  fetchPieData: () => void;
   plotConfig: RefObject<PlotConfig>;
   loading: boolean;
 }
@@ -22,10 +21,11 @@ const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
 
 export interface ApexPiePlotLogicProps {
   pieNum: number;
+  active: boolean;
 }
 
 export const useApexPiePlot = ({
-  pieNum,
+  pieNum, active
 }: ApexPiePlotLogicProps): ApexPiePlotLogicalFields => {
   const { currentUser } = useAuth();
   const uid = useRef<string>(currentUser["uid"]);
@@ -128,8 +128,18 @@ export const useApexPiePlot = ({
     }
   }, [fetchSavedPieEndpoint]);
 
+  // Putting the fetchPieData() function as a dependency here is what
+  // makes TS compiler/linter force us to wrap that function in a 
+  // useCallback() above.
+  useEffect(() => {
+    if (!active) {
+      return;
+    }
+
+    fetchPieData();
+  }, [fetchPieData, active]); // this triggers a re-render of the return Components every time this Pie is the active on in the carousel
+
   return {
-    fetchPieData,
     plotConfig,
     loading,
   };

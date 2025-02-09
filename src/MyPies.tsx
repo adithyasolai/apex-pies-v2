@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
 import { PiePlot } from "./PiePlot"
 import { ApexMyPiesLogicalFields, useApexMyPies } from "./useApexMyPies";
@@ -56,20 +56,8 @@ export const MyPies = () => {
     risk,
     sector,
     tableRows,
-    fetchPieData,
-    fetchSavedPieData,
     handleSelect,
   }: ApexMyPiesLogicalFields = useApexMyPies();
-
-  useEffect(() => {
-    fetchPieData();
-  }, [fetchPieData]);
-
-  useEffect(() => {
-    if (numSaved !== null) {
-      fetchSavedPieData();
-    }
-  }, [numSaved, activePie, fetchSavedPieData]);
 
   return (
     <React.Fragment>

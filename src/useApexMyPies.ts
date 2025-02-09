@@ -2,7 +2,7 @@ import { ApexApiEndpoints } from "./apexInterfaces";
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import { useAuth } from "./contexts/AuthContext";
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 export interface ApexMyPiesLogicalFields {
   numSaved: number | null;
@@ -11,8 +11,6 @@ export interface ApexMyPiesLogicalFields {
   risk: number;
   sector: string;
   tableRows: Array<any>;
-  fetchPieData: () => Promise<void>;
-  fetchSavedPieData: () => Promise<void>;
   handleSelect: (selectedIndex: number, e: any) => void;
 }
 
@@ -116,6 +114,20 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     setActivePie(selectedIndex);
   };
 
+  // This is the TS-equivalent of a useEffect with no dependencies,
+  // which means it will run this when the component is first rendered.
+  // TS linter/compiler forces us to put the function itself as a dep,
+  // which forces us to wrap it in a callback above.
+  useEffect(() => {
+    fetchPieData();
+  }, [fetchPieData]);
+
+  useEffect(() => {
+    if (numSaved !== null) {
+      fetchSavedPieData();
+    }
+  }, [numSaved, activePie, fetchSavedPieData]);
+
   return {
     numSaved,
     activePie,
@@ -123,8 +135,6 @@ export const useApexMyPies = (): ApexMyPiesLogicalFields => {
     risk: risk.current,
     sector: sector.current,
     tableRows,
-    fetchPieData,
-    fetchSavedPieData,
-    handleSelect,
+    handleSelect
   };
 };
