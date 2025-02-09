@@ -65,3 +65,18 @@ export interface saveCurrentPieInput {
 export const saveCurrentPie = async ({uid}: saveCurrentPieInput): Promise<any> => {
   return await genericApexCall({endpoint: saveCurrentPieEndpoint, httpMethodType: "POST", inputParams: {uid: uid}})
 }
+
+// Make pie.
+// This will be stored as the "current" Pie for this user/guest.
+const makePieEndpoint: string = apiEndpoints["makePieEndpoint"];
+export interface makePieInput {
+  uid: string;
+  email: string | null;
+  age: number;
+  risk: number;
+  sector: string;
+  isGuest: boolean
+}
+export const makePie = async ({uid, email, age, risk, sector, isGuest}: makePieInput): Promise<any> => {
+  return await genericApexCall({endpoint: makePieEndpoint, httpMethodType: "POST", inputParams: {uid: uid, email: email, age: age, risk: risk, sector: sector, is_guest: isGuest}})
+}

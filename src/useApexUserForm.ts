@@ -2,11 +2,9 @@ import { useState } from "react";
 import { useAuth } from "./contexts/AuthContext";
 import * as ApexUtils from "./apexUtils";
 
-import apiEndpointsProd from "./resources/api-endpoints.json";
-import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 import uuid from "react-uuid";
-import { ApexApiEndpoints } from "./apexInterfaces";
 import { useNavigate } from "react-router-dom";
+import { makePie } from "./apexClient";
 
 interface User {
   uid: string;
@@ -34,10 +32,6 @@ export interface ApexUserFormLogicalFields {
   handleSelect: (selectedIndex: number) => void;
 }
 
-const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
-  ? apiEndpointsDev
-  : apiEndpointsProd;
-
 export const useApexUserForm = (): ApexUserFormLogicalFields => {
   const { currentUser } = useAuth() as { currentUser: User | null };
   const [age, setAge] = useState<number>(18);
@@ -49,9 +43,6 @@ export const useApexUserForm = (): ApexUserFormLogicalFields => {
     useState<number>(0);
   const [loading, setLoading] = useState<boolean>(false);
   const navigate = useNavigate();
-
-  // Domain that routes to ELB
-  const makePieEndpoint: string = apiEndpoints["makePieEndpoint"];
 
   // Handler for when the user clicks Submit and requests a diversified Pie based on their inputs.
   // A loading screen should show in the front-end immediately after the Submit button is clicked.
@@ -69,23 +60,11 @@ export const useApexUserForm = (): ApexUserFormLogicalFields => {
     // TODO: delete this UUID and its contents from the DB after the user's session is over
     const uid: string = currentUser ? currentUser["uid"] : uuid();
 
-    // Send request to backend server to calculate a diversified Pie
+    // Send request to backend server to make a diversified Pie
     // for the user's selected inputs (age, risk tolerance, and sector).
-    // Wait for the request to finish.
-    await fetch(makePieEndpoint, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        uid: uid,
-        email: currentUser ? currentUser["email"] : null,
-        age: age,
-        risk: risk,
-        sector: sector,
-        is_guest: currentUser ? false : true,
-      }),
-    });
+    // This will be stored as the user's "Current" Pie (for logic in
+    // other pages like PieResults).
+    await makePie({uid: uid, email: (currentUser ? currentUser["email"] : null), age: age, risk: risk, sector: sector, isGuest: (currentUser ? false : true)})
 
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
