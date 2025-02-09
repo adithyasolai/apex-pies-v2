@@ -20,7 +20,7 @@ import { ApexNavBar } from "./ApexNavBar";
 import { MyPies } from "./MyPies";
 import React from "react";
 
-const App: React.FC = () => {
+export const App: React.FC = () => {
   const router = createBrowserRouter([
     {
       path: "/",
@@ -91,5 +91,3 @@ const App: React.FC = () => {
     </React.Fragment>
   );
 };
-
-export default App;
