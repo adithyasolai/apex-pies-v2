@@ -3,7 +3,7 @@ import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
 import arrows from "./resources/ArrowsNoBckgd.png";
 import { useAuth } from "./contexts/AuthContext";
 
-const ApexNavBar: React.FC = () => {
+export const ApexNavBar: React.FC = () => {
   const { currentUser } = useAuth();
 
   return (
@@ -42,5 +42,3 @@ const ApexNavBar: React.FC = () => {
     </Navbar>
   );
 };
-
-export default ApexNavBar;

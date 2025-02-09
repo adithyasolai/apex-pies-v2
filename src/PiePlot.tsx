@@ -39,7 +39,7 @@ export interface ApexPiePlotDisplayProps {
   active: boolean;
 }
 
-const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
+export const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
   const { fetchPieData, plotConfig, loading }: ApexPiePlotLogicalFields =
     useApexPiePlot({ pieNum });
 
@@ -68,5 +68,3 @@ const PiePlot = ({ pieNum, active }: ApexPiePlotDisplayProps) => {
     />
   );
 };
-
-export default PiePlot;

@@ -5,10 +5,10 @@ import * as ApexUtils from "./apexUtils";
 import { ApexIntro } from "./VisualComponents/ApexIntro";
 import { ApexSlider } from "./VisualComponents/ApexSlider";
 import { ApexHover } from "./VisualComponents/ApexHover";
-import { ApexCarousel } from "./VisualComponents/ApexCarousel";
 import { ApexUserFormLogicalFields, useApexUserForm } from "./useApexUserForm";
+import { ApexSectorCarousel } from "./VisualComponents/ApexSectorCarousel";
 
-const UserForm: React.FC = () => {
+export const UserForm: React.FC = () => {
   const {
     formState,
     formStateSetters,
@@ -85,7 +85,7 @@ const UserForm: React.FC = () => {
           {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
           <Col />
           <Col xs={12} md={4}>
-            <ApexCarousel
+            <ApexSectorCarousel
               activeIndex={formState.activeSectorImageIndex}
               onSelect={handleSelect}
               imageArray={ApexUtils.SECTOR_IMAGES}
@@ -109,5 +109,3 @@ const UserForm: React.FC = () => {
     </Container>
   );
 };
-
-export default UserForm;

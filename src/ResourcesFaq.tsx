@@ -23,7 +23,7 @@ const FaqItem: React.FC<FaqPair> = ({ question, answer }) => (
   </Collapsible>
 );
 
-const ResourcesFaq: React.FC = () => {
+export const ResourcesFaq: React.FC = () => {
   // import question & answer text from JSON file.
   const faqPairs: FaqPair[] = faqPairsJson["FAQ Pairs"];
 
@@ -49,5 +49,3 @@ const ResourcesFaq: React.FC = () => {
     </Container>
   );
 };
-
-export default ResourcesFaq;

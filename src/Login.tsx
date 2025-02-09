@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { ApexLoginLogicalFields, useApexLogin } from "./useApexLogin";
 import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
 
-const Login = () => {
+export const Login = () => {
   const { emailRef, passwordRef, error, handleSubmit }: ApexLoginLogicalFields =
     useApexLogin();
 
@@ -71,5 +71,3 @@ const Login = () => {
     </Container>
   );
 };
-
-export default Login;

@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
 import { ApexSignupLogicalFields, useApexSignup } from "./useApexSignup";
 
-const Signup = () => {
+export const Signup = () => {
   const {
     emailRef,
     passwordRef,
@@ -84,5 +84,3 @@ const Signup = () => {
     </Container>
   );
 };
-
-export default Signup;

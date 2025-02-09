@@ -10,12 +10,10 @@ interface LocationState {
 }
 
 // Makes sure that the page can only be accessed if the user was redirected from the UserForm.
-const FormRouteOnly: React.FC<FormRouteProps> = ({ children }) => {
+export const FormRouteOnly: React.FC<FormRouteProps> = ({ children }) => {
   const location: Location = useLocation();
   const state = location.state as LocationState;
   const cameFromUserForm: boolean = state?.cameFromUserForm ?? false;
 
   return cameFromUserForm ? children : <Navigate to="/" replace />;
 };
-
-export default FormRouteOnly;

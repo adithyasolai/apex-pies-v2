@@ -5,19 +5,19 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import UserForm from "./UserForm";
-import PieResults from "./PieResults";
-import Login from "./Login";
+import { UserForm } from "./UserForm";
+import { PieResults } from "./PieResults";
+import { Login } from "./Login";
 import { StrictMode } from "react";
 import { AuthProvider } from "./contexts/AuthContext";
-import PrivateRoute from "./PrivateRoute";
-import PublicOnlyRoute from "./PublicOnlyRoute";
-import FormRouteOnly from "./FormRouteOnly";
-import Profile from "./Profile";
-import ResourcesFaq from "./ResourcesFaq";
-import Signup from "./Signup";
-import ApexNavBar from "./ApexNavBar";
-import MyPies from "./MyPies";
+import { PrivateRoute } from "./PrivateRoute";
+import { PublicOnlyRoute } from "./PublicOnlyRoute";
+import { FormRouteOnly } from "./FormRouteOnly";
+import { Profile } from "./Profile";
+import { ResourcesFaq } from "./ResourcesFaq";
+import { Signup } from "./Signup";
+import { ApexNavBar } from "./ApexNavBar";
+import { MyPies } from "./MyPies";
 import React from "react";
 
 const App: React.FC = () => {

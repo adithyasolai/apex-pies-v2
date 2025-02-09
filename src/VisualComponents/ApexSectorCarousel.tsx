@@ -2,13 +2,13 @@ import React from "react";
 import { Carousel } from "react-bootstrap";
 import { ApexSectorDisplay } from "./ApexSectorDisplay";
 
-interface ApexCarouselProps {
+interface ApexSectorCarouselProps {
   activeIndex: number;
   onSelect: (selectedIndex: number) => void;
   readonly imageArray: string[];
 }
 
-export const ApexCarousel: React.FC<ApexCarouselProps> = ({
+export const ApexSectorCarousel: React.FC<ApexSectorCarouselProps> = ({
   activeIndex,
   onSelect,
   imageArray,

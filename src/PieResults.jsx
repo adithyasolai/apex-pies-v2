@@ -16,7 +16,7 @@ const apiEndpoints = process.env.REACT_APP_DEV_MODE
   ? apiEndpointsDev
   : apiEndpointsProd;
 
-const PieResults = () => {
+export const PieResults = () => {
   const { currentUser } = useAuth();
   const location = useLocation();
 
@@ -276,5 +276,3 @@ const PieResults = () => {
     </Container>
   );
 };
-
-export default PieResults;

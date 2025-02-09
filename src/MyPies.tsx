@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { Carousel, Col, Container, Row } from "react-bootstrap";
-import PiePlot from "./PiePlot";
+import { PiePlot } from "./PiePlot"
 import { ApexMyPiesLogicalFields, useApexMyPies } from "./useApexMyPies";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
 import { ApexPieInputDisplay } from "./VisualComponents/ApexPieInputDisplay";
 
-const MyPies = () => {
+export const MyPies = () => {
   const {
     numSaved,
     activePie,
@@ -30,7 +30,7 @@ const MyPies = () => {
 
   return (
     <React.Fragment>
-      {numSaved === null || numSaved === 0 ? (
+      {(numSaved === null || numSaved === 0) ? (
         <Container
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
@@ -101,5 +101,3 @@ const MyPies = () => {
     </React.Fragment>
   );
 };
-
-export default MyPies;

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, Button, Alert, Container } from "react-bootstrap";
 import { ApexProfileLogicalFields, useApexProfile } from "./useApexProfile";
 
-const Profile: React.FC = () => {
+export const Profile: React.FC = () => {
   const { currentUser, error, handleSignOut }: ApexProfileLogicalFields =
     useApexProfile();
 
@@ -31,5 +31,3 @@ const Profile: React.FC = () => {
     </Container>
   );
 };
-
-export default Profile;
