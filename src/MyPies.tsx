@@ -30,8 +30,7 @@ const MyPies = () => {
 
   return (
     <React.Fragment>
-      {/* TODO: Refactor this to avoid duplicate code. */}
-      {(numSaved === null || numSaved === 0)? (
+      {(numSaved === null || numSaved === 0) ? (
         <Container
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
@@ -42,7 +41,7 @@ const MyPies = () => {
             </p>
           </div>
         </Container>
-      ) : numSaved === 1 ? (
+      ) : (
         <Container
           fluid
           className="text-center bg-primary vh-100 navbar-padding-top-extra"
@@ -50,57 +49,52 @@ const MyPies = () => {
           <Row>
             <Col />
             <Col xs={12} md={6}>
-              <PiePlot pieNum={numSaved} active={true} />
+              {
+                numSaved === 1 ? (
+                <PiePlot pieNum={numSaved} active={true} />
+              ) : (
+                <Carousel
+                  activeIndex={activePie}
+                  onSelect={handleSelect}
+                  data-bs-theme="dark" // makes left/arrows black
+                  interval={null} // disables auto-play of carousel
+                  controls={true} // making left/right arrows show up
+                  fade={false} // use this to toggle slide vs fade animation while testing
+                >
+                  {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map(
+                    (i) => {
+                      return (
+                        <Carousel.Item key={i}>
+                          <Container fluid>
+                            <Row>
+                              <Col />
+                              <Col xs={12} md={8}>
+                                {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
+                                {/* It works because the PieNums in the backend start at 1, not 0. */}
+                                <PiePlot
+                                  pieNum={(numSaved - i)}
+                                  active={activePie === i}
+                                />
+                              </Col>
+                              <Col />
+                            </Row>
+                          </Container>
+                        </Carousel.Item>
+                      );
+                    }
+                  )}
+                </Carousel>
+              )
+              }
             </Col>
             <Col />
           </Row>
 
-          <ApexPieInputDisplay age={age} risk={risk} sector={sector}/>
-          <ApexPieTable tableRows={tableRows}/>
-        </Container>
-      ) : (
-        <Container fluid className="bg-primary vh-100 navbar-padding-top">
-          <Row>
-            <Col />
-            <Col xs={12} md={6}>
-              <Carousel
-                activeIndex={activePie}
-                onSelect={handleSelect}
-                data-bs-theme="dark" // makes left/arrows black
-                interval={null} // disables auto-play of carousel
-                controls={true} // making left/right arrows show up
-                fade={false} // use this to toggle slide vs fade animation while testing
-              >
-                {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map(
-                  (i) => {
-                    return (
-                      <Carousel.Item key={i}>
-                        <Container fluid>
-                          <Row>
-                            <Col />
-                            <Col xs={12} md={8}>
-                              {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
-                              {/* It works because the PieNums in the backend start at 1, not 0. */}
-                              <PiePlot
-                                pieNum={(numSaved - i)}
-                                active={activePie === i}
-                              />
-                            </Col>
-                            <Col />
-                          </Row>
-                        </Container>
-                      </Carousel.Item>
-                    );
-                  }
-                )}
-              </Carousel>
-            </Col>
-            <Col />
-          </Row>
-
-          <Row className="bg-primary text-center">
-            <p>{activePie + 1}</p>
-          </Row>
+          {numSaved > 1 && (
+            <Row className="bg-primary text-center">
+              <p>{activePie + 1}</p>
+            </Row>
+          )}
 
           <ApexPieInputDisplay age={age} risk={risk} sector={sector}/>
           <ApexPieTable tableRows={tableRows}/>
