@@ -23,7 +23,9 @@ ___
 
 ### Starting Flask Server via Docker Locally (Dev) (Recommended)
 - Run `docker build -t apex-dev .`
-- Run `docker run -p 5000:5000 apex-dev` (this will automatically be in Debug mode)
+- Run `docker run -p 5001:5000 -v ~/.aws:/root/.aws:ro apex-dev` (this will automatically be in Debug mode)
+  - The `-v ~/.aws:/root/.aws:ro` flag mounts your local AWS credentials directory into the container (read-only)
+  - **Important**: You must be logged into the correct AWS account via `aws configure` before running this command, so that your `~/.aws/` directory contains the necessary credentials for the Flask app to fetch secrets from AWS Secrets Manager
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`
@@ -35,7 +37,7 @@ ___
 - After pushing the Docker Image to ECR with steps above, run this: `aws --region us-east-1 ecs update-service --cluster apex-dev --service apex --force-new-deployment`
 
 ### Other Dev Workflow Tips
-- Make a copy of src/api-endpoints.json and rename it 'api-endpoints-dev.json' (which is already gitignore'd so that it won't show up in commits). Change the endpoints to localhost in the `-dev.json` version of the file to avoid pushing localhost endpoints to the prod frontend server.
+- Make a copy of src/api-endpoints.json and rename it 'api-endpoints-dev.json' (which is already gitignore'd so that it won't show up in commits). Change the endpoints to localhost:5001 in the `-dev.json` version of the file to avoid pushing localhost endpoints to the prod frontend server.
 
 ### Updating requirements.txt used by Docker when adding more dependencies for Flask backend
 - `pipreqs ./src/ --force`
