@@ -2,5 +2,6 @@ boto3==1.34.143
 firebase_admin==6.4.0
 Flask==3.0.3
 Flask_Cors==4.0.0
+openai==1.59.5
 pandas==2.2.2
 Requests==2.32.3

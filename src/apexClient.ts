@@ -1,4 +1,4 @@
-import { ApexApiEndpoints } from "./apexInterfaces";
+import { ApexApiEndpoints, MakePieApiResponse } from "./apexInterfaces";
 
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
@@ -114,7 +114,7 @@ export const makePie = async ({
   risk,
   sector,
   isGuest,
-}: makePieInput): Promise<any> => {
+}: makePieInput): Promise<MakePieApiResponse> => {
   return await genericApexCall({
     endpoint: makePieEndpoint,
     httpMethodType: "POST",

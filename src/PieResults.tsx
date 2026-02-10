@@ -1,7 +1,7 @@
 import React from "react";
 
 import Plot from "react-plotly.js";
-import { Button, Container } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
@@ -25,6 +25,7 @@ export const PieResults = () => {
     saveDone,
     plotConfig,
     tableRows,
+    llmSuggestions,
     handleSaveToProfile,
   }: ApexPieResultsLogicalFields = useApexPieResults();
 
@@ -87,6 +88,25 @@ export const PieResults = () => {
           <br />
           Sector: {sector}
         </p>
+      </CenteredDiv>
+
+      {/* AI Stock Recommendations Section */}
+      <CenteredDiv rowClassName="bg-primary">
+        <Card className="mb-4" style={{ maxWidth: "800px", margin: "0 auto" }}>
+          <Card.Body>
+            <Card.Title className="text-start mb-3">
+              AI Stock Recommendations
+            </Card.Title>
+            {llmSuggestions ? (
+              <Card.Text className="text-start">{llmSuggestions}</Card.Text>
+            ) : (
+              <Card.Text className="text-start text-muted">
+                AI recommendations could not be generated at this time. Please
+                try again later.
+              </Card.Text>
+            )}
+          </Card.Body>
+        </Card>
       </CenteredDiv>
 
       <ApexPieTable tableRows={tableRows} />

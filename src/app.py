@@ -19,6 +19,8 @@ import uuid
 import boto3
 import json
 
+from openai import OpenAI
+
 '''
 HOW TO USE THIS SERVER SCRIPT:
 `pip install flask` and `pip install flask_cors` before running this server.
@@ -42,6 +44,9 @@ cred = credentials.Certificate(cred_from_secret_asdict)
 firebase_admin.initialize_app(cred, {
     'databaseURL': 'https://apex-pies-default-rtdb.firebaseio.com'
 })
+
+# OpenAI setup
+openai_client = OpenAI(api_key=os.environ.get("OPENAI_API_KEY"))
 
 
 '''
@@ -81,17 +86,23 @@ def calculatePies():
 
     # TODO: Pie Calculation Algorithm goes here!
     publishPieToDB(
-        age, 
-        risk, 
-        sector, 
-        uid, 
+        age,
+        risk,
+        sector,
+        uid,
         email,
         is_guest
     )
 
+    # Generate AI stock suggestions
+    llm_suggestions = generateStockSuggestions(age, risk, sector)
+
     app.logger.info("Finished / POST Run...")
 
-    response = jsonify("POST Reply Message")
+    response = jsonify({
+        "message": "POST Reply Message",
+        "llmSuggestions": llm_suggestions
+    })
 
     return response
 
@@ -234,6 +245,38 @@ def publishPieToDB(age, risk, sector, userId, email, is_guest: bool):
     })
 
     app.logger.info("Published data to Firebase DB...")
+
+
+def generateStockSuggestions(age, risk, sector):
+    """
+    Calls OpenAI API to generate 4-5 alternative stock suggestions
+    based on user's age, risk tolerance, and sector of interest.
+    Returns a paragraph of suggestions, or empty string on error.
+    """
+    try:
+        prompt = f"""You are a financial advisor. Suggest 4-5 stocks in the {sector} sector that would be suitable for a {age}-year-old investor with a risk tolerance of {risk}/10.
+
+Provide stocks that are DIFFERENT from the typical large-cap stocks that might already be in a diversified portfolio for this sector. Consider including some mid-cap or emerging companies that align with the risk profile.
+
+Keep your response to approximately one paragraph. For each stock, briefly mention the ticker symbol and why it fits the investor's profile."""
+
+        response = openai_client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a knowledgeable financial advisor who provides stock recommendations tailored to individual investor profiles."},
+                {"role": "user", "content": prompt}
+            ],
+            max_tokens=300,
+            temperature=0.7
+        )
+
+        llm_suggestions = response.choices[0].message.content.strip()
+        app.logger.info(f"OpenAI API call successful. Generated {len(llm_suggestions)} characters of suggestions.")
+        return llm_suggestions
+
+    except Exception as e:
+        app.logger.error(f"OpenAI API call failed: {str(e)}")
+        return ""
 
 
 '''

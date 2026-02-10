@@ -1,0 +1,14 @@
+services:
+  apex-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: apex-dev
+    ports:
+      - "5001:5000"
+    volumes:
+      # Mount AWS credentials for Firebase credential fetching
+      - ~/.aws:/root/.aws:ro
+    env_file:
+      # Load environment variables from apex.env
+      - apex.env

@@ -22,10 +22,30 @@ ___
 - For Debug mode, run `flask run --debug` uncommented.
 
 ### Starting Flask Server via Docker Locally (Dev) (Recommended)
+
+**Prerequisites:**
+1. Configure your OpenAI API key in `apex.env` file:
+   - Open the `apex.env` file in the project root directory
+   - Replace `<YOUR_OPENAI_API_KEY_HERE>` with your actual OpenAI API key
+   - Example: `OPENAI_API_KEY=sk-proj-abc123...`
+2. Ensure you are logged into the correct AWS account via `aws configure` so that your `~/.aws/` directory contains the necessary credentials for the Flask app to fetch Firebase secrets from AWS Secrets Manager
+
+**Run the server:**
+- Run `docker-compose up --build` from the project root directory
+  - This will build the Docker image and start the Flask server on port 5001
+  - The server will automatically be in Debug mode
+  - Press `Ctrl+C` to stop the server
+  - Run `docker-compose down` to remove the container
+
+**What's happening:**
+- Docker Compose reads environment variables from `apex.env` (including your OpenAI API key)
+- It mounts your local AWS credentials directory (`~/.aws`) into the container (read-only)
+- The Flask server runs on port 5000 inside the container, mapped to port 5001 on your host machine
+- Port 5001 is used to avoid conflicts with macOS AirPlay Receiver on port 5000
+
+**Alternative (manual Docker commands):**
 - Run `docker build -t apex-dev .`
-- Run `docker run -p 5001:5000 -v ~/.aws:/root/.aws:ro apex-dev` (this will automatically be in Debug mode)
-  - The `-v ~/.aws:/root/.aws:ro` flag mounts your local AWS credentials directory into the container (read-only)
-  - **Important**: You must be logged into the correct AWS account via `aws configure` before running this command, so that your `~/.aws/` directory contains the necessary credentials for the Flask app to fetch secrets from AWS Secrets Manager
+- Run `docker run -p 5001:5000 -v ~/.aws:/root/.aws:ro --env-file apex.env apex-dev`
 
 ### Building and Sending Docker Image for ECR
 - `docker buildx build --platform=linux/amd64 -t apex .`

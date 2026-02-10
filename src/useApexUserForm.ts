@@ -64,7 +64,7 @@ export const useApexUserForm = (): ApexUserFormLogicalFields => {
     // for the user's selected inputs (age, risk tolerance, and sector).
     // This will be stored as the user's "Current" Pie (for logic in
     // other pages like PieResults).
-    await makePie({
+    const response = await makePie({
       uid: uid,
       email: currentUser ? currentUser["email"] : null,
       age: age,
@@ -75,7 +75,7 @@ export const useApexUserForm = (): ApexUserFormLogicalFields => {
 
     // Move to the PieResults page after confirming that backend server finished making Pie.
     // Also sends the current state as props to the PieResults page so that
-    // the PieResults page has access to the user's selected inputs.
+    // the PieResults page has access to the user's selected inputs and LLM suggestions.
     navigate("/pieresults", {
       state: {
         uid: uid,
@@ -83,6 +83,7 @@ export const useApexUserForm = (): ApexUserFormLogicalFields => {
         age: age,
         risk: risk,
         sector: sector,
+        llmSuggestions: response.llmSuggestions,
         cameFromUserForm: true,
       },
     });

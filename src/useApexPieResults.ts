@@ -13,6 +13,7 @@ export interface ApexPieResultsLogicalFields {
   saveDone: boolean;
   plotConfig: any;
   tableRows: Array<any>;
+  llmSuggestions: string;
   handleSaveToProfile: (event: any) => Promise<void>;
 }
 
@@ -21,6 +22,7 @@ interface PieResultsLocationState {
   age?: number;
   risk?: number;
   sector?: string;
+  llmSuggestions?: string;
 }
 
 export const useApexPieResults = (): ApexPieResultsLogicalFields => {
@@ -32,6 +34,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
   const age = useRef<number>(0);
   const risk = useRef<number>(0);
   const sector = useRef<string>("");
+  const llmSuggestions = useRef<string>("");
 
   const [loading, setLoading] = useState(true);
   const [saveInProgress, setSaveInProgress] = useState(false);
@@ -133,6 +136,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     age.current = locationState?.age!;
     risk.current = locationState?.risk!;
     sector.current = locationState?.sector!;
+    llmSuggestions.current = locationState?.llmSuggestions || "";
 
     fetchPieData();
   }, [
@@ -142,6 +146,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     locationState?.risk,
     locationState?.sector,
     locationState?.uid,
+    locationState?.llmSuggestions,
   ]);
 
   const handleSaveToProfile = async (event) => {
@@ -169,6 +174,7 @@ export const useApexPieResults = (): ApexPieResultsLogicalFields => {
     saveDone,
     plotConfig: plotConfig.current,
     tableRows: tableRows.current,
+    llmSuggestions: llmSuggestions.current,
     handleSaveToProfile,
   };
 };

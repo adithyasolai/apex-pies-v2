@@ -5,3 +5,8 @@ export interface ApexApiEndpoints {
   savePiesEndpoint: string;
   fetchSavedPieEndpoint: string;
 }
+
+export interface MakePieApiResponse {
+  message: string;
+  llmSuggestions: string;
+}
