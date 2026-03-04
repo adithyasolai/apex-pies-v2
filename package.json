@@ -33,10 +33,6 @@
     "test": "vitest",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\""
   },
-  "browserslist": {
-    "production": ["defaults", "not ie 11", "not dead"],
-    "development": ["last 1 chrome version", "last 1 firefox version", "last 1 safari version"]
-  },
   "devDependencies": {
     "@types/react": "^19.0.1",
     "@types/react-dom": "^19.0.2",
