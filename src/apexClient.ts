@@ -3,7 +3,7 @@ import { ApexApiEndpoints, MakePieApiResponse } from "./apexInterfaces";
 import apiEndpointsProd from "./resources/api-endpoints.json";
 import apiEndpointsDev from "./resources/api-endpoints-dev.json";
 
-const apiEndpoints: ApexApiEndpoints = process.env.REACT_APP_DEV_MODE
+const apiEndpoints: ApexApiEndpoints = import.meta.env.DEV
   ? apiEndpointsDev
   : apiEndpointsProd;
 

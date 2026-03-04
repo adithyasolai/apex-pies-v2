@@ -9,11 +9,14 @@ ___
 
 ### Starting JS Server Locally (Dev)
 
-- Put Firebase Project ID and API key in `.env.local` file.
+- Put Firebase Project ID and API key in `.env.local` file. Use the `VITE_` prefix for all env vars (e.g. `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_PROJECT_ID`).
 
-- Run `npm run start` in `/` project directory.
-  - Since this uses `react-scripts`, it uses webpack under the hood, which means any local code changes will automatically restart the local JS server with your changes.
-  - However, this only works well for JS changes. SCSS code changes will not be automatically re-compiled into the output css file. To do this, open a separate terminal and run `npm run watch-scss` from the `/` project directory.
+- Run `npm run dev` in `/` project directory.
+  - This uses Vite under the hood, which provides fast HMR (Hot Module Replacement) for instant updates on code changes.
+  - SCSS changes are not automatically re-compiled. To watch for SCSS changes, open a separate terminal and run `npm run watch-scss` from the `/` project directory.
+  - The Vite dev server proxies `/fetchnumsaved`, `/fetchpies`, `/savepie`, and `/fetchsavedpie` to `http://127.0.0.1:5001` automatically.
+
+- To preview a production build locally, run `npm run build` then `npm run preview`.
 
 ### Starting Flask Server Locally (Dev)
 
