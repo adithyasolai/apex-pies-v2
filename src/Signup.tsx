@@ -1,7 +1,6 @@
 import React from "react";
-
-import { Card, Form, Button, Alert, Container } from "react-bootstrap";
-
+import clsx from "clsx";
+import { AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
 import { ApexSignupLogicalFields, useApexSignup } from "./useApexSignup";
@@ -17,70 +16,92 @@ export const Signup = () => {
   }: ApexSignupLogicalFields = useApexSignup();
 
   return (
-    // TODO: need a bit more top margin because it still looks too close
-    <Container
-      fluid
-      className="text-center bg-primary vh-100 navbar-padding-top"
-    >
-      <Card style={{ border: "none" }} className="bg-primary">
-        <Card.Body>
-          {/* If there is a currentUser logged in, fetch the user's info from AuthContext and display it in the frontend. */}
-          {currentUser &&
-            "Current User: " + JSON.stringify(currentUser["email"])}
-          {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
-          {error && <Alert variant="danger">{error}</Alert>}
-          <Form onSubmit={handleSubmit}>
-            {/* TODO: Look into how to take email and password without multiple Form Groups,
-            which is forcing this to use multiple CenteredDivs. */}
-            <CenteredDiv>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  className="border-dark"
-                  type="email"
-                  ref={emailRef}
-                  required
-                />
-              </Form.Group>
-            </CenteredDiv>
+    <div className="w-full min-h-screen bg-cream text-center pt-navbar">
+      <div className="pt-4">
+        {/* If there is a currentUser logged in, show their email */}
+        {currentUser && (
+          <p className="mb-2">
+            Current User: {JSON.stringify(currentUser["email"])}
+          </p>
+        )}
 
-            <CenteredDiv>
-              <Form.Group id="password" className="my-2">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  className="border-dark"
-                  type="password"
-                  ref={passwordRef}
-                  required
-                />
-              </Form.Group>
-            </CenteredDiv>
+        {/* Error alert */}
+        {error && (
+          <CenteredDiv>
+            <div className="flex items-center gap-2 bg-red-50 border border-red-300 text-red-700 rounded px-3 py-2 mb-2">
+              <AlertCircle size={16} className="shrink-0" />
+              <span className="text-sm">{error}</span>
+            </div>
+          </CenteredDiv>
+        )}
 
-            <CenteredDiv>
-              <Form.Group id="password-confirm" className="my-2">
-                <Form.Label>Password Confirmation</Form.Label>
-                <Form.Control
-                  className="border-dark"
-                  type="password"
-                  ref={passwordConfirmRef}
-                  required
-                />
-              </Form.Group>
-            </CenteredDiv>
+        <form onSubmit={handleSubmit}>
+          <CenteredDiv>
+            <div id="email">
+              <label className="block text-left text-sm font-medium mb-1">
+                Email
+              </label>
+              <input
+                className={clsx(
+                  "w-full border border-gray-800 rounded px-3 py-2 bg-cream",
+                  "focus:outline-none focus:ring-2 focus:ring-sky"
+                )}
+                type="email"
+                ref={emailRef}
+                required
+              />
+            </div>
+          </CenteredDiv>
 
-            <Button className="my-2" type="submit" variant="secondary">
-              Sign Up
-            </Button>
-          </Form>
-        </Card.Body>
-      </Card>
+          <CenteredDiv>
+            <div id="password" className="my-2">
+              <label className="block text-left text-sm font-medium mb-1">
+                Password
+              </label>
+              <input
+                className={clsx(
+                  "w-full border border-gray-800 rounded px-3 py-2 bg-cream",
+                  "focus:outline-none focus:ring-2 focus:ring-sky"
+                )}
+                type="password"
+                ref={passwordRef}
+                required
+              />
+            </div>
+          </CenteredDiv>
 
-      <div className="my-2">
-        Already have an account?{" "}
-        <Link to="/login" className="text-secondary">
-          Log In.
-        </Link>
+          <CenteredDiv>
+            <div id="password-confirm" className="my-2">
+              <label className="block text-left text-sm font-medium mb-1">
+                Password Confirmation
+              </label>
+              <input
+                className={clsx(
+                  "w-full border border-gray-800 rounded px-3 py-2 bg-cream",
+                  "focus:outline-none focus:ring-2 focus:ring-sky"
+                )}
+                type="password"
+                ref={passwordConfirmRef}
+                required
+              />
+            </div>
+          </CenteredDiv>
+
+          <button
+            type="submit"
+            className="my-2 bg-sky text-white px-8 py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+          >
+            Sign Up
+          </button>
+        </form>
+
+        <div className="my-2">
+          Already have an account?{" "}
+          <Link to="/login" className="text-sky underline">
+            Log In.
+          </Link>
+        </div>
       </div>
-    </Container>
+    </div>
   );
 };

@@ -1,9 +1,7 @@
 import React from "react";
-
+import clsx from "clsx";
 import Plot from "react-plotly.js";
-import { Button, Card, Container } from "react-bootstrap";
-import OverlayTrigger from "react-bootstrap/OverlayTrigger";
-import Tooltip from "react-bootstrap/Tooltip";
+import { Bookmark, BookmarkCheck } from "lucide-react";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
 import {
   ApexPieResultsLogicalFields,
@@ -30,18 +28,11 @@ export const PieResults = () => {
   }: ApexPieResultsLogicalFields = useApexPieResults();
 
   return (
-    <Container
-      fluid
-      className="text-center bg-primary vh-100 navbar-padding-top-extra"
-    >
+    <div className="w-full min-h-screen bg-cream text-center pt-navbar-extra">
       {loading ? (
-        <p> loading ... </p>
+        <p>loading ...</p>
       ) : (
-        <CenteredDivResponsive
-          rowClassName="bg-primary"
-          leftColClassName="bg-primary"
-          rightColClassName="bg-primary"
-        >
+        <CenteredDivResponsive rowClassName="bg-cream">
           <Plot
             data={plotConfig["data"]}
             layout={plotConfig["layout"]}
@@ -51,37 +42,36 @@ export const PieResults = () => {
         </CenteredDivResponsive>
       )}
 
-      <CenteredDiv rowClassName="bg-primary">
-        <OverlayTrigger
-          placement="right"
-          overlay={
-            <Tooltip>
-              {/* This hover will only show if saveAllowed=false */}
+      <CenteredDiv rowClassName="bg-cream">
+        {/* Save button with tooltip when disabled */}
+        <div className="relative inline-block group">
+          <button
+            type="button"
+            disabled={!saveAllowed}
+            onClick={handleSaveToProfile}
+            className={clsx(
+              "flex items-center gap-2 px-6 py-2 rounded-lg font-semibold transition-opacity",
+              saveAllowed
+                ? "bg-sky text-white hover:opacity-90 cursor-pointer"
+                : "bg-sky text-white opacity-50 cursor-not-allowed"
+            )}
+          >
+            {saveDone ? <BookmarkCheck size={18} /> : <Bookmark size={18} />}
+            Save To Profile
+          </button>
+          {!saveAllowed && (
+            <div className="absolute left-full top-1/2 -translate-y-1/2 ml-2 px-2 py-1 bg-gray-800 text-white text-sm rounded whitespace-nowrap invisible group-hover:visible opacity-0 group-hover:opacity-100 transition-opacity duration-150 z-50 pointer-events-none">
               {saveDone ? "Already saved!" : "Log In to save pies!"}
-            </Tooltip>
-          }
-          trigger={saveAllowed ? [] : ["focus", "hover"]}
-        >
-          <div style={{ display: "inline-block" }} className="bg-primary">
-            <Button
-              type="submit"
-              variant="secondary"
-              disabled={saveAllowed ? false : true}
-              onClick={handleSaveToProfile}
-              style={{
-                opacity: saveAllowed ? 1 : 0.5,
-                cursor: saveAllowed ? "pointer" : "not-allowed",
-              }}
-            >
-              Save To Profile
-            </Button>
-          </div>
-        </OverlayTrigger>
+            </div>
+          )}
+        </div>
 
-        <p className="bg-primary"> {saveInProgress ? "saving..." : ""} </p>
+        <p className="bg-cream min-h-6">
+          {saveInProgress ? "saving..." : ""}
+        </p>
 
         {/* Display fields chosen by user in User Form */}
-        <p className="display-6 fs-4">
+        <p className="text-xl lg:text-2xl">
           Age: {age}
           <br />
           Risk: {risk}
@@ -91,25 +81,21 @@ export const PieResults = () => {
       </CenteredDiv>
 
       {/* AI Stock Recommendations Section */}
-      <CenteredDiv rowClassName="bg-primary">
-        <Card className="mb-4" style={{ maxWidth: "800px", margin: "0 auto" }}>
-          <Card.Body>
-            <Card.Title className="text-start mb-3">
-              AI Stock Recommendations
-            </Card.Title>
-            {llmSuggestions ? (
-              <Card.Text className="text-start">{llmSuggestions}</Card.Text>
-            ) : (
-              <Card.Text className="text-start text-muted">
-                AI recommendations could not be generated at this time. Please
-                try again later.
-              </Card.Text>
-            )}
-          </Card.Body>
-        </Card>
+      <CenteredDiv rowClassName="bg-cream">
+        <div className="rounded-lg border border-gray-200 shadow-sm p-4 mb-4 max-w-2xl mx-auto text-left">
+          <h5 className="font-semibold mb-3">AI Stock Recommendations</h5>
+          {llmSuggestions ? (
+            <p className="text-gray-800 whitespace-pre-wrap">{llmSuggestions}</p>
+          ) : (
+            <p className="text-gray-500">
+              AI recommendations could not be generated at this time. Please
+              try again later.
+            </p>
+          )}
+        </div>
       </CenteredDiv>
 
       <ApexPieTable tableRows={tableRows} />
-    </Container>
+    </div>
   );
 };

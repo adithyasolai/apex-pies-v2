@@ -1,9 +1,7 @@
 import React from "react";
-
-import { Card, Form, Button, Alert, Container } from "react-bootstrap";
-
+import clsx from "clsx";
+import { AlertCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-
 import { ApexLoginLogicalFields, useApexLogin } from "./useApexLogin";
 import { CenteredDiv } from "./VisualComponents/ApexCenteredDiv";
 
@@ -12,62 +10,70 @@ export const Login = () => {
     useApexLogin();
 
   return (
-    <Container fluid className="text-center vh-100 bg-primary">
-      {/* 
-        because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
-        Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
-      */}
-      <Card
-        className="bg-primary navbar-padding-top"
-        style={{ border: "none" }}
-      >
-        <Card.Body>
-          {/* Display a small Error pop-up with the error message from handleSubmit() above. */}
-          {error && <Alert variant="danger">{error}</Alert>}
+    <div className="w-full min-h-screen bg-cream text-center pt-navbar">
+      <div className="pt-4">
+        {/* Error alert */}
+        {error && (
+          <CenteredDiv>
+            <div className="flex items-center gap-2 bg-red-50 border border-red-300 text-red-700 rounded px-3 py-2 mb-2">
+              <AlertCircle size={16} className="shrink-0" />
+              <span className="text-sm">{error}</span>
+            </div>
+          </CenteredDiv>
+        )}
 
-          <Form onSubmit={handleSubmit}>
-            {/* TODO: Look into how to take email and password without multiple Form Groups,
-            which is forcing this to use multiple CenteredDivs. */}
+        <form onSubmit={handleSubmit}>
+          <CenteredDiv>
+            <div id="email">
+              <label className="block text-left text-sm font-medium mb-1">
+                Email
+              </label>
+              <input
+                className={clsx(
+                  "w-full border border-gray-800 rounded px-3 py-2 bg-cream",
+                  "focus:outline-none focus:ring-2 focus:ring-sky"
+                )}
+                type="email"
+                ref={emailRef}
+                required
+              />
+            </div>
+          </CenteredDiv>
 
-            <CenteredDiv>
-              <Form.Group id="email">
-                <Form.Label>Email</Form.Label>
-                <Form.Control
-                  className="border-dark"
-                  type="email"
-                  ref={emailRef}
-                  required
-                />
-              </Form.Group>
-            </CenteredDiv>
+          <CenteredDiv>
+            <div id="password" className="mt-4">
+              <label className="block text-left text-sm font-medium mb-1">
+                Password
+              </label>
+              <input
+                className={clsx(
+                  "w-full border border-gray-800 rounded px-3 py-2 bg-cream",
+                  "focus:outline-none focus:ring-2 focus:ring-sky"
+                )}
+                type="password"
+                ref={passwordRef}
+                required
+              />
+            </div>
+          </CenteredDiv>
 
-            <CenteredDiv>
-              <Form.Group id="password" className="mt-4">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  className="border-dark"
-                  type="password"
-                  ref={passwordRef}
-                  required
-                />
-              </Form.Group>
-            </CenteredDiv>
+          <CenteredDiv>
+            <button
+              type="submit"
+              className="w-full mt-4 bg-sky text-white py-2 rounded-lg font-semibold hover:opacity-90 transition-opacity cursor-pointer"
+            >
+              Log In
+            </button>
+          </CenteredDiv>
+        </form>
 
-            <CenteredDiv>
-              <Button className="w-100 mt-4" type="submit" variant="secondary">
-                Log In
-              </Button>
-            </CenteredDiv>
-          </Form>
-        </Card.Body>
-      </Card>
-
-      <div className="mt-3">
-        Need an account?{" "}
-        <Link to="/signup" className="text-secondary">
-          Sign Up.
-        </Link>
+        <div className="mt-3">
+          Need an account?{" "}
+          <Link to="/signup" className="text-sky underline">
+            Sign Up.
+          </Link>
+        </div>
       </div>
-    </Container>
+    </div>
   );
 };

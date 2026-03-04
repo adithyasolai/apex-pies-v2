@@ -1,5 +1,6 @@
 import React from "react";
-import { Carousel, Col, Container, Row } from "react-bootstrap";
+import clsx from "clsx";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import { PiePlot } from "./PiePlot";
 import { ApexMyPiesLogicalFields, useApexMyPies } from "./useApexMyPies";
 import { ApexPieTable } from "./VisualComponents/ApexPieTable";
@@ -17,32 +18,48 @@ const ApexPiesCarousel: React.FC<ApexPiesCarouselProps> = ({
   activePie,
   handleSelect,
 }) => {
+  const total = Math.min(numSaved, 4);
+  const prev = () => handleSelect(activePie > 0 ? activePie - 1 : total - 1, null);
+  const next = () => handleSelect(activePie < total - 1 ? activePie + 1 : 0, null);
+
   return (
-    <Carousel
-      activeIndex={activePie}
-      onSelect={handleSelect}
-      data-bs-theme="dark" // makes left/arrows black
-      interval={null} // disables auto-play of carousel
-      controls={true} // making left/right arrows show up
-      fade={false} // use this to toggle slide vs fade animation
-      indicators={false} // remove black slide indicators at the bottom
-    >
-      {Array.from(Array(Math.min(numSaved, 4)), (x, i) => i).map((i) => {
-        return (
-          <Carousel.Item key={i}>
-            <Row>
-              <Col />
-              <Col xs={12} md={10}>
+    <div className="relative">
+      {/* Slide strip */}
+      <div className="overflow-hidden">
+        <div
+          className="flex transition-transform duration-300 ease-in-out"
+          style={{ transform: `translateX(-${activePie * 100}%)` }}
+        >
+          {Array.from(Array(total), (_, i) => i).map((i) => (
+            <div key={i} className="min-w-full">
+              <div className="w-full md:w-5/6 mx-auto">
                 {/* The `numSaved-i` allows the most recent 4 pies to be shown */}
                 {/* It works because the PieNums in the backend start at 1, not 0. */}
                 <PiePlot pieNum={numSaved - i} active={activePie === i} />
-              </Col>
-              <Col />
-            </Row>
-          </Carousel.Item>
-        );
-      })}
-    </Carousel>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Left arrow */}
+      <button
+        onClick={prev}
+        aria-label="Previous pie"
+        className="absolute left-0 top-1/2 -translate-y-1/2 p-1 text-gray-800 hover:text-sky transition-colors"
+      >
+        <ChevronLeft size={28} />
+      </button>
+
+      {/* Right arrow */}
+      <button
+        onClick={next}
+        aria-label="Next pie"
+        className="absolute right-0 top-1/2 -translate-y-1/2 p-1 text-gray-800 hover:text-sky transition-colors"
+      >
+        <ChevronRight size={28} />
+      </button>
+    </div>
   );
 };
 
@@ -58,23 +75,17 @@ export const MyPies = () => {
   }: ApexMyPiesLogicalFields = useApexMyPies();
 
   return (
-    <React.Fragment>
+    <>
       {numSaved === null || numSaved === 0 ? (
-        <Container
-          fluid
-          className="text-center bg-primary vh-100 navbar-padding-top-extra"
-        >
-          <div style={{ maxWidth: "50%", width: "50%", marginLeft: "25%" }}>
-            <p className="display-6 fs-1 text-black" style={{ width: "100%" }}>
+        <div className="w-full min-h-screen bg-cream text-center pt-navbar-extra">
+          <div className="w-1/2 mx-auto">
+            <p className="text-4xl lg:text-5xl text-black w-full">
               {numSaved === null ? "loading..." : "No pies to display."}
             </p>
           </div>
-        </Container>
+        </div>
       ) : (
-        <Container
-          fluid
-          className="text-center bg-primary vh-100 navbar-padding-top-extra"
-        >
+        <div className="w-full min-h-screen bg-cream text-center pt-navbar-extra">
           <CenteredDivResponsive>
             {numSaved === 1 ? (
               <PiePlot pieNum={numSaved} active={true} />
@@ -88,15 +99,15 @@ export const MyPies = () => {
           </CenteredDivResponsive>
 
           {numSaved > 1 && (
-            <Row className="bg-primary text-center">
+            <div className="bg-cream text-center">
               <p>{activePie + 1}</p>
-            </Row>
+            </div>
           )}
 
           <ApexPieInputDisplay age={age} risk={risk} sector={sector} />
           <ApexPieTable tableRows={tableRows} />
-        </Container>
+        </div>
       )}
-    </React.Fragment>
+    </>
   );
 };

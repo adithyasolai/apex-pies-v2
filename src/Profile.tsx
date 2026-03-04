@@ -1,5 +1,6 @@
 import React from "react";
-import { Card, Button, Alert, Container } from "react-bootstrap";
+import clsx from "clsx";
+import { AlertCircle, LogOut } from "lucide-react";
 import { ApexProfileLogicalFields, useApexProfile } from "./useApexProfile";
 
 export const Profile: React.FC = () => {
@@ -7,27 +8,30 @@ export const Profile: React.FC = () => {
     useApexProfile();
 
   return (
-    // TODO: need a bit more top margin because it still looks too close
-    <Container
-      fluid
-      className="text-center bg-primary vh-100 navbar-padding-top"
-    >
-      {/* 
-        because we do in-line style of no border, then the bg-primary from parent div does not get inherited, and default
-        Bootstrap empty white background is applied to Card, so we need to explicitly call bg-primary again.
-      */}
-      <Card className="bg-primary" style={{ border: "none" }}>
-        <Card.Body>
-          {currentUser && <h3>{currentUser["email"]}</h3>}
-          {error && <Alert variant="danger">{error}</Alert>}
-        </Card.Body>
-      </Card>
+    <div className="w-full min-h-screen bg-cream text-center pt-navbar">
+      <div className="pt-4">
+        {currentUser && (
+          <h3 className="text-xl font-semibold mb-4">{currentUser["email"]}</h3>
+        )}
 
-      <div className="bg-primary">
-        <Button variant="secondary" onClick={handleSignOut}>
+        {error && (
+          <div className="flex items-center justify-center gap-2 bg-red-50 border border-red-300 text-red-700 rounded px-3 py-2 mb-4 max-w-sm mx-auto">
+            <AlertCircle size={16} className="shrink-0" />
+            <span className="text-sm">{error}</span>
+          </div>
+        )}
+
+        <button
+          onClick={handleSignOut}
+          className={clsx(
+            "flex items-center gap-2 mx-auto bg-sky text-white px-6 py-2 rounded-lg font-semibold",
+            "hover:opacity-90 transition-opacity cursor-pointer"
+          )}
+        >
+          <LogOut size={16} />
           Sign Out
-        </Button>
+        </button>
       </div>
-    </Container>
+    </div>
   );
 };

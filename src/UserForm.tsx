@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Form, Button, Container } from "react-bootstrap";
+import clsx from "clsx";
 
 import * as ApexUtils from "./apexUtils";
 import { ApexIntro } from "./VisualComponents/ApexIntro";
@@ -18,25 +18,14 @@ export const UserForm: React.FC = () => {
   }: ApexUserFormLogicalFields = useApexUserForm();
 
   return (
-    // TODO: A better way to do top-margin instead of an explicit px amount
-
-    // TODO: If I add vh-100 to this, then the bg color is only applied to what is in the screen view,
-    // and scrolling below that to the bottom part of the form reveals white default bg color.
-    // I don't include vh-100 to this, zooming out a bunch beyond the end of the form reveals a white default bg color.
-    // Investigate and fix this.
-
     // Note: Using paddingTop instead of marginTop because marginTop can cause white background to reveal if too much margin is given.
-    <Container
-      fluid
-      className="text-center bg-primary vh-100 navbar-padding-top-extra"
-    >
-      <Form onSubmit={handleSubmit} className="bg-primary">
-        <CenteredDiv rowClassName="bg-primary">
+    <div className="w-full min-h-screen bg-cream text-center pt-navbar-extra">
+      <form onSubmit={handleSubmit} className="bg-cream">
+        <CenteredDiv rowClassName="bg-cream">
           <ApexIntro />
 
-          {/* TODO: Add back hovertext over "Age" and "Sector of Interest" with text defined in ./resources/text */}
           <ApexHover hoverText={ApexUtils.USER_FORM_AGE_HOVERTEXT}>
-            <p className="display-6 fs-2 text-secondary fw-bold">Age</p>
+            <p className="text-2xl lg:text-3xl text-sky font-bold">Age</p>
           </ApexHover>
 
           <ApexSlider
@@ -46,12 +35,12 @@ export const UserForm: React.FC = () => {
             onChangeHandler={(e) => formStateSetters.setAge(e)}
           />
 
-          <p className="display-6 fs-3 text-black">
+          <p className="text-xl lg:text-2xl text-black">
             {formState.age + " years old"}
           </p>
 
           <ApexHover hoverText={ApexUtils.USER_FORM_RISK_HOVERTEXT}>
-            <p className="display-6 fs-2 text-secondary fw-bold">
+            <p className="text-2xl lg:text-3xl text-sky font-bold">
               Risk Tolerance
             </p>
           </ApexHover>
@@ -63,45 +52,43 @@ export const UserForm: React.FC = () => {
             onChangeHandler={(e) => formStateSetters.setRisk(e)}
           />
 
-          <p className="display-6 fs-3 text-black">{formState.risk}</p>
+          <p className="text-xl lg:text-2xl text-black">{formState.risk}</p>
 
           <ApexHover hoverText={ApexUtils.USER_FORM_SECTOR_HOVERTEXT}>
-            <p className="display-6 fs-2 text-secondary fw-bold">
+            <p className="text-2xl lg:text-3xl text-sky font-bold">
               Sector of Interest
             </p>
           </ApexHover>
 
-          <p className="display-6 fs-3 text-black">
+          <p className="text-xl lg:text-2xl text-black">
             <strong>{formState.sector}</strong>
           </p>
         </CenteredDiv>
 
         {/* Sector of Interest Selection */}
-        <Row className="bg-primary">
-          {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
-          <Col />
-          <Col xs={12} md={4}>
+        <div className="flex justify-center bg-cream">
+          <div className="w-full md:w-1/3">
             <ApexSectorCarousel
               activeIndex={formState.activeSectorImageIndex}
               onSelect={handleSelect}
               imageArray={ApexUtils.SECTOR_IMAGES}
             />
 
-            {/* Container wrapper creates some space below button for visual appeal */}
-            <Container fluid className="pb-2">
-              <Button
+            <div className="pb-2">
+              <button
                 type="submit"
-                variant="secondary"
-                size="lg"
-                disabled={formState.loading ? true : false}
+                disabled={formState.loading}
+                className={clsx(
+                  "bg-sky text-white px-8 py-3 rounded-lg text-lg font-semibold transition-opacity",
+                  formState.loading ? "opacity-50 cursor-not-allowed" : "hover:opacity-90 cursor-pointer"
+                )}
               >
                 Submit
-              </Button>
-            </Container>
-          </Col>
-          <Col />
-        </Row>
-      </Form>
-    </Container>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
   );
 };

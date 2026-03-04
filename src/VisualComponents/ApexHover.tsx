@@ -1,7 +1,4 @@
 import React from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Placement } from "react-bootstrap/esm/types";
-import { useMediaQuery } from "react-responsive";
 
 interface ApexHoverProps {
   hoverText: string;
@@ -12,18 +9,21 @@ export const ApexHover: React.FC<ApexHoverProps> = ({
   hoverText,
   children,
 }) => {
-  // Determine if the current screen size is 'xs' or 'md'
-  // TODO: Consider doing this globally somewhere instead of each time this component is used/rendered.
-  const isXsScreen: boolean = useMediaQuery({ maxWidth: 400 });
-  const hoverTextPlacement: Placement = isXsScreen ? "bottom" : "right";
-
   return (
-    <OverlayTrigger
-      placement={hoverTextPlacement}
-      overlay={<Tooltip>{hoverText}</Tooltip>}
-      trigger={["focus", "hover"]}
-    >
+    <div className="relative inline-block group">
       {children}
-    </OverlayTrigger>
+      <div
+        className="
+          absolute left-full top-1/2 -translate-y-1/2 ml-2
+          px-2 py-1 bg-gray-800 text-white text-sm rounded whitespace-nowrap
+          invisible group-hover:visible opacity-0 group-hover:opacity-100
+          transition-opacity duration-150 z-50 pointer-events-none
+          max-sm:left-auto max-sm:top-auto max-sm:translate-y-0
+          max-sm:bottom-full max-sm:mb-2
+        "
+      >
+        {hoverText}
+      </div>
+    </div>
   );
 };

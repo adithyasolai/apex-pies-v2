@@ -1,5 +1,5 @@
 import React from "react";
-import { Col, Row } from "react-bootstrap";
+import clsx from "clsx";
 
 interface CenteredDivProps {
   rowClassName?: string;
@@ -12,25 +12,17 @@ export const CenteredDiv: React.FC<CenteredDivProps> = ({
   rowClassName,
   children,
 }) => (
-  <Row className={rowClassName || ""}>
-    <Col md={4}></Col>
-    <Col md={4}>{children}</Col>
-    <Col md={4}></Col>
-  </Row>
+  <div className={clsx("flex justify-center", rowClassName)}>
+    <div className="w-full max-w-sm">{children}</div>
+  </div>
 );
 
 // Responsive to end user's screen size
 export const CenteredDivResponsive: React.FC<CenteredDivProps> = ({
   rowClassName,
-  leftColClassName,
-  rightColClassName,
   children,
 }) => (
-  <Row className={rowClassName || ""}>
-    <Col className={leftColClassName || ""} />
-    <Col xs={12} md={6}>
-      {children}
-    </Col>
-    <Col className={rightColClassName || ""} />
-  </Row>
+  <div className={clsx("flex justify-center", rowClassName)}>
+    <div className="w-full md:w-1/2">{children}</div>
+  </div>
 );

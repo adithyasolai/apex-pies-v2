@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Container, Image, Nav, Navbar } from "react-bootstrap";
+import { BookOpen, LogOut, PieChart, User } from "lucide-react";
 import arrows from "./resources/ArrowsNoBckgd.png";
 import { useAuth } from "./contexts/AuthContext";
 
@@ -7,38 +7,60 @@ export const ApexNavBar: React.FC = () => {
   const { currentUser } = useAuth();
 
   return (
-    <Navbar
-      className="navbar navbar-expand-lg fixed-top shadow-sm bg-gradient-primary-to-secondary"
+    <nav
       id="mainNav"
+      className="fixed top-0 left-0 right-0 z-50 h-navbar bg-gradient-navbar shadow-sm"
     >
-      <Container className="container px-5">
-        <Button variant="link" href="/" style={{ padding: 0 }}>
-          <Image
+      <div className="h-full flex items-center px-5">
+        {/* Logo + Brand */}
+        <a href="/" className="flex items-center gap-1 no-underline">
+          <img
             src={arrows}
-            style={{
-              width: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
-              // height: `calc(1.7 * var(--bs-navbar-brand-font-size))`,
-              paddingBottom: "5px",
-              marginRight: "3px",
-            }}
+            alt="Apex Pies logo"
+            className="h-7 pb-1"
           />
-        </Button>
+          <span className="font-kanit font-semibold text-lg text-gray-900 hover:text-sky transition-colors">
+            Apex Pies
+          </span>
+        </a>
 
-        <Navbar.Brand href="/">Apex Pies</Navbar.Brand>
-
-        {/* Navigation Links */}
-        <Navbar.Collapse>
-          <Nav className="ms-auto">
-            {currentUser && <Nav.Link href="/mypies">My Pies</Nav.Link>}
-            {currentUser ? (
-              <Nav.Link href="/profile">Profile</Nav.Link>
-            ) : (
-              <Nav.Link href="/login">Log In</Nav.Link>
-            )}
-            <Nav.Link href="/resourcesfaq">Resources and FAQ</Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
+        {/* Nav links */}
+        <div className="ml-auto hidden lg:flex items-center gap-6">
+          {currentUser && (
+            <a
+              href="/mypies"
+              className="flex items-center gap-1 text-gray-900 hover:text-sky transition-colors no-underline"
+            >
+              <PieChart size={16} />
+              My Pies
+            </a>
+          )}
+          {currentUser ? (
+            <a
+              href="/profile"
+              className="flex items-center gap-1 text-gray-900 hover:text-sky transition-colors no-underline"
+            >
+              <User size={16} />
+              Profile
+            </a>
+          ) : (
+            <a
+              href="/login"
+              className="flex items-center gap-1 text-gray-900 hover:text-sky transition-colors no-underline"
+            >
+              <LogOut size={16} />
+              Log In
+            </a>
+          )}
+          <a
+            href="/resourcesfaq"
+            className="flex items-center gap-1 text-gray-900 hover:text-sky transition-colors no-underline"
+          >
+            <BookOpen size={16} />
+            Resources and FAQ
+          </a>
+        </div>
+      </div>
+    </nav>
   );
 };

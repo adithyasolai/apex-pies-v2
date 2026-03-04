@@ -13,10 +13,9 @@ export const ApexPieInputDisplay: React.FC<ApexPieInputDisplayProps> = ({
   sector,
 }) => {
   return (
-    <CenteredDiv rowClassName="bg-primary text-center">
-      {/* bg-primary definitely needed above to avoid white slits on the left and right side. */}
+    <CenteredDiv rowClassName="bg-cream text-center">
       {/* Display fields chosen by user in User Form */}
-      <p className="display-6 fs-4">
+      <p className="text-xl lg:text-2xl">
         Age: {age}
         <br />
         Risk: {risk}

@@ -1,7 +1,4 @@
-import { Container, Image } from "react-bootstrap";
-
 import React from "react";
-import { CenteredDivResponsive } from "./ApexCenteredDiv";
 
 interface ApexSectorDisplayProps {
   image: string;
@@ -10,25 +7,13 @@ interface ApexSectorDisplayProps {
 export const ApexSectorDisplay: React.FC<ApexSectorDisplayProps> = ({
   image,
 }) => {
-  // TODO: do with this CSS classes instead
-  const imageWidth: string = window.screen.width <= 400 ? "75%" : "90%";
-  const imageBorderRadius: string = "10%";
-  const imageBorderStyle: string = "5px solid #95bfd0ff";
-
   return (
-    <Container fluid>
-      <CenteredDivResponsive>
-        <Image
-          src={image}
-          alt="Sector Image"
-          style={{
-            border: imageBorderStyle,
-            borderRadius: imageBorderRadius,
-            width: imageWidth,
-          }}
-          fluid
-        />
-      </CenteredDivResponsive>
-    </Container>
+    <div className="flex justify-center">
+      <img
+        src={image}
+        alt="Sector Image"
+        className="rounded-[10%] border-[5px] border-[#95bfd0ff] w-[50%] max-sm:w-1/2 max-w-full"
+      />
+    </div>
   );
 };

@@ -12,8 +12,7 @@ ___
 - Put Firebase Project ID and API key in `.env.local` file. Use the `VITE_` prefix for all env vars (e.g. `VITE_FIREBASE_API_KEY`, `VITE_FIREBASE_PROJECT_ID`).
 
 - Run `npm run dev` in `/` project directory.
-  - This uses Vite under the hood, which provides fast HMR (Hot Module Replacement) for instant updates on code changes.
-  - SCSS changes are not automatically re-compiled. To watch for SCSS changes, open a separate terminal and run `npm run watch-scss` from the `/` project directory.
+  - This uses Vite + TailwindCSS v4 under the hood. HMR applies instantly to both JS/TSX changes and CSS/Tailwind changes — no separate watch process needed.
   - The Vite dev server proxies `/fetchnumsaved`, `/fetchpies`, `/savepie`, and `/fetchsavedpie` to `http://127.0.0.1:5001` automatically.
 
 - To preview a production build locally, run `npm run build` then `npm run preview`.

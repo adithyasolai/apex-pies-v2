@@ -1,7 +1,5 @@
 import React, { ChangeEvent, ChangeEventHandler } from "react";
 
-import { Form } from "react-bootstrap";
-
 interface ApexSliderProps {
   input: number;
   min: number;
@@ -15,7 +13,7 @@ export const ApexSlider: React.FC<ApexSliderProps> = ({
   max,
   onChangeHandler,
 }) => {
-  // Cast given simple state setter to the `ChangeEventHandler` function type expected by Bootstrap Form.
+  // Cast given simple state setter to the `ChangeEventHandler` function type expected by the input element.
   const handleChange: ChangeEventHandler = (
     e: ChangeEvent<HTMLInputElement>
   ) => {
@@ -23,13 +21,13 @@ export const ApexSlider: React.FC<ApexSliderProps> = ({
   };
 
   return (
-    <Form.Control
+    <input
       type="range"
       min={min}
       max={max}
       value={input}
       onChange={handleChange}
-      className="border-dark bg-primary"
+      className="w-full accent-sky bg-cream border border-gray-800 rounded"
     />
   );
 };
